@@ -5,7 +5,7 @@ author: "Karina Bartolomé"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
-    lib_dir: libs
+    #lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
