@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R-Ladies - El uso de múltiples lenguajes en Rmarkdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Karina Bartolomé" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R-Ladies - El uso de múltiples lenguajes en Rmarkdown
+## ⚔<br/>with xaringan
+### Karina Bartolomé
+
+---
+
+
+background-position: 50% 50%
+class: center, inverse
+
+&lt;img src="images/multilingual.png" width="500px" height="500px" style="position:center;"&gt;
+ 
+# Múltiples idiomas
+
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+&lt;img src="images/multilingual_code.png" width="500px" height="500px" style="position:center;"&gt;
+ 
+#  Múltiples lenguajes
+
+---
+
+# El uso de diversos lenguajes en rmarkdown
+
+Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **chunks** que referencien al lenguaje que se quiere utilizar: 
+
+````
+```{r}
+# Acá se escribe código R
+```
+````
+
+````
+```{python}
+# Acá se escribe código Python
+```
+````
+
+````
+```{julia}
+# Acá se escribe código Python
+```
+````
+
+````
+```{sql}
+# Acá se escribe sql
+```
+````
+
+Etc.
+
+---
+
+# R en Rmarkdown
+
+🔹 En **Rmarkdown**, se utiliza un chunk r para cargar las librerías R:
+
+
+```r
+library(reticulate) # Para Python
+library(tidyverse)  
+library(gt) # Para tablas
+```
+
+---
+
+# Python en Rmarkdown
+
+1.   Definir un `conda environment` a utilizar. 
+
+En este caso, se creó un environment específico para este proyecto. 
+
+
+```r
+reticulate::conda_create(envname='rladies', 
+                         python_version="3.8.8")
+```
+
+-   Desde Anaconda, en la solapa de **Environments**, se selecciona el environment creado y se abre la terminal. Desde ahí, se activa con: `conda activate rladies`
+
+Luego de finalizar el proyecto es posible eliminar este environment desde Anaconda para liberar espacio, ya que los paquetes se irán instalando en ese environment. 
+
+---
+
+# Python en Rmarkdown
+
+2. Se instalan los paquetes a utilizar. En este caso, lo hice desde la terminal del environment desde Anaconda:
+
+    -   [x] ➕ **numpy**: conda install numpy
+
+    -   [x] 🐼 **pandas**: conda install pandas 
+
+
+3. Se define que el environment a utilizar es el que ha sido creado:
+
+
+```r
+reticulate::use_condaenv(condaenv = 'rladies', 
+                         required = TRUE)
+```
+
+
+---
+
+🔹Se utiliza un chunk python para cargar las librerías de python:
+
+
+```python
+import pandas as pd
+import numpy as np
+```
+
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+# Datos
+
+---
+
+# Lectura de datos con R
+
+🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN &amp; Bioconductor
+
+
+```r
+df_bioc_vignettes &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/bioc.csv')
+
+df_cran_vignettes &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
+```
+
+🔹 Datos de task views (scrapping)
+
+
+```r
+df_task_views &lt;- readr::read_csv('https://raw.githubusercontent.com/karbartolome/cran-packages/main/01_data/df_task_views.csv')
+```
+
+---
+
+
+```r
+df_cran_vignettes %&gt;% head(2)
+```
+
+```
+## # A tibble: 2 x 5
+##   package version date                      rnw   rmd
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;
+## 1 A3      0.9.1   2013-02-06 16:46:12 UTC     0     0
+## 2 A3      0.9.2   2013-03-26 18:58:12 UTC     0     0
+```
+
+⚡ Objetos cross lenguaje  R -&gt; Python ⚡ 
+
+
+```python
+r.df_cran_vignettes.head(2)
+```
+
+```
+##   package version                     date  rnw  rmd
+## 0      A3   0.9.1  2013-02-06 16:46:12 UTC  0.0  0.0
+## 1      A3   0.9.2  2013-03-26 18:58:12 UTC  0.0  0.0
+```
+
+---
+
+--- 
+
+# Lectura de datos con python
+
+
+```python
+df_pandas = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
+```
+
+
+```python
+variables = ['package','version','date','rmd']
+
+(df_pandas
+  .filter(variables)
+  .head(2))
+```
+
+```
+##   package version                     date  rmd
+## 0      A3   0.9.1  2013-02-06 16:46:12 UTC    0
+## 1      A3   0.9.2  2013-03-26 18:58:12 UTC    0
+```
+
+
+⚡ Objetos cross lenguaje Python -&gt; R ⚡ 
+
+
+```r
+py$df_pandas %&gt;% 
+  select(all_of(py$variables)) %&gt;% 
+  head(2)
+```
+
+```
+##   package version                    date rmd
+## 1      A3   0.9.1 2013-02-06 16:46:12 UTC   0
+## 2      A3   0.9.2 2013-03-26 18:58:12 UTC   0
+```
+
+
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+# Primereas operaciones
+
+---
+
+# Estadística descriptiva
+
+R summary(df)
+
+
+```r
+df_cran_vignettes %&gt;% summary()
+```
+
+```
+##    package            version              date                rnw         
+##  Length:109408      Length:109408      Length:109408      Min.   : 0.0000  
+##  Class :character   Class :character   Class :character   1st Qu.: 0.0000  
+##  Mode  :character   Mode  :character   Mode  :character   Median : 0.0000  
+##                                                           Mean   : 0.1508  
+##                                                           3rd Qu.: 0.0000  
+##                                                           Max.   :61.0000  
+##       rmd         
+##  Min.   : 0.0000  
+##  1st Qu.: 0.0000  
+##  Median : 0.0000  
+##  Mean   : 0.5104  
+##  3rd Qu.: 0.0000  
+##  Max.   :24.0000
+```
+
+---
+
+Python df.describe()
+
+
+```python
+r.df_cran_vignettes.describe(include='all')
+```
+
+```
+##          package version    date            rnw           rmd
+## count     109408  109408  109408  109408.000000  109408.00000
+## unique     17560    9939  106168            NaN           NaN
+## top     spatstat     1.0       0            NaN           NaN
+## freq         202    3474    2687            NaN           NaN
+## mean         NaN     NaN     NaN       0.150821       0.51042
+## std          NaN     NaN     NaN       0.777824       1.43810
+## min          NaN     NaN     NaN       0.000000       0.00000
+## 25%          NaN     NaN     NaN       0.000000       0.00000
+## 50%          NaN     NaN     NaN       0.000000       0.00000
+## 75%          NaN     NaN     NaN       0.000000       0.00000
+## max          NaN     NaN     NaN      61.000000      24.00000
+```
+
+---
+
+
+```r
+py$df_pandas %&gt;% 
+  filter(package %in% df_task_views$package) %&gt;% 
+  select(where(is.numeric)) %&gt;% 
+  skimr::skim() %&gt;% 
+  select(-skim_type, -complete_rate) %&gt;% 
+  gt() %&gt;% 
+  tab_header(title=md('**Paquetes en CRAN**'), 
+             subtitle='Estadística descriptiva') %&gt;% 
+  fmt_number(columns=3:4) 
+```
+
+<div id="rohdjoctib" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#rohdjoctib .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rohdjoctib .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rohdjoctib .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rohdjoctib .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rohdjoctib .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rohdjoctib .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rohdjoctib .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rohdjoctib .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rohdjoctib .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rohdjoctib .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rohdjoctib .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rohdjoctib .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rohdjoctib .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#rohdjoctib .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rohdjoctib .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rohdjoctib .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rohdjoctib .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#rohdjoctib .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rohdjoctib .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#rohdjoctib .gt_left {
+  text-align: left;
+}
+
+#rohdjoctib .gt_center {
+  text-align: center;
+}
+
+#rohdjoctib .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rohdjoctib .gt_font_normal {
+  font-weight: normal;
+}
+
+#rohdjoctib .gt_font_bold {
+  font-weight: bold;
+}
+
+#rohdjoctib .gt_font_italic {
+  font-style: italic;
+}
+
+#rohdjoctib .gt_super {
+  font-size: 65%;
+}
+
+#rohdjoctib .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="10" class="gt_heading gt_title gt_font_normal" style><strong>Paquetes en CRAN</strong></th>
+    </tr>
+    <tr>
+      <th colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Estadística descriptiva</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">skim_variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n_missing</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.p0</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.p25</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.p50</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.p75</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">numeric.p100</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">numeric.hist</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">rnw</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0.24</td>
+<td class="gt_row gt_right">0.93</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">23</td>
+<td class="gt_row gt_left">▇▁▁▁▁</td></tr>
+    <tr><td class="gt_row gt_left">rmd</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0.41</td>
+<td class="gt_row gt_right">1.37</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">22</td>
+<td class="gt_row gt_left">▇▁▁▁▁</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+---
+
+
+# Filtros
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Contacto
+
+&lt;a href="https://karbartolome-blog.netlify.com"&gt;&lt;i class="fa fa-link fa-fw"&gt;&lt;/i&gt;&amp;nbsp; karbartolome-blog.netlify.com&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://twitter.com/karbartolome"&gt;&lt;i class="fa fa-twitter fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @karbartolome&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://github.com/karbartolome"&gt;&lt;i class="fa fa-github fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @karbartolome&lt;/a&gt;&lt;br&gt;
+
+---
+
+
+class: center, middle
+
+# Muchas gracias!!
+
+Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

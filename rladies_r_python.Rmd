@@ -1,0 +1,274 @@
+---
+title: "R-Ladies - El uso de múltiples lenguajes en Rmarkdown"
+subtitle: "⚔<br/>with xaringan"
+author: "Karina Bartolomé"
+output:
+  xaringan::moon_reader:
+    css: ["default", "rladies", "rladies-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    includes:
+      in_header: header.html
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+<img src="images/multilingual.png" width="500px" height="500px" style="position:center;">
+ 
+# Múltiples idiomas
+
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+<img src="images/multilingual_code.png" width="500px" height="500px" style="position:center;">
+ 
+#  Múltiples lenguajes
+
+---
+
+# El uso de diversos lenguajes en rmarkdown
+
+Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **chunks** que referencien al lenguaje que se quiere utilizar: 
+
+````
+```{r}`r ''`
+# Acá se escribe código R
+```
+````
+
+````
+```{python}`r ''`
+# Acá se escribe código Python
+```
+````
+
+````
+```{julia}`r ''`
+# Acá se escribe código Python
+```
+````
+
+````
+```{sql}`r ''`
+# Acá se escribe sql
+```
+````
+
+Etc.
+
+---
+
+# R en Rmarkdown
+
+🔹 En **Rmarkdown**, se utiliza un chunk r para cargar las librerías R:
+
+```{r Librerías R, message=FALSE}
+library(reticulate) # Para Python
+library(tidyverse)  
+library(gt) # Para tablas
+```
+
+---
+
+# Python en Rmarkdown
+
+1.   Definir un `conda environment` a utilizar. 
+
+En este caso, se creó un environment específico para este proyecto. 
+
+```{r, eval=FALSE}
+reticulate::conda_create(envname='rladies', 
+                         python_version="3.8.8")
+```
+
+-   Desde Anaconda, en la solapa de **Environments**, se selecciona el environment creado y se abre la terminal. Desde ahí, se activa con: `conda activate rladies`
+
+Luego de finalizar el proyecto es posible eliminar este environment desde Anaconda para liberar espacio, ya que los paquetes se irán instalando en ese environment. 
+
+---
+
+# Python en Rmarkdown
+
+2. Se instalan los paquetes a utilizar. En este caso, lo hice desde la terminal del environment desde Anaconda:
+
+    -   [x] ➕ **numpy**: conda install numpy
+
+    -   [x] 🐼 **pandas**: conda install pandas 
+
+
+3. Se define que el environment a utilizar es el que ha sido creado:
+
+```{r}
+reticulate::use_condaenv(condaenv = 'rladies', 
+                         required = TRUE)
+```
+
+
+---
+
+🔹Se utiliza un chunk python para cargar las librerías de python:
+
+```{python Librerías python}
+import pandas as pd
+import numpy as np
+```
+
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+# Datos
+
+---
+
+# Lectura de datos con R
+
+🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN & Bioconductor
+
+```{r data_1, message=FALSE}
+df_bioc_vignettes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/bioc.csv')
+
+df_cran_vignettes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
+```
+
+🔹 Datos de task views (scrapping)
+
+```{r data_2, message=FALSE, warning=FALSE}
+df_task_views <- readr::read_csv('https://raw.githubusercontent.com/karbartolome/cran-packages/main/01_data/df_task_views.csv')
+```
+
+---
+
+```{r}
+df_cran_vignettes %>% head(2)
+```
+
+⚡ Objetos cross lenguaje  R -> Python ⚡ 
+
+```{python}
+r.df_cran_vignettes.head(2)
+```
+
+---
+
+--- 
+
+# Lectura de datos con python
+
+```{python data_1_python, message=FALSE}
+df_pandas = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
+```
+
+```{python}
+variables = ['package','version','date','rmd']
+
+(df_pandas
+  .filter(variables)
+  .head(2))
+```
+
+
+⚡ Objetos cross lenguaje Python -> R ⚡ 
+
+```{r}
+py$df_pandas %>% 
+  select(all_of(py$variables)) %>% 
+  head(2)
+```
+
+
+---
+
+background-position: 50% 50%
+class: center, inverse
+
+# Primereas operaciones
+
+---
+
+# Estadística descriptiva
+
+R summary(df)
+
+```{r summary}
+df_cran_vignettes %>% summary()
+```
+
+---
+
+Python df.describe()
+
+```{python describe}
+r.df_cran_vignettes.describe(include='all')
+```
+
+---
+
+```{r skimr_gt}
+py$df_pandas %>% 
+  filter(package %in% df_task_views$package) %>% 
+  select(where(is.numeric)) %>% 
+  skimr::skim() %>% 
+  select(-skim_type, -complete_rate) %>% 
+  gt() %>% 
+  tab_header(title=md('**Paquetes en CRAN**'), 
+             subtitle='Estadística descriptiva') %>% 
+  fmt_number(columns=3:4) 
+```
+
+---
+
+
+# Filtros
+
+```{r}
+
+```
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Contacto
+
+<a href="https://karbartolome-blog.netlify.com"><i class="fa fa-link fa-fw"></i>&nbsp; karbartolome-blog.netlify.com</a><br>
+<a href="http://twitter.com/karbartolome"><i class="fa fa-twitter fa-fw"></i>&nbsp; @karbartolome</a><br>
+<a href="http://github.com/karbartolome"><i class="fa fa-github fa-fw"></i>&nbsp; @karbartolome</a><br>
+
+---
+
+
+class: center, middle
+
+# Muchas gracias!!
+
+Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
