@@ -5,7 +5,6 @@ author: "Karina Bartolomé"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
-    #lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
@@ -13,6 +12,12 @@ output:
     includes:
       in_header: header.html
 ---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+
+options(scipen=999)
+```
 
 background-position: 50% 50%
 class: center, inverse
@@ -66,12 +71,32 @@ Etc.
 
 # R en Rmarkdown
 
-🔹 En **Rmarkdown**, se utiliza un chunk r para cargar las librerías R:
+🔹 En **Rmarkdown**, se utiliza un chunk R para cargar las librerías R:
 
-```{r Librerías R, message=FALSE}
+```{r Librerías R, message=FALSE, warning=FALSE}
 library(reticulate) # Para Python
 library(tidyverse)  
 library(gt) # Para tablas
+```
+
+---
+```{r example-plot}
+
+ggplot(iris) +
+  aes(x = Sepal.Length) +
+  geom_histogram(   #<<
+    binwidth = 0.25 #<<
+  )                 #<<
+```
+
+---
+```{r, eval=FALSE}
+
+{{ iris %>% }}
+  {{ ggplot() + }}
+  aes(x = Sepal.Length) + 
+  geom_histogram(binwidth = 0.25) 
+          
 ```
 
 ---
@@ -100,6 +125,8 @@ Luego de finalizar el proyecto es posible eliminar este environment desde Anacon
     -   [x] ➕ **numpy**: conda install numpy
 
     -   [x] 🐼 **pandas**: conda install pandas 
+    
+    -   [x] 📊 **seaborn**: conda install seaborn
 
 
 3. Se define que el environment a utilizar es el que ha sido creado:
@@ -117,70 +144,114 @@ reticulate::use_condaenv(condaenv = 'rladies',
 ```{python Librerías python}
 import pandas as pd
 import numpy as np
+import seaborn as sns
+
+sns.set_theme(style="ticks", palette="pastel")
+```
+
+
+---
+
+```{python, out.width='50%', fig.align='center'}
+tips = sns.load_dataset("tips")
+
+sns.boxplot(x="day", y="total_bill",
+            hue="smoker", 
+            data=tips)
 ```
 
 ---
 
-background-position: 50% 50%
-class: center, inverse
+class: inverse, center, middle
 
-# Datos
+# 0. Datos
 
 ---
 
 # Lectura de datos con R
 
-🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN & Bioconductor
+🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN
 
-```{r data_1, message=FALSE}
-df_bioc_vignettes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/bioc.csv')
+```{r data_1, message=FALSE, echo=FALSE, eval=FALSE}
+df_cran <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
 
-df_cran_vignettes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
+df_task_views <- readr::read_csv('https://raw.githubusercontent.com/karbartolome/cran-packages/main/01_data/df_task_views.csv')
 ```
 
-🔹 Datos de task views (scrapping)
 
-```{r data_2, message=FALSE, warning=FALSE}
-df_task_views <- readr::read_csv('https://raw.githubusercontent.com/karbartolome/cran-packages/main/01_data/df_task_views.csv')
+```{r data_comercio, message=FALSE, warning=FALSE}
+df_comercio  <- readr::read_csv('data/df_arg_mx.csv')
+ 
+df_secciones <- readr::read_csv('data/df_secciones.csv')
+```
+
+# Lectura de datos con python
+
+```{python, echo=FALSE, eval=FALSE}
+import os
+os.chdir(f'{os.getcwd()}/02_slides')
+```
+
+```{python data_1_python, message=FALSE}
+df_pandas = pd.read_csv('data/df_arg_mx.csv')
 ```
 
 ---
 
 ```{r}
-df_cran_vignettes %>% head(2)
+df_comercio %>% head(2)
 ```
 
 ⚡ Objetos cross lenguaje  R -> Python ⚡ 
 
 ```{python}
-r.df_cran_vignettes.head(2)
+r.df_comercio.head(2)
 ```
 
 ---
 
 --- 
 
-# Lectura de datos con python
-
-```{python data_1_python, message=FALSE}
-df_pandas = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
-```
+Se crea una lista de variables relevantes en un chunk python: 
 
 ```{python}
-variables = ['package','version','date','rmd']
+variables = ['year','commodity_code','trade_value_usd_exp']
+```
 
+🔹 Dos chunks equivalentes:
+
+
+.pull-left[
+
+````
+```{python}`r ''`
 (df_pandas
   .filter(variables)
   .head(2))
 ```
+````
+
+]
+
+.pull-right[
 
 
-⚡ Objetos cross lenguaje Python -> R ⚡ 
-
-```{r}
+````
+```{r}`r ''`
 py$df_pandas %>% 
   select(all_of(py$variables)) %>% 
   head(2)
+```
+````
+]
+
+-------------------------------------------
+🔹 Output generado por ambos chunks: 
+
+```{python, echo=FALSE}
+(df_pandas
+  .filter(variables, axis=1)
+  .head(2))
 ```
 
 
@@ -189,16 +260,14 @@ py$df_pandas %>%
 background-position: 50% 50%
 class: center, inverse
 
-# Primereas operaciones
+# 1. Estadística descriptiva
 
 ---
-
-# Estadística descriptiva
 
 R summary(df)
 
 ```{r summary}
-df_cran_vignettes %>% summary()
+df_comercio %>% summary()
 ```
 
 ---
@@ -206,27 +275,41 @@ df_cran_vignettes %>% summary()
 Python df.describe()
 
 ```{python describe}
-r.df_cran_vignettes.describe(include='all')
+r.df_comercio.describe(include='all')
 ```
 
 ---
 
 ```{r skimr_gt}
 py$df_pandas %>% 
-  filter(package %in% df_task_views$package) %>% 
   select(where(is.numeric)) %>% 
   skimr::skim() %>% 
   select(-skim_type, -complete_rate) %>% 
   gt() %>% 
-  tab_header(title=md('**Paquetes en CRAN**'), 
+  tab_header(title=md('**Comercio exterior**: Argentina y México'), 
              subtitle='Estadística descriptiva') %>% 
   fmt_number(columns=3:4) 
 ```
 
 ---
 
+class: inverse, center, middle
 
-# Filtros
+# 2. Filtros
+
+---
+
+```{r}
+
+```
+
+---
+
+class: inverse, center, middle
+
+# 3. Nuevas columnas
+
+---
 
 ```{r}
 
@@ -234,6 +317,62 @@ py$df_pandas %>%
 
 
 
+---
+
+class: inverse, center, middle
+
+# 4. Unión de dataframes
+
+---
+
+```{r}
+
+```
+
+
+
+---
+
+class: inverse, center, middle
+
+# 5. Formato wide a long / long a wide (pivot)
+
+---
+
+```{r}
+
+```
+
+---
+
+class: inverse, center, middle
+
+# 6. Agregación
+
+---
+
+```{r}
+
+```
+
+---
+
+class: inverse, center, middle
+
+# 7. Visualización
+
+---
+
+```{r}
+
+```
+
+
+---
+
+# Links utiles
+
+https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
 
 ---
 

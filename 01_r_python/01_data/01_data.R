@@ -1,9 +1,7 @@
+
+
 options(scipen = 999)
 #install.packages("tradestatistics")
-
-
-sections<-read.csv('df_comercio.csv') %>% pull(section) %>% unique()
-sections
 
 library(dplyr)
 library(tidyr)
@@ -16,9 +14,6 @@ datatable(ots_tables)
 # r: reporter column
 # p: partner column
 # c: commodity column
-
-ots_commodities %>% 
-  group_by()
 
 datatable(ots_countries)
 
@@ -77,7 +72,66 @@ yrpc <- ots_create_tidy_data(
 datatable(yrpc)
 
 
-write.csv(yrpc, 'df_arg_mx.csv', row.names=FALSE)
+write.csv(yrpc %>% 
+          select(
+            reporter = reporter_fullname_english, 
+            partner = partner_fullname_english,
+            commodity_code, 
+            expo=trade_value_usd_exp,
+            impo=trade_value_usd_imp)
+          , 'data/df_arg_mx.csv', row.names=FALSE, fileEncoding='UTF-8')
+write.csv(secciones, 'data/df_secciones.csv', row.names=FALSE, fileEncoding='UTF-8')
+
+
+
+# Análisis ----------------------------------------------------------------
+
+
+### Filtros
+
+# Se quieren las exportaciones de commodities que incluyan la palabra vehicles de Argentina a México en 2020
+
+yrpc %>% 
+  filter(
+    year==2020 &
+    str_detect(tolower(commodity_fullname_english), 'vehicle')     
+  ) %>% 
+  select(
+         reporter = reporter_fullname_english, 
+         partner = partner_fullname_english,
+         commodity = commodity_fullname_english, 
+         expo=trade_value_usd_exp,
+         impo=trade_value_usd_imp) %>% 
+  mutate(commodity=substr(commodity,1,30)) %>% 
+  head(10)
+
+yrpc %>% 
+  filter(
+    year==2020 &
+      str_detect(tolower(commodity_fullname_english), 'vehicle')     
+  ) %>% 
+  select(
+    reporter = reporter_fullname_english, 
+    partner = partner_fullname_english,
+    commodity = commodity_fullname_english, 
+    expo=trade_value_usd_exp,
+    impo=trade_value_usd_imp) %>% 
+  mutate(commodity=substr(commodity,1,30)) %>% 
+  head(10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 datos <- yrpc %>% 
   left_join(secciones %>% select(section_code, section_shortname_english)) %>% 
