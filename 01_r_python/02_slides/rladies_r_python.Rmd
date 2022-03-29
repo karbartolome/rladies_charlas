@@ -19,6 +19,10 @@ knitr::opts_chunk$set(comment = NA)
 options(scipen=999)
 ```
 
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
 background-position: 50% 50%
 class: center, inverse
 
@@ -147,6 +151,14 @@ import numpy as np
 import seaborn as sns
 
 sns.set_theme(style="ticks", palette="pastel")
+
+pd.set_option('display.max_columns', 10)
+pd.set_option('display.max_colwidth', 20)
+
+pd.set_option('display.float_format', lambda x: '%.2f' % x)
+
+
+
 ```
 
 
@@ -168,6 +180,19 @@ class: inverse, center, middle
 
 ---
 
+Aclaración!
+
+
+- Los datos para esta presentación provienen del paquete {opentradestatistics}
+
+- Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí. 
+
+- Sin embargo, siempre me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego. 
+
+
+
+---
+
 # Lectura de datos con R
 
 🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN
@@ -183,6 +208,8 @@ df_task_views <- readr::read_csv('https://raw.githubusercontent.com/karbartolome
 df_comercio  <- readr::read_csv('data/df_arg_mx.csv')
  
 df_secciones <- readr::read_csv('data/df_secciones.csv')
+
+df_commodities <- readr::read_csv('data/df_commodities.csv')
 ```
 
 # Lectura de datos con python
@@ -217,6 +244,9 @@ Se crea una lista de variables relevantes en un chunk python:
 ```{python}
 variables = ['year','commodity_code','trade_value_usd_exp']
 ```
+
+-------------------------------------------
+
 
 🔹 Dos chunks equivalentes:
 
@@ -257,28 +287,40 @@ py$df_pandas %>%
 
 ---
 
-background-position: 50% 50%
-class: center, inverse
+class: inverse, center, middle
 
 # 1. Estadística descriptiva
 
 ---
 
-R summary(df)
+
+.panelset[
+.panel[.panel-name[R summary]
 
 ```{r summary}
 df_comercio %>% summary()
 ```
 
----
+]
 
-Python df.describe()
+.panel[.panel-name[Python .describe()]
+
+Variables que no son object: 
 
 ```{python describe}
-r.df_comercio.describe(include='all')
+r.df_comercio.describe(exclude='object')
 ```
 
----
+Variables tipo object: 
+
+```{python describe_obj}
+r.df_comercio.describe(include='object')
+```
+
+]
+
+
+.panel[.panel-name[R skim(df)]
 
 ```{r skimr_gt}
 py$df_pandas %>% 
@@ -288,20 +330,205 @@ py$df_pandas %>%
   gt() %>% 
   tab_header(title=md('**Comercio exterior**: Argentina y México'), 
              subtitle='Estadística descriptiva') %>% 
+  opt_align_table_header('left') %>% 
   fmt_number(columns=3:4) 
 ```
+
+]
+
+]
+
 
 ---
 
 class: inverse, center, middle
 
-# 2. Filtros
+# 2. Unión de dataframes
 
 ---
 
-```{r}
+.panelset[
+.panel[.panel-name[R]
 
+```{r}
+df <- df_comercio %>% 
+  
+  # Left join con datos de commodities
+  left_join(df_commodities %>% 
+              select(commodity_code, 
+                     commodity_fullname_english, 
+                     group_fullname_english), 
+            by='commodity_code') %>% 
+  
+  # Left join con secciones
+  left_join(df_secciones) %>%
+  
+  # Selección de variables y renombrarlas
+  select(
+    año             = year,
+    pais            = reporter,
+    socio           = partner, 
+    commodity       = commodity_fullname_english,
+    grupo           = group_fullname_english,
+    seccion         = section_shortname_english, 
+    expo            = trade_value_usd_exp,
+    impo            = trade_value_usd_imp
+  )
 ```
+
+]
+
+.panel[.panel-name[Python]
+```{python}
+df_py = (r.df_comercio
+
+  # Left join con datos de commodities
+  .merge(r.df_commodities[['commodity_code', 
+                           'commodity_fullname_english', 
+                           'group_fullname_english']], 
+         on='commodity_code')
+         
+  # Left join con secciones
+  .merge(r.df_secciones, on='section_code')
+  
+  # Renombrar variables
+  .rename({
+    'year'                       : 'año',
+    'reporter'                   : 'pais',
+    'partner'                    : 'socio',
+    'commodity_fullname_english' : 'commodity',
+    'group_fullname_english'     : 'grupo',
+    'section_shortname_english'  : 'seccion',
+    'trade_value_usd_exp'        : 'expo',
+    'trade_value_usd_imp'        : 'impo'
+  }, axis=1)
+  
+  # Selección de las columnas relevantes (mismas que df anterior en r)
+  [r.df.columns]
+  
+  # Índices que queden bien
+  .reset_index(drop=True)
+)
+```
+
+]
+
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+```{r}
+df %>% head(2) %>% gt::gt()
+```
+
+🔹 Pandas dataframe: 
+
+```{r}
+py$df_py %>% head(2) %>% gt::gt()
+```
+
+]
+
+.panel[.panel-name[Comparación]
+
+Se utiliza el paquete waldo para comparar los filtros generados:
+
+```{r}
+waldo::compare(data.frame(df),
+               data.frame(py$df_py))
+```
+
+]
+
+]
+
+---
+
+class: inverse, center, middle
+
+# 3. Filtros
+
+---
+
+.panelset[
+.panel[.panel-name[R]
+
+```{r}
+filtro_r <- df %>% 
+  
+  filter(
+    
+    # Condición simple (equivalencia)
+    año == 2019 &
+      
+    # Condición OR con función quantile()
+    (expo   > quantile(df$expo,0.6) | 
+     impo   > quantile(df$impo,0.6) ) &
+    
+    # Filtro por expresión regular
+    str_detect(tolower(commodity), 'metal')
+  )
+```
+
+]
+
+.panel[.panel-name[Python]
+
+```{python}
+filtro_py = (r.df
+
+  .query("""
+         año == 2019 and                              \
+                                                      \
+         (expo   > expo.quantile(0.6) or              \
+          impo   > impo.quantile(0.6)) and            \
+                                                      \
+         commodity.str.lower().str.contains('metal')
+        """, 
+        engine='python') 
+        
+  .reset_index(drop=True)
+)
+```
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+```{r}
+filtro_r %>% head(2) %>% gt::gt()
+```
+
+🔹 Pandas dataframe: 
+
+```{r}
+py$filtro_py %>% head(2) %>% gt::gt()
+```
+
+]
+
+
+.panel[.panel-name[Comparación]
+
+Se utiliza el paquete waldo para comparar los filtros generados:
+
+```{r}
+waldo::compare(data.frame(filtro_r),
+               data.frame(py$filtro_py))
+```
+]
+
+]
+
+
+
+
+
+
+
+
 
 ---
 
@@ -311,23 +538,98 @@ class: inverse, center, middle
 
 ---
 
-```{r}
-
-```
-
-
-
----
-
-class: inverse, center, middle
-
-# 4. Unión de dataframes
-
----
+.panelset[
+.panel[.panel-name[R]
 
 ```{r}
-
+columnas_r <- df %>% 
+  
+  mutate(
+    
+    # Cálculo
+    expo_netas = expo - impo,
+    
+    # If else
+    d_2020 = ifelse(año==2020,1,0),
+    
+    # Case when
+    categoria_extra = case_when(
+      
+      str_detect(commodity,'metal|machines') ~ 'Metal & maquinarias',
+      str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales',
+      TRUE ~ 'Otros'
+      
+    )
+  )
 ```
+
+]
+
+.panel[.panel-name[Python]
+```{python}
+columnas_py = (r.df
+  .assign(
+    
+    # Cálculo
+    expo_netas      = lambda x: x['expo'] - x['impo'],
+    
+    # If else
+    d_2020          = lambda x: np.where(x['año']==2020,1,0),
+     
+    # Case when
+    categoria_extra = lambda x: np.select(
+      
+      [x['commodity'].str.contains('metal|machines'),
+       x['commodity'].str.contains('animal|food|vegetable')],
+      
+      ['Metal & maquinarias',
+       'Cultivos y animales'],
+    
+      default = 'Otros'
+    )
+    
+  )
+)
+```
+
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+```{r}
+columnas_r %>% head(2) %>% gt::gt()
+```
+
+🔹 Pandas dataframe: 
+
+```{r}
+py$columnas_py %>% head(2) %>% gt::gt()
+```
+
+]
+
+
+
+.panel[.panel-name[Comparación]
+```{r}
+waldo::compare(data.frame(columnas_r),
+               data.frame(py$columnas_py))
+```
+
+]
+
+]
+
+
+
+
+
+
+
+
+
 
 
 
@@ -392,9 +694,6 @@ class: center, middle
 # Muchas gracias!!
 
 Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
-
-
-
 
 
 
