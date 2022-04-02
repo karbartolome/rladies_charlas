@@ -9,8 +9,11 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      navigation: 
+        scroll: false
     includes:
       in_header: header.html
+      after_body: "collapseoutput.js"
 ---
 
 ```{r include=FALSE}
@@ -149,28 +152,21 @@ reticulate::use_condaenv(condaenv = 'rladies',
 import pandas as pd
 import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
+```
 
+
+```{python opciones_python}
 sns.set_theme(style="ticks", palette="pastel")
 
 pd.set_option('display.max_columns', 10)
 pd.set_option('display.max_colwidth', 20)
 
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
-
-
-
 ```
 
 
----
 
-```{python, out.width='50%', fig.align='center'}
-tips = sns.load_dataset("tips")
-
-sns.boxplot(x="day", y="total_bill",
-            hue="smoker", 
-            data=tips)
-```
 
 ---
 
@@ -220,7 +216,7 @@ os.chdir(f'{os.getcwd()}/02_slides')
 ```
 
 ```{python data_1_python, message=FALSE}
-df_pandas = pd.read_csv('data/df_arg_mx.csv')
+df_comercio_pd = pd.read_csv('data/df_arg_mx.csv')
 ```
 
 ---
@@ -237,8 +233,6 @@ r.df_comercio.head(2)
 
 ---
 
---- 
-
 Se crea una lista de variables relevantes en un chunk python: 
 
 ```{python}
@@ -247,42 +241,50 @@ variables = ['year','commodity_code','trade_value_usd_exp']
 
 -------------------------------------------
 
+🔹 Dos chunks que generan el mismo output: 
 
-🔹 Dos chunks equivalentes:
+.panelset[
 
+.panel[.panel-name[R con objeto Python]
 
-.pull-left[
+````
+```{r}`r ''`
+py$df_comercio_pd %>% 
+  select(all_of(py$variables)) %>% 
+  head(2)
+```
+````
+
+```{r, echo=FALSE}
+py$df_comercio_pd %>% 
+  select(all_of(py$variables)) %>% 
+  head(2)
+```
+
+]
+
+.panel[.panel-name[Python con objeto R]
 
 ````
 ```{python}`r ''`
-(df_pandas
+(r.df_comercio
   .filter(variables)
   .head(2))
 ```
 ````
 
-]
-
-.pull-right[
-
-
-````
-```{r}`r ''`
-py$df_pandas %>% 
-  select(all_of(py$variables)) %>% 
-  head(2)
-```
-````
-]
-
--------------------------------------------
-🔹 Output generado por ambos chunks: 
-
 ```{python, echo=FALSE}
-(df_pandas
+(r.df_comercio
   .filter(variables, axis=1)
   .head(2))
 ```
+
+]
+
+
+
+]
+
 
 
 ---
@@ -323,7 +325,7 @@ r.df_comercio.describe(include='object')
 .panel[.panel-name[R skim(df)]
 
 ```{r skimr_gt}
-py$df_pandas %>% 
+py$df_comercio_pd %>% 
   select(where(is.numeric)) %>% 
   skimr::skim() %>% 
   select(-skim_type, -complete_rate) %>% 
@@ -630,14 +632,11 @@ waldo::compare(data.frame(columnas_r),
 
 
 
-
-
-
 ---
 
 class: inverse, center, middle
 
-# 5. Formato wide a long / long a wide (pivot)
+# 5. Agregación
 
 ---
 
@@ -645,17 +644,156 @@ class: inverse, center, middle
 
 ```
 
+
 ---
 
 class: inverse, center, middle
 
-# 6. Agregación
+# 6. Formato wide a long / long a wide (pivot)
 
 ---
 
+# Pivot wider
+
+.panelset[
+.panel[.panel-name[R]
+
 ```{r}
+wider_r <- df %>% 
+  
+  group_by(seccion, año) %>% 
+  
+  summarise(expo = sum(expo), .groups = 'keep') %>% 
+  
+  ungroup() %>% 
+  
+  pivot_wider(names_from=año, 
+              names_prefix='y_',
+              values_from=expo) %>% 
+  
+  arrange(desc(y_2020, y_2019, y_2018, y_2017))
+```
+
+]
+
+.panel[.panel-name[Python]
+```{python}
+wider_py = (r.df
+
+ .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
+ 
+ .groupby(['seccion','año'], as_index=False)
+ 
+ .agg(expo = ('expo','sum'))
+ 
+ .pivot(index='seccion', 
+        columns='año',
+        values='expo')
+  
+  .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
+               ascending=False)
+  
+  .reset_index(drop=False)
+
+)
 
 ```
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+```{r}
+wider_r %>% head(2) %>% gt::gt()
+```
+
+🔹 Pandas dataframe: 
+
+```{r}
+py$wider_py %>% head(2) %>% gt::gt()
+```
+
+]
+
+
+
+.panel[.panel-name[Comparación]
+```{r}
+waldo::compare(data.frame(wider_r),
+               data.frame(py$wider_py))
+```
+
+]
+
+]
+
+
+# Pivot longer
+
+.panelset[
+.panel[.panel-name[R]
+
+```{r}
+longer_r <- wider_r %>% 
+  
+  pivot_longer(-seccion, names_to='año', values_to='expo') %>% 
+  
+  mutate(año=str_replace(año, 'y_','')) %>% 
+  
+  arrange(seccion, año)
+```
+
+]
+
+.panel[.panel-name[Python]
+```{python}
+longer_py = (wider_py
+
+  .melt(id_vars='seccion', value_vars=['y_2017','y_2018','y_2019','y_2020'], 
+        value_name='expo')
+  
+  .assign(año = lambda x: [i.replace('y_','') for i in x['año']], 
+          temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']])
+  
+  .sort_values(['temp_var','año'])
+  
+  .drop('temp_var',axis=1)
+  
+  .reset_index(drop=True)
+
+)
+```
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+```{r}
+longer_r %>% head(2) %>% gt::gt()
+```
+
+🔹 Pandas dataframe: 
+
+```{r}
+py$longer_py %>% head(2) %>% gt::gt()
+```
+
+]
+
+
+
+.panel[.panel-name[Comparación]
+```{r}
+waldo::compare(data.frame(longer_r),
+               data.frame(py$longer_py))
+```
+
+]
+
+]
+
 
 ---
 
@@ -665,9 +803,54 @@ class: inverse, center, middle
 
 ---
 
-```{r}
+Se definen las secciones relevantes: 
 
+```{r}
+secciones_relevantes <- longer_r %>% 
+  group_by(seccion) %>% 
+  summarise(expo_4y=sum(expo)) %>% 
+  ungroup() %>% 
+  arrange(desc(expo_4y)) %>% 
+  top_n(5) %>% pull(seccion)
 ```
+
+
+---
+
+.panelset[
+.panel[.panel-name[R]
+
+Reordenando las secciones por el promedio de las exportaciones:
+
+```{r, fig.height=5, fig.width=10}
+longer_r %>% 
+  filter(seccion %in% secciones_relevantes) %>% 
+  ggplot(aes(x=expo, y=reorder(seccion, expo)))+
+    geom_boxplot()
+```
+
+]
+
+.panel[.panel-name[Python]
+
+.details[
+```{python, out.width='50%', fig.align='center', code_folding=TRUE}
+temp = longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
+
+orden = (temp.groupby('seccion', as_index=False).expo.mean()
+  .sort_values('expo', ascending=False)['seccion'])
+```
+]
+
+
+
+```{python, out.width='50%', fig.align='center', out.height='50%', fig.width=10, fig.height=5}
+sns.boxplot(x="expo", y="seccion", data=temp, order = orden)
+```
+]
+
+]
+
 
 
 ---
