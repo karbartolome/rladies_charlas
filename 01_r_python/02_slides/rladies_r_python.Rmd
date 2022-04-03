@@ -15,17 +15,6 @@ output:
       in_header: header.html
       after_body: "collapseoutput.js"
 ---
-
-```{r include=FALSE}
-knitr::opts_chunk$set(comment = NA)
-
-options(scipen=999)
-```
-
-```{r xaringan-panelset, echo=FALSE}
-xaringanExtra::use_panelset()
-```
-
 background-position: 50% 50%
 class: center, inverse
 
@@ -45,6 +34,32 @@ class: center, inverse
 ---
 
 # El uso de diversos lenguajes en rmarkdown
+
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+
+options(scipen=999)
+options(reticulate.repl.quiet = TRUE)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{css, echo=F}
+    /* Table width = 100% max-width */
+
+    .remark-slide table{
+        width: 100%;
+    }
+
+    /* Change the background color to white for shaded rows (even rows) */
+
+    .remark-slide thead, .remark-slide tr:nth-child(2n) {
+        background-color: white;
+    }
+```
+
 
 Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **chunks** que referencien al lenguaje que se quiere utilizar: 
 
@@ -101,7 +116,7 @@ ggplot(iris) +
 
 {{ iris %>% }}
   {{ ggplot() + }}
-  aes(x = Sepal.Length) + 
+  aes(x = {{ Sepal.Length }} ) + 
   geom_histogram(binwidth = 0.25) 
           
 ```
@@ -134,6 +149,8 @@ Luego de finalizar el proyecto es posible eliminar este environment desde Anacon
     -   [x] 🐼 **pandas**: conda install pandas 
     
     -   [x] 📊 **seaborn**: conda install seaborn
+    
+    -   [x] **statsmodels**: conda install -c anaconda statsmodels
 
 
 3. Se define que el environment a utilizar es el que ha sido creado:
@@ -294,8 +311,6 @@ class: inverse, center, middle
 # 1. Estadística descriptiva
 
 ---
-
-
 .panelset[
 .panel[.panel-name[R summary]
 
@@ -343,12 +358,34 @@ py$df_comercio_pd %>%
 
 ---
 
+Las semillas no funcionan igual en r y python, sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varìan los resultados. 
+
+
+```{r}
+set.seed(42)
+df_comercio %>% 
+  sample_n(2) %>% 
+  select(commodity_code, year)
+```
+
+
+```{python}
+(r.df_comercio
+  .sample(2, random_state=42)
+  [['commodity_code', 'year']]
+)
+```
+
+
+
+
+---
+
 class: inverse, center, middle
 
 # 2. Unión de dataframes
 
 ---
-
 .panelset[
 .panel[.panel-name[R]
 
@@ -421,13 +458,13 @@ df_py = (r.df_comercio
 🔹 R dataframe:
 
 ```{r}
-df %>% head(2) %>% gt::gt()
+df %>% head(1) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
 ```{r}
-py$df_py %>% head(2) %>% gt::gt()
+py$df_py %>% head(1) %>% gt::gt()
 ```
 
 ]
@@ -452,7 +489,6 @@ class: inverse, center, middle
 # 3. Filtros
 
 ---
-
 .panelset[
 .panel[.panel-name[R]
 
@@ -500,13 +536,13 @@ filtro_py = (r.df
 🔹 R dataframe:
 
 ```{r}
-filtro_r %>% head(2) %>% gt::gt()
+filtro_r %>% head(1) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
 ```{r}
-py$filtro_py %>% head(2) %>% gt::gt()
+py$filtro_py %>% head(1) %>% gt::gt()
 ```
 
 ]
@@ -539,6 +575,7 @@ class: inverse, center, middle
 # 3. Nuevas columnas
 
 ---
+
 
 .panelset[
 .panel[.panel-name[R]
@@ -601,13 +638,13 @@ columnas_py = (r.df
 🔹 R dataframe:
 
 ```{r}
-columnas_r %>% head(2) %>% gt::gt()
+columnas_r %>% head(1) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
 ```{r}
-py$columnas_py %>% head(2) %>% gt::gt()
+py$columnas_py %>% head(1) %>% gt::gt()
 ```
 
 ]
@@ -728,6 +765,8 @@ waldo::compare(data.frame(wider_r),
 
 ]
 
+
+---
 
 # Pivot longer
 
@@ -850,6 +889,191 @@ sns.boxplot(x="expo", y="seccion", data=temp, order = orden)
 ]
 
 ]
+
+---
+
+
+Data on Y (Personal Consumption Expenditure) and X (Gross Domestic Product, 1960–2005),
+both in 2000 Billions of Dollars
+
+```{r}
+pers_con = data.frame (
+  year = c(1960:2005),
+  epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
+             2007.7, 2121.8, 2185.0, 2310.5, 2396.4,
+              2451.9, 2545.5, 2701.3, 2833.8, 2812.3,
+             2876.9, 3035.5, 3164.1, 3303.1, 3383.4,
+              3374.1, 3422.2, 3470.3, 3668.6, 3863.3,
+             4064.0, 4228.9, 4369.8, 4546.9, 4675.0,
+              4770.3, 4778.4, 4934.8, 5099.8, 5290.7,
+             5433.5, 5619.4, 5831.8, 6125.8, 6438.6,
+              6739.4, 6910.4, 7099.3, 7259.3, 7577.1,
+             7841.2),
+  gdp = c(2501.8, 2560.0, 2715.2, 2834.0, 2998.6,
+              3191.1, 3399.1, 3484.6, 3652.7, 3765.4,
+               3771.9, 3898.6, 4105.0, 4341.5, 4319.6,
+              4311.2, 4540.9, 4750.5, 5015.0, 5173.4,
+               5161.7, 5291.7, 5189.3, 5423.8, 5813.6,
+              6053.7, 6263.6, 6475.1, 6742.7, 6981.4,
+               7112.5, 7100.5, 7336.6, 7532.7, 7835.5,
+              8031.7, 8328.9, 8703.5, 9066.9, 9470.3,
+               9817.0, 9890.7, 10048.8, 10301.0, 10703.5,
+              11048.6))
+```
+
+---
+
+```{python}
+import statsmodels.formula.api as smf
+
+reg = smf.ols ("epc ~ gdp", r.pers_con).fit()
+
+modelo = reg.summary2()
+```
+
+.panelset[
+.panel[.panel-name[Tabla 1]
+
+```{python}
+modelo.tables[0]
+```
+]
+
+.panel[.panel-name[Tabla 2]
+
+```{python}
+modelo.tables[1]
+```
+]
+
+.panel[.panel-name[Tabla 3]
+
+```{python}
+modelo.tables[2]
+```
+]
+
+]
+
+
+
+---
+
+```{r}
+py$modelo$tables[[1]] %>% gt() %>% 
+  
+  #fmt_number(everything(),decimals = 2) %>% 
+  
+  tab_header(title=md('**Tabla 1:** Modelo OLS'),
+             
+             subtitle = 'Statsmodels (python) a R') %>% 
+  
+  opt_align_table_header('left')
+```
+
+---
+
+```{r}
+py$modelo$tables[[2]] %>% gt() %>% 
+  
+  fmt_number(everything(),decimals = 2) %>% 
+  
+  tab_header(title=md('**Tabla 2:** Modelo OLS'),
+             
+             subtitle = 'Statsmodels (python) a R') %>% 
+  
+  opt_align_table_header('left')
+```
+
+
+
+---
+
+```{r}
+knitr::knit_exit()
+```
+
+
+
+
+
+
+
+
+
+```{python}
+import numpy as np
+
+import statsmodels.api as sm
+
+wider_py['y_2020'] = np.where(wider_py['y_2020'].isna(), 0, wider_py['y_2020'])
+X = wider_py[['y_2017','y_2018','y_2019']]
+y = wider_py[['y_2020']]
+
+X = sm.add_constant(X, prepend=False)
+
+mod = sm.OLS(y, X)
+
+res = mod.fit()
+
+modelo = (res.summary2().tables[1])
+coef_table = modelo.reset_index()
+
+```
+
+```{r}
+py$coef_table %>% gt::gt()
+```
+
+```{python}
+from sklearn.linear_model import LinearRegression
+wider_py['y_2020'] = np.where(wider_py['y_2020'].isna(), 0, wider_py['y_2020'])
+X = wider_py[['y_2017','y_2018','y_2019']]
+y = wider_py[['y_2020']]
+
+modelo = LinearRegression()
+modelo.fit(X, y)
+
+modelo.coef_
+
+```
+
+
+```{r}
+wider_r <- df %>% select(commodity, año, expo, impo) %>% 
+  
+  pivot_wider(names_from=año, 
+              values_from=c(expo,impo)) %>% 
+  
+  mutate(expo_netas_2020 = expo_2020-impo_2020) %>% 
+  
+  mutate(expo_netas_2020_pos = ifelse(expo_netas_2020 >0,1,0),
+         expo_netas_2020_pos = ifelse(is.na(expo_netas_2020_pos),0,expo_netas_2020_pos))
+```
+
+```{python}
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+X = r.wider_r[['expo_2019','impo_2019']]
+y = r.wider_r['expo_netas_2020_pos']
+
+pipe = Pipeline([
+  ('imputador', SimpleImputer(strategy='constant',fill_value= 0)),
+  ('scaler', StandardScaler()), 
+  ('reg_logistica',  LogisticRegression())
+])
+  
+pipe.fit(X, y)
+modelo = pipe['reg_logistica']
+modelo.predict_proba(r.wider_r[['expo_2019','impo_2019']])
+```
+
+```{r}
+py$modelo$predict_proba(wider_r %>% select(expo_2019, impo_2019))
+```
 
 
 
