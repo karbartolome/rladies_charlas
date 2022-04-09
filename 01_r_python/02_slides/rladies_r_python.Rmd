@@ -1,12 +1,13 @@
 ---
-title: "R-Ladies - El uso de múltiples lenguajes en Rmarkdown"
-subtitle: "⚔<br/>with xaringan"
+title: "El uso de múltiples lenguajes en Rmarkdown"
+subtitle: "︿<br/>R-Ladies Puebla"
 author: "Karina Bartolomé"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
     nature:
       highlightStyle: github
+      #highlightStyle: solarized-dark
       highlightLines: true
       countIncrementalSlides: false
       navigation: 
@@ -15,6 +16,26 @@ output:
       in_header: header.html
       after_body: "collapseoutput.js"
 ---
+
+# ¿Quién soy?
+
+.pull-left[
+
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+knitr::include_graphics('images/imagen.jpg')
+```
+]
+
+.pull-right[
+### Karina Bartolomé
+- Economista (UNLP) 
+- Especialista en métodos cuantitativos (UBA)
+- Data Scientist en Ualá
+]
+
+
+---
+
 background-position: 50% 50%
 class: center, inverse
 
@@ -31,56 +52,114 @@ class: center, inverse
  
 #  Múltiples lenguajes
 
----
-
-# El uso de diversos lenguajes en rmarkdown
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(comment = NA)
 
 options(scipen=999)
 options(reticulate.repl.quiet = TRUE)
+options(servr.daemon = TRUE) # para infinite moon reader
+gtsummary::theme_gtsummary_language('es')
+
+modo_notdebug=TRUE
 ```
 
 ```{r xaringan-panelset, echo=FALSE}
 xaringanExtra::use_panelset()
 ```
 
-```{css, echo=F}
-    /* Table width = 100% max-width */
+```{css, echo=FALSE}
+/* Table width = 100% max-width */
+.remark-slide table{
+    width: 100%;
+}
 
-    .remark-slide table{
-        width: 100%;
-    }
+/* background-color blanco siempre */
+.remark-slide thead, .remark-slide tr:nth-child(2n) {
+    background-color: white;
+}
 
-    /* Change the background color to white for shaded rows (even rows) */
+/* Incremento en transparencia del color de highlight del código ya que lo uso mucho y así se lee mejor */
+.remark-code-line-highlighted { 
+    background-color: rgba(136, 57, 138, 0.1);
+}
+```
 
-    .remark-slide thead, .remark-slide tr:nth-child(2n) {
-        background-color: white;
-    }
+```{r, echo=FALSE}
+image_link <- function(image,url,...){
+  htmltools::a(
+    href=url,
+    htmltools::img(src=image,...)
+    )
+}
 ```
 
 
-Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **chunks** que referencien al lenguaje que se quiere utilizar: 
+---
+
+# ¿Qué vamos a ver hoy?
+
+--
+
+- El uso de **`python en Rmarkdown`**
+
+--
+
+- Similitudes / diferencias entre R y python, haciendo énfasis en `{tidyverse}`📦 y `{pandas}`📦
+
+--
+
+- `{reticulate}` 📦 para utilizar objetos de python en R y de R en python
+
+```{r, fig.align='center',echo=FALSE}
+image_link(
+  image='https://embed-ssl.wistia.com/deliveries/1ca77c655c94d9287cc23eac9995c785.jpg',
+  url = 'https://www.rstudio.com/solutions/r-and-python/',
+  width="50%", 
+  style="display: block; margin-left: auto; margin-right: auto;"
+)
+```
+
+---
+background-position: 50% 50%
+class: inverse, center, middle
+
+# { memes }
+
+.pull-left[
+```{r, out.height='100%', out.width='100%',  fig.align='center', echo=FALSE}
+knitr::include_graphics('memes/r_python.jpg')
+```
+]
+
+.pull-right[
+```{r, out.height='100%', out.width='100%',  fig.align='center', echo=FALSE}
+knitr::include_graphics('memes/bilingual.jpg')
+```
+]
+
+
+---
+
+# El uso de diversos lenguajes en rmarkdown
+
+Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
 
 ````
 ```{r}`r ''`
-# Acá se escribe código R
+# Acá se escribe código R 
 ```
 ````
-
 ````
 ```{python}`r ''`
 # Acá se escribe código Python
 ```
 ````
-
 ````
 ```{julia}`r ''`
-# Acá se escribe código Python
+# Acá se escribe código Julia
 ```
 ````
-
 ````
 ```{sql}`r ''`
 # Acá se escribe sql
@@ -93,17 +172,16 @@ Etc.
 
 # R en Rmarkdown
 
-🔹 En **Rmarkdown**, se utiliza un chunk R para cargar las librerías R:
+🔹 En **Rmarkdown**, se utiliza un chunk R para cargar los paquetes R 📦
 
 ```{r Librerías R, message=FALSE, warning=FALSE}
-library(reticulate) # Para Python
-library(tidyverse)  
-library(gt) # Para tablas
+library(reticulate) # python
+library(tidyverse)  # manipulación de datos
+library(gt)         # tablas
 ```
 
 ---
-```{r example-plot}
-
+```{r example-plot, echo=FALSE, eval=FALSE}
 ggplot(iris) +
   aes(x = Sepal.Length) +
   geom_histogram(   #<<
@@ -111,8 +189,7 @@ ggplot(iris) +
   )                 #<<
 ```
 
----
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo=FALSE}
 
 {{ iris %>% }}
   {{ ggplot() + }}
@@ -121,28 +198,49 @@ ggplot(iris) +
           
 ```
 
----
-
 # Python en Rmarkdown
 
-1.   Definir un `conda environment` a utilizar. 
-
-En este caso, se creó un environment específico para este proyecto. 
+🔹 Definir un `conda environment` a utilizar. 
 
 ```{r, eval=FALSE}
 reticulate::conda_create(envname='rladies', 
                          python_version="3.8.8")
 ```
 
--   Desde Anaconda, en la solapa de **Environments**, se selecciona el environment creado y se abre la terminal. Desde ahí, se activa con: `conda activate rladies`
+-------------------------------------
 
-Luego de finalizar el proyecto es posible eliminar este environment desde Anaconda para liberar espacio, ya que los paquetes se irán instalando en ese environment. 
+🔹 Desde la terminal, ejecutar los siguientes comandos:
+
+.panelset[
+.panel[.panel-name[conda env list]
+
+Se visualizan los environments con `conda env list`
+
+]
+
+.panel[.panel-name[conda activate]
+
+Se activa con: `conda activate rladies`
+
+]
+
+.panel[.panel-name[conda remove]
+
+Si se quiere remover el environment, primero es necesario activar el environment base, y luego se remueve el environment creado:
+
+- Se activa el environment base: `conda activate`
+
+- Se remueve el environment: `conda remove --name rladies --all`
+
+]
+
+]
 
 ---
 
 # Python en Rmarkdown
 
-2. Se instalan los paquetes a utilizar. En este caso, lo hice desde la terminal del environment desde Anaconda:
+🔹 Se instalan los paquetes 📦 a utilizar. En este caso, lo hice desde la terminal, teniendo activado el environment:
 
     -   [x] ➕ **numpy**: conda install numpy
 
@@ -150,10 +248,13 @@ Luego de finalizar el proyecto es posible eliminar este environment desde Anacon
     
     -   [x] 📊 **seaborn**: conda install seaborn
     
-    -   [x] **statsmodels**: conda install -c anaconda statsmodels
+    -   [x] 🔬 **statsmodels**: conda install -c anaconda statsmodels
+    
+También es posible realizar la instalación de paquetes con la función `conda_install` de {reticulate} 📦 , aunque yo siempre lo hice desde la terminal. 
 
+---
 
-3. Se define que el environment a utilizar es el que ha sido creado:
+🔹Se define que el environment a utilizar es el que ha sido creado: 
 
 ```{r}
 reticulate::use_condaenv(condaenv = 'rladies', 
@@ -161,28 +262,37 @@ reticulate::use_condaenv(condaenv = 'rladies',
 ```
 
 
----
-
-🔹Se utiliza un chunk python para cargar las librerías de python:
+🔹Se utiliza un `chunk python` para cargar los paquetes `python`:
 
 ```{python Librerías python}
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
+import pandas as pd             # manipulación de datos
+import numpy as np              # manipulación de datos
+import matplotlib.pyplot as plt # visualización
+import seaborn as sns           # visualización
 ```
 
 
-```{python opciones_python}
-sns.set_theme(style="ticks", palette="pastel")
-
-pd.set_option('display.max_columns', 10)
-pd.set_option('display.max_colwidth', 20)
-
-pd.set_option('display.float_format', lambda x: '%.2f' % x)
+```{python opciones_python, echo=FALSE}
+pd.set_option('display.max_columns',  10) # Máx cant de columnas
+pd.set_option('display.max_colwidth', 20) # Máx cant de caracteres
+pd.set_option('display.float_format', lambda x: '%.2f' % x) # 2 decimales
 ```
 
+---
 
+# Diferentes objetos:
+
+
+| R                      | Python            | Examples                                         |
+|:-----------------------|:------------------|:-------------------------------------------------|
+| Single-element vector  | Scalar            | `1`, `1L`, `TRUE`, `"foo"`                       |
+| Multi-element vector   | List              | `c(1.0, 2.0, 3.0)`, `c(1L, 2L, 3L)`              |
+| List of multiple types | Tuple             | `list(1L, TRUE, "foo")`                          |
+| Named list             | Dict              | `list(a = 1L, b = 2.0)`, `dict(x = x_data)`      |
+| Matrix/Array           | NumPy ndarray     | `matrix(c(1,2,3,4), nrow = 2, ncol = 2)`         |
+| Data Frame             | Pandas DataFrame  | `data.frame(x = c(1,2,3), y = c("a", "b", "c"))` |
+| Function               | Python function   | `function(x) x + 1`                              |
+| NULL, TRUE, FALSE      | None, True, False | `NULL`, `TRUE`, `FALSE`                          |
 
 
 ---
@@ -262,7 +372,7 @@ variables = ['year','commodity_code','trade_value_usd_exp']
 
 .panelset[
 
-.panel[.panel-name[R con objeto Python]
+.panel[.panel-name[R con objeto Python ]
 
 ````
 ```{r}`r ''`
@@ -272,7 +382,7 @@ py$df_comercio_pd %>%
 ```
 ````
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=modo_notdebug}
 py$df_comercio_pd %>% 
   select(all_of(py$variables)) %>% 
   head(2)
@@ -290,7 +400,7 @@ py$df_comercio_pd %>%
 ```
 ````
 
-```{python, echo=FALSE}
+```{python, echo=FALSE, eval=modo_notdebug}
 (r.df_comercio
   .filter(variables, axis=1)
   .head(2))
@@ -314,7 +424,7 @@ class: inverse, center, middle
 .panelset[
 .panel[.panel-name[R summary]
 
-```{r summary}
+```{r summary, eval=modo_notdebug}
 df_comercio %>% summary()
 ```
 
@@ -324,13 +434,13 @@ df_comercio %>% summary()
 
 Variables que no son object: 
 
-```{python describe}
+```{python describe, eval=modo_notdebug}
 r.df_comercio.describe(exclude='object')
 ```
 
 Variables tipo object: 
 
-```{python describe_obj}
+```{python describe_obj, eval=modo_notdebug}
 r.df_comercio.describe(include='object')
 ```
 
@@ -339,10 +449,10 @@ r.df_comercio.describe(include='object')
 
 .panel[.panel-name[R skim(df)]
 
-```{r skimr_gt}
+```{r skimr_gt, eval=modo_notdebug}
 py$df_comercio_pd %>% 
   select(where(is.numeric)) %>% 
-  skimr::skim() %>% 
+  skimr::skim() %>% #<<
   select(-skim_type, -complete_rate) %>% 
   gt() %>% 
   tab_header(title=md('**Comercio exterior**: Argentina y México'), 
@@ -361,7 +471,7 @@ py$df_comercio_pd %>%
 Las semillas no funcionan igual en r y python, sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varìan los resultados. 
 
 
-```{r}
+```{r, eval=modo_notdebug}
 set.seed(42)
 df_comercio %>% 
   sample_n(2) %>% 
@@ -369,7 +479,7 @@ df_comercio %>%
 ```
 
 
-```{python}
+```{python, eval=modo_notdebug}
 (r.df_comercio
   .sample(2, random_state=42)
   [['commodity_code', 'year']]
@@ -392,15 +502,15 @@ class: inverse, center, middle
 ```{r}
 df <- df_comercio %>% 
   
-  # Left join con datos de commodities
-  left_join(df_commodities %>% 
-              select(commodity_code, 
-                     commodity_fullname_english, 
-                     group_fullname_english), 
-            by='commodity_code') %>% 
-  
-  # Left join con secciones
-  left_join(df_secciones) %>%
+  # Left join con datos de commodities            #<<
+  left_join(df_commodities %>%                    #<<
+              select(commodity_code,              #<<
+                     commodity_fullname_english,  #<<
+                     group_fullname_english),     #<<
+            by='commodity_code') %>%              #<<
+                                                  #<<
+  # Left join con secciones                       #<<
+  left_join(df_secciones) %>%                     #<<
   
   # Selección de variables y renombrarlas
   select(
@@ -418,17 +528,17 @@ df <- df_comercio %>%
 ]
 
 .panel[.panel-name[Python]
-```{python}
+```{python, eval=modo_notdebug}
 df_py = (r.df_comercio
 
-  # Left join con datos de commodities
-  .merge(r.df_commodities[['commodity_code', 
-                           'commodity_fullname_english', 
-                           'group_fullname_english']], 
-         on='commodity_code')
-         
-  # Left join con secciones
-  .merge(r.df_secciones, on='section_code')
+  # Left join con datos de commodities                    #<<
+  .merge(r.df_commodities[['commodity_code',              #<<
+                           'commodity_fullname_english',  #<<
+                           'group_fullname_english']],    #<<
+         on='commodity_code', how='left')                 #<<
+                                                          #<<
+  # Left join con secciones                               #<<
+  .merge(r.df_secciones, on='section_code', how='left')   #<<
   
   # Renombrar variables
   .rename({
@@ -457,13 +567,13 @@ df_py = (r.df_comercio
 
 🔹 R dataframe:
 
-```{r}
+```{r, eval=modo_notdebug}
 df %>% head(1) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
-```{r}
+```{r, eval=modo_notdebug}
 py$df_py %>% head(1) %>% gt::gt()
 ```
 
@@ -473,7 +583,7 @@ py$df_py %>% head(1) %>% gt::gt()
 
 Se utiliza el paquete waldo para comparar los filtros generados:
 
-```{r}
+```{r, eval=modo_notdebug}
 waldo::compare(data.frame(df),
                data.frame(py$df_py))
 ```
@@ -492,20 +602,20 @@ class: inverse, center, middle
 .panelset[
 .panel[.panel-name[R]
 
-```{r}
+```{r, eval=modo_notdebug}
 filtro_r <- df %>% 
   
-  filter(
-    
-    # Condición simple (equivalencia)
-    año == 2019 &
-      
-    # Condición OR con función quantile()
-    (expo   > quantile(df$expo,0.6) | 
-     impo   > quantile(df$impo,0.6) ) &
-    
-    # Filtro por expresión regular
-    str_detect(tolower(commodity), 'metal')
+  filter(                                          #<<
+                                                   #<<
+    # Condición simple (equivalencia)              #<<
+    año == 2019 &                                  #<<
+                                                   #<<
+    # Condición OR con función quantile()          #<<
+    (expo   > quantile(df$expo,0.6) |              #<<
+     impo   > quantile(df$impo,0.6) ) &            #<<
+                                                   #<<
+    # Filtro por expresión regular                 #<<
+    str_detect(tolower(commodity), 'metal')        #<<
   )
 ```
 
@@ -513,7 +623,7 @@ filtro_r <- df %>%
 
 .panel[.panel-name[Python]
 
-```{python}
+```{python, eval=modo_notdebug}
 filtro_py = (r.df
 
   .query("""
@@ -523,8 +633,8 @@ filtro_py = (r.df
           impo   > impo.quantile(0.6)) and            \
                                                       \
          commodity.str.lower().str.contains('metal')
-        """, 
-        engine='python') 
+        """,  
+        engine='python')                              
         
   .reset_index(drop=True)
 )
@@ -535,13 +645,13 @@ filtro_py = (r.df
 
 🔹 R dataframe:
 
-```{r}
+```{r, eval=modo_notdebug}
 filtro_r %>% head(1) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
-```{r}
+```{r, eval=modo_notdebug}
 py$filtro_py %>% head(1) %>% gt::gt()
 ```
 
@@ -552,7 +662,7 @@ py$filtro_py %>% head(1) %>% gt::gt()
 
 Se utiliza el paquete waldo para comparar los filtros generados:
 
-```{r}
+```{r, eval=modo_notdebug}
 waldo::compare(data.frame(filtro_r),
                data.frame(py$filtro_py))
 ```
@@ -580,52 +690,51 @@ class: inverse, center, middle
 .panelset[
 .panel[.panel-name[R]
 
-```{r}
+```{r, eval=modo_notdebug}
 columnas_r <- df %>% 
   
-  mutate(
+  mutate( 
     
     # Cálculo
-    expo_netas = expo - impo,
-    
+    expo_netas = expo - impo,    #<<
+                              
     # If else
-    d_2020 = ifelse(año==2020,1,0),
+    d_2020 = ifelse(año==2020,1,0), #<<
     
     # Case when
-    categoria_extra = case_when(
+    categoria_extra = case_when(                #<<
+                                                    #<<
+      str_detect(commodity,'metal|machines') ~ 'Metal & maquinarias', #<<
+      str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales', #<<
+      TRUE ~ 'Otros' #<<
       
-      str_detect(commodity,'metal|machines') ~ 'Metal & maquinarias',
-      str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales',
-      TRUE ~ 'Otros'
-      
-    )
+    ) 
   )
 ```
 
 ]
 
 .panel[.panel-name[Python]
-```{python}
+```{python, eval=modo_notdebug}
 columnas_py = (r.df
-  .assign(
+  .assign(  
     
-    # Cálculo
-    expo_netas      = lambda x: x['expo'] - x['impo'],
+    # Cálculo 
+    expo_netas      = lambda x: x['expo'] - x['impo'], #<<
     
-    # If else
-    d_2020          = lambda x: np.where(x['año']==2020,1,0),
+    # If else 
+    d_2020          = lambda x: np.where(x['año']==2020,1,0), #<<
      
-    # Case when
-    categoria_extra = lambda x: np.select(
-      
-      [x['commodity'].str.contains('metal|machines'),
-       x['commodity'].str.contains('animal|food|vegetable')],
-      
-      ['Metal & maquinarias',
-       'Cultivos y animales'],
-    
-      default = 'Otros'
-    )
+    # Case when 
+    categoria_extra = lambda x: np.select(  #<<
+      #<<
+      [x['commodity'].str.contains('metal|machines'),  #<<
+       x['commodity'].str.contains('animal|food|vegetable')], #<<
+      #<<
+      ['Metal & maquinarias', #<<
+       'Cultivos y animales'], #<<
+    #<<
+      default = 'Otros') #<< 
     
   )
 )
@@ -637,13 +746,13 @@ columnas_py = (r.df
 
 🔹 R dataframe:
 
-```{r}
+```{r, eval=modo_notdebug}
 columnas_r %>% head(1) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
-```{r}
+```{r, eval=modo_notdebug}
 py$columnas_py %>% head(1) %>% gt::gt()
 ```
 
@@ -652,7 +761,7 @@ py$columnas_py %>% head(1) %>% gt::gt()
 
 
 .panel[.panel-name[Comparación]
-```{r}
+```{r, eval=modo_notdebug}
 waldo::compare(data.frame(columnas_r),
                data.frame(py$columnas_py))
 ```
@@ -677,9 +786,75 @@ class: inverse, center, middle
 
 ---
 
-```{r}
+.panelset[
+.panel[.panel-name[R]
 
+```{r}
+agg_r <- df %>% 
+  
+  group_by(seccion) %>%
+  
+  summarise(
+    expo_total = sum(expo),
+    impo_total = sum(impo),
+    expo_prom = mean(expo),
+    impo_prom = mean(impo),
+  ) %>%
+  
+  ungroup() %>% 
+  
+  arrange(desc(expo_total))
 ```
+
+]
+
+.panel[.panel-name[Python]
+```{python}
+agg_py = (df_py
+
+  .groupby('seccion', as_index=False)
+  
+  .agg(
+     expo_total = ('expo','sum' ), 
+     impo_total = ('impo','sum' ), 
+     expo_prom  = ('expo','mean'), 
+     impo_prom  = ('impo','mean')
+   )
+   
+   .sort_values('expo_total', ascending=False)
+   
+   .reset_index(drop=True)
+)
+```
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+```{r, eval=modo_notdebug}
+agg_r %>% head(2) %>% gt::gt()
+```
+
+🔹 Pandas dataframe: 
+
+```{r, eval=modo_notdebug}
+py$agg_py %>% head(2) %>% gt::gt()
+```
+
+]
+
+
+
+.panel[.panel-name[Comparación]
+```{r, eval=modo_notdebug}
+waldo::compare(data.frame(agg_r),
+               data.frame(py$agg_py))
+```
+
+]
+
+]
 
 
 ---
@@ -741,13 +916,13 @@ wider_py = (r.df
 
 🔹 R dataframe:
 
-```{r}
+```{r, eval=modo_notdebug}
 wider_r %>% head(2) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
-```{r}
+```{r, eval=modo_notdebug}
 py$wider_py %>% head(2) %>% gt::gt()
 ```
 
@@ -756,7 +931,7 @@ py$wider_py %>% head(2) %>% gt::gt()
 
 
 .panel[.panel-name[Comparación]
-```{r}
+```{r, eval=modo_notdebug}
 waldo::compare(data.frame(wider_r),
                data.frame(py$wider_py))
 ```
@@ -809,13 +984,13 @@ longer_py = (wider_py
 
 🔹 R dataframe:
 
-```{r}
+```{r, eval=modo_notdebug}
 longer_r %>% head(2) %>% gt::gt()
 ```
 
 🔹 Pandas dataframe: 
 
-```{r}
+```{r, eval=modo_notdebug}
 py$longer_py %>% head(2) %>% gt::gt()
 ```
 
@@ -824,7 +999,7 @@ py$longer_py %>% head(2) %>% gt::gt()
 
 
 .panel[.panel-name[Comparación]
-```{r}
+```{r, eval=modo_notdebug}
 waldo::compare(data.frame(longer_r),
                data.frame(py$longer_py))
 ```
@@ -846,11 +1021,18 @@ Se definen las secciones relevantes:
 
 ```{r}
 secciones_relevantes <- longer_r %>% 
+  
   group_by(seccion) %>% 
+  
   summarise(expo_4y=sum(expo)) %>% 
+  
   ungroup() %>% 
+  
   arrange(desc(expo_4y)) %>% 
-  top_n(5) %>% pull(seccion)
+  
+  top_n(5) %>% 
+  
+  pull(seccion)
 ```
 
 
@@ -859,35 +1041,54 @@ secciones_relevantes <- longer_r %>%
 .panelset[
 .panel[.panel-name[R]
 
-Reordenando las secciones por el promedio de las exportaciones:
-
-```{r, fig.height=5, fig.width=10}
-longer_r %>% 
-  filter(seccion %in% secciones_relevantes) %>% 
+```{r, fig.height=4, fig.width=12}
+longer_r %>% filter(seccion %in% secciones_relevantes) %>% 
+  
   ggplot(aes(x=expo, y=reorder(seccion, expo)))+
-    geom_boxplot()
+    geom_boxplot()+
+    scale_x_continuous(labels = scales::unit_format(unit = "M", scale = 1e-6))+
+    labs(title='Variación en las principales exportaciones entre 2017 y 2020',
+         x='Exportaciones (USD)',
+         y='Sección') +
+    theme_bw() 
 ```
 
 ]
 
 .panel[.panel-name[Python]
 
-.details[
-```{python, out.width='50%', fig.align='center', code_folding=TRUE}
-temp = longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
-
-orden = (temp.groupby('seccion', as_index=False).expo.mean()
-  .sort_values('expo', ascending=False)['seccion'])
+```{python, echo=FALSE}
+orden = (longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
+  .groupby('seccion', as_index=False)
+  .expo
+  .mean()
+  .sort_values('expo', ascending=False)
+  .seccion
+)
 ```
-]
 
 
+```{python, out.width='100%', out.height='60%', fig.align='center', fig.width=10, fig.height=5, message=FALSE, results='hide', collapse=TRUE}
+plt.figure(figsize=(13,4))
 
-```{python, out.width='50%', fig.align='center', out.height='50%', fig.width=10, fig.height=5}
-sns.boxplot(x="expo", y="seccion", data=temp, order = orden)
+(longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
+  
+   .pipe((sns.boxplot,"data"), 
+        x="expo",  y="seccion", order=orden, color='white')
+        
+   .set(xlabel = "Exportaciones (USD)", ylabel='Sección', 
+        title = 'Variación en las principales exportaciones entre 2017 y 2020')
+)
+plt.show()
 ```
-]
 
+
+```{python, echo=FALSE}
+plt.close('all')
+```
+
+
+]
 ]
 
 ---
@@ -959,37 +1160,118 @@ modelo.tables[2]
 
 ---
 
-```{r}
-py$modelo$tables[[1]] %>% gt() %>% 
-  
-  #fmt_number(everything(),decimals = 2) %>% 
-  
-  tab_header(title=md('**Tabla 1:** Modelo OLS'),
-             
-             subtitle = 'Statsmodels (python) a R') %>% 
-  
-  opt_align_table_header('left')
-```
+Comparando los `coeficientes` ajustando el modelo de regresión lineal con python o R:
 
----
+.panelset[
+.panel[.panel-name[Regresión en Python]
 
 ```{r}
 py$modelo$tables[[2]] %>% gt() %>% 
   
-  fmt_number(everything(),decimals = 2) %>% 
+  fmt_number(everything(), decimals = 3) %>% 
   
-  tab_header(title=md('**Tabla 2:** Modelo OLS'),
-             
+  tab_header(title=md('**Tabla:** Modelo OLS'),
+             subtitle = 'Statsmodels (python) a R') %>% 
+  
+  opt_align_table_header('left')
+```
+]
+
+.panel[.panel-name[Regresión en R]
+
+```{r}
+lm(formula = epc ~ gdp, data = pers_con) %>% 
+  
+  gtsummary::tbl_regression(intercept=TRUE) %>% 
+  
+  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %>% 
+  
+  gtsummary::as_gt() %>% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'), 
+             subtitle='R Base') %>% 
+  
+  opt_align_table_header('left')
+```
+]
+
+.panel[.panel-name[Comparación]
+
+Modelo python: 
+```{r, echo=FALSE}
+py$modelo$tables[[2]] %>% gt() %>% 
+  
+  fmt_number(everything(), decimals = 2) %>% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'),
              subtitle = 'Statsmodels (python) a R') %>% 
   
   opt_align_table_header('left')
 ```
 
+Modelo R: 
 
+```{r, echo=FALSE}
+lm(formula = epc ~ gdp, data = pers_con) %>% 
+  
+  gtsummary::tbl_regression(intercept=TRUE) %>% 
+  
+  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %>% 
+  
+  gtsummary::as_gt() %>% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'), 
+             subtitle='R Base') %>% 
+  
+  opt_align_table_header('left')
+```
+]
+]
 
 ---
 
-```{r}
+class: center, middle
+
+# Comentarios finales
+
+---
+
+Cosas que quiero que se lleven de este workshop:
+
+- R y python pueden ser complementarios
+
+- Tidyverse y pandas son bastante similares
+
+- El lenguaje utilizado no es un fin en sí mismo, sino que es un medio para resolver algo
+
+- Algunas configuraciones que mostré en segundos me llevaron mucho tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
+
+---
+
+# Links utiles
+
+https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
+
+---
+
+class: inverse, center, middle
+
+# Contacto
+
+<a href="https://karbartolome-blog.netlify.com"><i class="fa fa-link fa-fw"></i>&nbsp; karbartolome-blog.netlify.com</a><br>
+<a href="http://twitter.com/karbartolome"><i class="fa fa-twitter fa-fw"></i>&nbsp; @karbartolome</a><br>
+<a href="http://github.com/karbartolome"><i class="fa fa-github fa-fw"></i>&nbsp; @karbartolome</a><br>
+
+---
+
+
+class: center, middle
+
+# Muchas gracias!!
+
+Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
+
+```{r, echo=FALSE}
 knitr::knit_exit()
 ```
 
@@ -1076,31 +1358,6 @@ py$modelo$predict_proba(wider_r %>% select(expo_2019, impo_2019))
 ```
 
 
-
----
-
-# Links utiles
-
-https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
-
----
-
-class: inverse, center, middle
-
-# Contacto
-
-<a href="https://karbartolome-blog.netlify.com"><i class="fa fa-link fa-fw"></i>&nbsp; karbartolome-blog.netlify.com</a><br>
-<a href="http://twitter.com/karbartolome"><i class="fa fa-twitter fa-fw"></i>&nbsp; @karbartolome</a><br>
-<a href="http://github.com/karbartolome"><i class="fa fa-github fa-fw"></i>&nbsp; @karbartolome</a><br>
-
----
-
-
-class: center, middle
-
-# Muchas gracias!!
-
-Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
 
 
 

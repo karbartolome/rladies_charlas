@@ -72,16 +72,18 @@ yrpc <- ots_create_tidy_data(
 datatable(yrpc)
 
 
-write.csv(yrpc %>% 
+readr::write_csv(yrpc %>% 
           select(
+            year,
             reporter = reporter_fullname_english, 
             partner = partner_fullname_english,
             commodity_code, 
-            expo=trade_value_usd_exp,
-            impo=trade_value_usd_imp)
-          , 'data/df_arg_mx.csv', row.names=FALSE, fileEncoding='UTF-8')
-write.csv(secciones, 'data/df_secciones.csv', row.names=FALSE, fileEncoding='UTF-8')
-
+            section_code,
+            trade_value_usd_exp,
+            trade_value_usd_imp)
+          , 'data/df_arg_mx.csv')
+write.csv(secciones, 'data/df_secciones.csv', row.names=FALSE, fileEncoding = "UTF-8")
+write.csv(commodities, 'data/df_commodities.csv', row.names=FALSE, fileEncoding = "UTF-8")
 
 
 # Análisis ----------------------------------------------------------------
@@ -182,3 +184,35 @@ mexico <-  yrpc %>%
 ots_sections_colors
 
 
+
+
+
+
+
+
+
+
+
+
+pers_con = data.frame (
+  year = c(1960:2005),
+  epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
+             2007.7, 2121.8, 2185.0, 2310.5, 2396.4,
+              2451.9, 2545.5, 2701.3, 2833.8, 2812.3,
+             2876.9, 3035.5, 3164.1, 3303.1, 3383.4,
+              3374.1, 3422.2, 3470.3, 3668.6, 3863.3,
+             4064.0, 4228.9, 4369.8, 4546.9, 4675.0,
+              4770.3, 4778.4, 4934.8, 5099.8, 5290.7,
+             5433.5, 5619.4, 5831.8, 6125.8, 6438.6,
+              6739.4, 6910.4, 7099.3, 7259.3, 7577.1,
+             7841.2),
+  gpd = c(2501.8, 2560.0, 2715.2, 2834.0, 2998.6,
+              3191.1, 3399.1, 3484.6, 3652.7, 3765.4,
+               3771.9, 3898.6, 4105.0, 4341.5, 4319.6,
+              4311.2, 4540.9, 4750.5, 5015.0, 5173.4,
+               5161.7, 5291.7, 5189.3, 5423.8, 5813.6,
+              6053.7, 6263.6, 6475.1, 6742.7, 6981.4,
+               7112.5, 7100.5, 7336.6, 7532.7, 7835.5,
+              8031.7, 8328.9, 8703.5, 9066.9, 9470.3,
+               9817.0, 9890.7, 10048.8, 10301.0, 10703.5,
+              11048.6))

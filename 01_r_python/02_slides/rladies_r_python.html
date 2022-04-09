@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>R-Ladies - El uso de múltiples lenguajes en Rmarkdown</title>
+    <title>El uso de múltiples lenguajes en Rmarkdown</title>
     <meta charset="utf-8" />
     <meta name="author" content="Karina Bartolomé" />
     <script src="rladies_r_python_files/header-attrs-2.11/header-attrs.js"></script>
@@ -16,9 +16,27 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# R-Ladies - El uso de múltiples lenguajes en Rmarkdown
-## ⚔<br/>with xaringan
+# El uso de múltiples lenguajes en Rmarkdown
+## ︿<br/>R-Ladies Puebla
 ### Karina Bartolomé
+
+---
+
+
+# ¿Quién soy?
+
+.pull-left[
+
+&lt;img src="images/imagen.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+### Karina Bartolomé
+- Economista (UNLP) 
+- Especialista en métodos cuantitativos (UBA)
+- Data Scientist en Ualá
+]
+
 
 ---
 
@@ -38,49 +56,87 @@ class: center, inverse
  
 #  Múltiples lenguajes
 
----
-
-# El uso de diversos lenguajes en rmarkdown
 
 
 
 
 
 &lt;style type="text/css"&gt;
-    /* Table width = 100% max-width */
+/* Table width = 100% max-width */
+.remark-slide table{
+    width: 100%;
+}
 
-    .remark-slide table{
-        width: 100%;
-    }
+/* background-color blanco siempre */
+.remark-slide thead, .remark-slide tr:nth-child(2n) {
+    background-color: white;
+}
 
-    /* Change the background color to white for shaded rows (even rows) */
-
-    .remark-slide thead, .remark-slide tr:nth-child(2n) {
-        background-color: white;
-    }
+/* Incremento en transparencia del color de highlight del código ya que lo uso mucho y así se lee mejor */
+.remark-code-line-highlighted { 
+    background-color: rgba(136, 57, 138, 0.1);
+}
 &lt;/style&gt;
 
 
-Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **chunks** que referencien al lenguaje que se quiere utilizar: 
+
+
+---
+
+# ¿Qué vamos a ver hoy?
+
+--
+
+- El uso de **`python en Rmarkdown`**
+
+--
+
+- Similitudes / diferencias entre R y python, haciendo énfasis en `{tidyverse}`📦 y `{pandas}`📦
+
+--
+
+- `{reticulate}` 📦 para utilizar objetos de python en R y de R en python
+
+<a href="https://www.rstudio.com/solutions/r-and-python/">
+<img src="https://embed-ssl.wistia.com/deliveries/1ca77c655c94d9287cc23eac9995c785.jpg" width="50%" style="display: block; margin-left: auto; margin-right: auto;"/>
+</a>
+
+---
+background-position: 50% 50%
+class: inverse, center, middle
+
+# { memes }
+
+.pull-left[
+&lt;img src="memes/r_python.jpg" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="memes/bilingual.jpg" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+# El uso de diversos lenguajes en rmarkdown
+
+Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
 
 ````
 ```{r}
-# Acá se escribe código R
+# Acá se escribe código R 
 ```
 ````
-
 ````
 ```{python}
 # Acá se escribe código Python
 ```
 ````
-
 ````
 ```{julia}
-# Acá se escribe código Python
+# Acá se escribe código Julia
 ```
 ````
-
 ````
 ```{sql}
 # Acá se escribe sql
@@ -93,43 +149,23 @@ Etc.
 
 # R en Rmarkdown
 
-🔹 En **Rmarkdown**, se utiliza un chunk R para cargar las librerías R:
+🔹 En **Rmarkdown**, se utiliza un chunk R para cargar los paquetes R 📦
 
 
 ```r
-library(reticulate) # Para Python
-library(tidyverse)  
-library(gt) # Para tablas
+library(reticulate) # python
+library(tidyverse)  # manipulación de datos
+library(gt)         # tablas
 ```
 
 ---
 
-```r
-ggplot(iris) +
-  aes(x = Sepal.Length) +
-* geom_histogram(
-*   binwidth = 0.25
-* )
-```
 
-![](rladies_r_python_files/figure-html/example-plot-1.png)&lt;!-- --&gt;
 
----
-
-```r
-* iris %&gt;% 
-*   ggplot() + 
-  aes(x = {{ Sepal.Length }} ) + 
-  geom_histogram(binwidth = 0.25) 
-```
-
----
 
 # Python en Rmarkdown
 
-1.   Definir un `conda environment` a utilizar. 
-
-En este caso, se creó un environment específico para este proyecto. 
+🔹 Definir un `conda environment` a utilizar. 
 
 
 ```r
@@ -137,15 +173,40 @@ reticulate::conda_create(envname='rladies',
                          python_version="3.8.8")
 ```
 
--   Desde Anaconda, en la solapa de **Environments**, se selecciona el environment creado y se abre la terminal. Desde ahí, se activa con: `conda activate rladies`
+-------------------------------------
 
-Luego de finalizar el proyecto es posible eliminar este environment desde Anaconda para liberar espacio, ya que los paquetes se irán instalando en ese environment. 
+🔹 Desde la terminal, ejecutar los siguientes comandos:
+
+.panelset[
+.panel[.panel-name[conda env list]
+
+Se visualizan los environments con `conda env list`
+
+]
+
+.panel[.panel-name[conda activate]
+
+Se activa con: `conda activate rladies`
+
+]
+
+.panel[.panel-name[conda remove]
+
+Si se quiere remover el environment, primero es necesario activar el environment base, y luego se remueve el environment creado:
+
+- Se activa el environment base: `conda activate`
+
+- Se remueve el environment: `conda remove --name rladies --all`
+
+]
+
+]
 
 ---
 
 # Python en Rmarkdown
 
-2. Se instalan los paquetes a utilizar. En este caso, lo hice desde la terminal del environment desde Anaconda:
+🔹 Se instalan los paquetes 📦 a utilizar. En este caso, lo hice desde la terminal, teniendo activado el environment:
 
     -   [x] ➕ **numpy**: conda install numpy
 
@@ -153,10 +214,13 @@ Luego de finalizar el proyecto es posible eliminar este environment desde Anacon
     
     -   [x] 📊 **seaborn**: conda install seaborn
     
-    -   [x] **statsmodels**: conda install -c anaconda statsmodels
+    -   [x] 🔬 **statsmodels**: conda install -c anaconda statsmodels
+    
+También es posible realizar la instalación de paquetes con la función `conda_install` de {reticulate} 📦 , aunque yo siempre lo hice desde la terminal. 
 
+---
 
-3. Se define que el environment a utilizar es el que ha sido creado:
+🔹Se define que el environment a utilizar es el que ha sido creado: 
 
 
 ```r
@@ -165,30 +229,34 @@ reticulate::use_condaenv(condaenv = 'rladies',
 ```
 
 
+🔹Se utiliza un `chunk python` para cargar los paquetes `python`:
+
+
+```python
+import pandas as pd             # manipulación de datos
+import numpy as np              # manipulación de datos
+import matplotlib.pyplot as plt # visualización
+import seaborn as sns           # visualización
+```
+
+
+
+
 ---
 
-🔹Se utiliza un chunk python para cargar las librerías de python:
+# Diferentes objetos:
 
 
-```python
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-```
-
-
-
-```python
-sns.set_theme(style="ticks", palette="pastel")
-
-pd.set_option('display.max_columns', 10)
-pd.set_option('display.max_colwidth', 20)
-
-pd.set_option('display.float_format', lambda x: '%.2f' % x)
-```
-
-
+| R                      | Python            | Examples                                         |
+|:-----------------------|:------------------|:-------------------------------------------------|
+| Single-element vector  | Scalar            | `1`, `1L`, `TRUE`, `"foo"`                       |
+| Multi-element vector   | List              | `c(1.0, 2.0, 3.0)`, `c(1L, 2L, 3L)`              |
+| List of multiple types | Tuple             | `list(1L, TRUE, "foo")`                          |
+| Named list             | Dict              | `list(a = 1L, b = 2.0)`, `dict(x = x_data)`      |
+| Matrix/Array           | NumPy ndarray     | `matrix(c(1,2,3,4), nrow = 2, ncol = 2)`         |
+| Data Frame             | Pandas DataFrame  | `data.frame(x = c(1,2,3), y = c("a", "b", "c"))` |
+| Function               | Python function   | `function(x) x + 1`                              |
+| NULL, TRUE, FALSE      | None, True, False | `NULL`, `TRUE`, `FALSE`                          |
 
 
 ---
@@ -285,7 +353,7 @@ variables = ['year','commodity_code','trade_value_usd_exp']
 
 .panelset[
 
-.panel[.panel-name[R con objeto Python]
+.panel[.panel-name[R con objeto Python ]
 
 ````
 ```{r}
@@ -408,7 +476,7 @@ freq         5687    5687              4         1401
 ```r
 py$df_comercio_pd %&gt;% 
   select(where(is.numeric)) %&gt;% 
-  skimr::skim() %&gt;% 
+* skimr::skim() %&gt;%
   select(-skim_type, -complete_rate) %&gt;% 
   gt() %&gt;% 
   tab_header(title=md('**Comercio exterior**: Argentina y México'), 
@@ -417,12 +485,12 @@ py$df_comercio_pd %&gt;%
   fmt_number(columns=3:4) 
 ```
 
-<div id="dahbwyxvyw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xiieczhffr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#dahbwyxvyw .gt_table {
+#xiieczhffr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -447,7 +515,7 @@ py$df_comercio_pd %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_heading {
+#xiieczhffr .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -459,7 +527,7 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_title {
+#xiieczhffr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -469,7 +537,7 @@ py$df_comercio_pd %&gt;%
   border-bottom-width: 0;
 }
 
-#dahbwyxvyw .gt_subtitle {
+#xiieczhffr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -479,13 +547,13 @@ py$df_comercio_pd %&gt;%
   border-top-width: 0;
 }
 
-#dahbwyxvyw .gt_bottom_border {
+#xiieczhffr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_col_headings {
+#xiieczhffr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -500,7 +568,7 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_col_heading {
+#xiieczhffr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -520,7 +588,7 @@ py$df_comercio_pd %&gt;%
   overflow-x: hidden;
 }
 
-#dahbwyxvyw .gt_column_spanner_outer {
+#xiieczhffr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -532,15 +600,15 @@ py$df_comercio_pd %&gt;%
   padding-right: 4px;
 }
 
-#dahbwyxvyw .gt_column_spanner_outer:first-child {
+#xiieczhffr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dahbwyxvyw .gt_column_spanner_outer:last-child {
+#xiieczhffr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dahbwyxvyw .gt_column_spanner {
+#xiieczhffr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -552,7 +620,7 @@ py$df_comercio_pd %&gt;%
   width: 100%;
 }
 
-#dahbwyxvyw .gt_group_heading {
+#xiieczhffr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -574,7 +642,7 @@ py$df_comercio_pd %&gt;%
   vertical-align: middle;
 }
 
-#dahbwyxvyw .gt_empty_group_heading {
+#xiieczhffr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -589,15 +657,15 @@ py$df_comercio_pd %&gt;%
   vertical-align: middle;
 }
 
-#dahbwyxvyw .gt_from_md > :first-child {
+#xiieczhffr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dahbwyxvyw .gt_from_md > :last-child {
+#xiieczhffr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dahbwyxvyw .gt_row {
+#xiieczhffr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -616,7 +684,7 @@ py$df_comercio_pd %&gt;%
   overflow-x: hidden;
 }
 
-#dahbwyxvyw .gt_stub {
+#xiieczhffr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -628,7 +696,7 @@ py$df_comercio_pd %&gt;%
   padding-left: 12px;
 }
 
-#dahbwyxvyw .gt_summary_row {
+#xiieczhffr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -638,7 +706,7 @@ py$df_comercio_pd %&gt;%
   padding-right: 5px;
 }
 
-#dahbwyxvyw .gt_first_summary_row {
+#xiieczhffr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -648,7 +716,7 @@ py$df_comercio_pd %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_grand_summary_row {
+#xiieczhffr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -658,7 +726,7 @@ py$df_comercio_pd %&gt;%
   padding-right: 5px;
 }
 
-#dahbwyxvyw .gt_first_grand_summary_row {
+#xiieczhffr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -668,11 +736,11 @@ py$df_comercio_pd %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_striped {
+#xiieczhffr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dahbwyxvyw .gt_table_body {
+#xiieczhffr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -681,7 +749,7 @@ py$df_comercio_pd %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_footnotes {
+#xiieczhffr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -695,13 +763,13 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_footnote {
+#xiieczhffr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#dahbwyxvyw .gt_sourcenotes {
+#xiieczhffr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -715,41 +783,41 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#dahbwyxvyw .gt_sourcenote {
+#xiieczhffr .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#dahbwyxvyw .gt_left {
+#xiieczhffr .gt_left {
   text-align: left;
 }
 
-#dahbwyxvyw .gt_center {
+#xiieczhffr .gt_center {
   text-align: center;
 }
 
-#dahbwyxvyw .gt_right {
+#xiieczhffr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dahbwyxvyw .gt_font_normal {
+#xiieczhffr .gt_font_normal {
   font-weight: normal;
 }
 
-#dahbwyxvyw .gt_font_bold {
+#xiieczhffr .gt_font_bold {
   font-weight: bold;
 }
 
-#dahbwyxvyw .gt_font_italic {
+#xiieczhffr .gt_font_italic {
   font-style: italic;
 }
 
-#dahbwyxvyw .gt_super {
+#xiieczhffr .gt_super {
   font-size: 65%;
 }
 
-#dahbwyxvyw .gt_footnote_marks {
+#xiieczhffr .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -893,15 +961,15 @@ class: inverse, center, middle
 ```r
 df &lt;- df_comercio %&gt;% 
   
-  # Left join con datos de commodities
-  left_join(df_commodities %&gt;% 
-              select(commodity_code, 
-                     commodity_fullname_english, 
-                     group_fullname_english), 
-            by='commodity_code') %&gt;% 
-  
-  # Left join con secciones
-  left_join(df_secciones) %&gt;%
+* # Left join con datos de commodities
+* left_join(df_commodities %&gt;%
+*             select(commodity_code,
+*                    commodity_fullname_english,
+*                    group_fullname_english),
+*           by='commodity_code') %&gt;%
+*  
+* # Left join con secciones
+* left_join(df_secciones) %&gt;%
   
   # Selección de variables y renombrarlas
   select(
@@ -927,14 +995,14 @@ Joining, by = "section_code"
 ```python
 df_py = (r.df_comercio
 
-  # Left join con datos de commodities
-  .merge(r.df_commodities[['commodity_code', 
-                           'commodity_fullname_english', 
-                           'group_fullname_english']], 
-         on='commodity_code')
-         
-  # Left join con secciones
-  .merge(r.df_secciones, on='section_code')
+* # Left join con datos de commodities
+* .merge(r.df_commodities[['commodity_code',
+*                          'commodity_fullname_english',
+*                          'group_fullname_english']],
+*        on='commodity_code', how='left')
+*  
+* # Left join con secciones
+* .merge(r.df_secciones, on='section_code', how='left')
   
   # Renombrar variables
   .rename({
@@ -1743,17 +1811,17 @@ class: inverse, center, middle
 ```r
 filtro_r &lt;- df %&gt;% 
   
-  filter(
-    
-    # Condición simple (equivalencia)
-    año == 2019 &amp;
-      
-    # Condición OR con función quantile()
-    (expo   &gt; quantile(df$expo,0.6) | 
-     impo   &gt; quantile(df$impo,0.6) ) &amp;
-    
-    # Filtro por expresión regular
-    str_detect(tolower(commodity), 'metal')
+* filter(
+*  
+*   # Condición simple (equivalencia)
+*   año == 2019 &amp;
+*  
+*   # Condición OR con función quantile()
+*   (expo   &gt; quantile(df$expo,0.6) |
+*    impo   &gt; quantile(df$impo,0.6) ) &amp;
+*  
+*   # Filtro por expresión regular
+*   str_detect(tolower(commodity), 'metal')
   )
 ```
 
@@ -1772,8 +1840,8 @@ filtro_py = (r.df
           impo   &gt; impo.quantile(0.6)) and            \
                                                       \
          commodity.str.lower().str.contains('metal')
-        """, 
-        engine='python') 
+        """,  
+        engine='python')                              
         
   .reset_index(drop=True)
 )
@@ -2574,22 +2642,22 @@ class: inverse, center, middle
 ```r
 columnas_r &lt;- df %&gt;% 
   
-  mutate(
+  mutate( 
     
     # Cálculo
-    expo_netas = expo - impo,
-    
+*   expo_netas = expo - impo,
+                              
     # If else
-    d_2020 = ifelse(año==2020,1,0),
+*   d_2020 = ifelse(año==2020,1,0),
     
     # Case when
-    categoria_extra = case_when(
+*   categoria_extra = case_when(
+*  
+*     str_detect(commodity,'metal|machines') ~ 'Metal &amp; maquinarias',
+*     str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales',
+*     TRUE ~ 'Otros'
       
-      str_detect(commodity,'metal|machines') ~ 'Metal &amp; maquinarias',
-      str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales',
-      TRUE ~ 'Otros'
-      
-    )
+    ) 
   )
 ```
 
@@ -2599,25 +2667,24 @@ columnas_r &lt;- df %&gt;%
 
 ```python
 columnas_py = (r.df
-  .assign(
+  .assign(  
     
-    # Cálculo
-    expo_netas      = lambda x: x['expo'] - x['impo'],
+    # Cálculo 
+*   expo_netas      = lambda x: x['expo'] - x['impo'],
     
-    # If else
-    d_2020          = lambda x: np.where(x['año']==2020,1,0),
+    # If else 
+*   d_2020          = lambda x: np.where(x['año']==2020,1,0),
      
-    # Case when
-    categoria_extra = lambda x: np.select(
-      
-      [x['commodity'].str.contains('metal|machines'),
-       x['commodity'].str.contains('animal|food|vegetable')],
-      
-      ['Metal &amp; maquinarias',
-       'Cultivos y animales'],
-    
-      default = 'Otros'
-    )
+    # Case when 
+*   categoria_extra = lambda x: np.select(
+*  
+*     [x['commodity'].str.contains('metal|machines'),
+*      x['commodity'].str.contains('animal|food|vegetable')],
+*  
+*     ['Metal &amp; maquinarias',
+*      'Cultivos y animales'],
+*  
+*     default = 'Otros')
     
   )
 )
@@ -3422,37 +3489,25 @@ class: inverse, center, middle
 
 ---
 
-
-
-
----
-
-class: inverse, center, middle
-
-# 6. Formato wide a long / long a wide (pivot)
-
----
-
-# Pivot wider
-
 .panelset[
 .panel[.panel-name[R]
 
 
 ```r
-wider_r &lt;- df %&gt;% 
+agg_r &lt;- df %&gt;% 
   
-  group_by(seccion, año) %&gt;% 
+  group_by(seccion) %&gt;%
   
-  summarise(expo = sum(expo), .groups = 'keep') %&gt;% 
+  summarise(
+    expo_total = sum(expo),
+    impo_total = sum(impo),
+    expo_prom = mean(expo),
+    impo_prom = mean(impo),
+  ) %&gt;%
   
   ungroup() %&gt;% 
   
-  pivot_wider(names_from=año, 
-              names_prefix='y_',
-              values_from=expo) %&gt;% 
-  
-  arrange(desc(y_2020, y_2019, y_2018, y_2017))
+  arrange(desc(expo_total))
 ```
 
 ]
@@ -3460,23 +3515,20 @@ wider_r &lt;- df %&gt;%
 .panel[.panel-name[Python]
 
 ```python
-wider_py = (r.df
+agg_py = (df_py
 
- .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
- 
- .groupby(['seccion','año'], as_index=False)
- 
- .agg(expo = ('expo','sum'))
- 
- .pivot(index='seccion', 
-        columns='año',
-        values='expo')
+  .groupby('seccion', as_index=False)
   
-  .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
-               ascending=False)
-  
-  .reset_index(drop=False)
-
+  .agg(
+     expo_total = ('expo','sum' ), 
+     impo_total = ('impo','sum' ), 
+     expo_prom  = ('expo','mean'), 
+     impo_prom  = ('impo','mean')
+   )
+   
+   .sort_values('expo_total', ascending=False)
+   
+   .reset_index(drop=True)
 )
 ```
 ]
@@ -3487,7 +3539,7 @@ wider_py = (r.df
 
 
 ```r
-wider_r %&gt;% head(2) %&gt;% gt::gt()
+agg_r %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="vubwfzjhea" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3833,23 +3885,23 @@ wider_r %&gt;% head(2) %&gt;% gt::gt()
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_prom</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">Unspecified</td>
-<td class="gt_row gt_right">96332</td>
-<td class="gt_row gt_right">225954813</td>
-<td class="gt_row gt_right">342756705</td>
-<td class="gt_row gt_right">201113334</td></tr>
-    <tr><td class="gt_row gt_left">Chemical Products</td>
-<td class="gt_row gt_right">114416816</td>
-<td class="gt_row gt_right">73527737</td>
-<td class="gt_row gt_right">65993570</td>
-<td class="gt_row gt_right">65111224</td></tr>
+<td class="gt_row gt_right">769921184</td>
+<td class="gt_row gt_right">48065</td>
+<td class="gt_row gt_right">192480296</td>
+<td class="gt_row gt_right">12016.25</td></tr>
+    <tr><td class="gt_row gt_left">Transportation</td>
+<td class="gt_row gt_right">397349013</td>
+<td class="gt_row gt_right">1883795611</td>
+<td class="gt_row gt_right">2631450</td>
+<td class="gt_row gt_right">12475467.62</td></tr>
   </tbody>
   
   
@@ -3860,7 +3912,7 @@ wider_r %&gt;% head(2) %&gt;% gt::gt()
 
 
 ```r
-py$wider_py %&gt;% head(2) %&gt;% gt::gt()
+py$agg_py %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="qgdmjiltik" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4206,23 +4258,23 @@ py$wider_py %&gt;% head(2) %&gt;% gt::gt()
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_prom</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">Unspecified</td>
-<td class="gt_row gt_right">96332</td>
-<td class="gt_row gt_right">225954813</td>
-<td class="gt_row gt_right">342756705</td>
-<td class="gt_row gt_right">201113334</td></tr>
-    <tr><td class="gt_row gt_left">Chemical Products</td>
-<td class="gt_row gt_right">114416816</td>
-<td class="gt_row gt_right">73527737</td>
-<td class="gt_row gt_right">65993570</td>
-<td class="gt_row gt_right">65111224</td></tr>
+<td class="gt_row gt_right">769921184</td>
+<td class="gt_row gt_right">48065</td>
+<td class="gt_row gt_right">192480296</td>
+<td class="gt_row gt_right">12016.25</td></tr>
+    <tr><td class="gt_row gt_left">Transportation</td>
+<td class="gt_row gt_right">397349013</td>
+<td class="gt_row gt_right">1883795611</td>
+<td class="gt_row gt_right">2631450</td>
+<td class="gt_row gt_right">12475467.62</td></tr>
   </tbody>
   
   
@@ -4236,8 +4288,8 @@ py$wider_py %&gt;% head(2) %&gt;% gt::gt()
 .panel[.panel-name[Comparación]
 
 ```r
-waldo::compare(data.frame(wider_r),
-               data.frame(py$wider_py))
+waldo::compare(data.frame(agg_r),
+               data.frame(py$agg_py))
 ```
 
 ```
@@ -4251,20 +4303,32 @@ v No differences
 
 ---
 
-# Pivot longer
+class: inverse, center, middle
+
+# 6. Formato wide a long / long a wide (pivot)
+
+---
+
+# Pivot wider
 
 .panelset[
 .panel[.panel-name[R]
 
 
 ```r
-longer_r &lt;- wider_r %&gt;% 
+wider_r &lt;- df %&gt;% 
   
-  pivot_longer(-seccion, names_to='año', values_to='expo') %&gt;% 
+  group_by(seccion, año) %&gt;% 
   
-  mutate(año=str_replace(año, 'y_','')) %&gt;% 
+  summarise(expo = sum(expo), .groups = 'keep') %&gt;% 
   
-  arrange(seccion, año)
+  ungroup() %&gt;% 
+  
+  pivot_wider(names_from=año, 
+              names_prefix='y_',
+              values_from=expo) %&gt;% 
+  
+  arrange(desc(y_2020, y_2019, y_2018, y_2017))
 ```
 
 ]
@@ -4272,19 +4336,22 @@ longer_r &lt;- wider_r %&gt;%
 .panel[.panel-name[Python]
 
 ```python
-longer_py = (wider_py
+wider_py = (r.df
 
-  .melt(id_vars='seccion', value_vars=['y_2017','y_2018','y_2019','y_2020'], 
-        value_name='expo')
+ .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
+ 
+ .groupby(['seccion','año'], as_index=False)
+ 
+ .agg(expo = ('expo','sum'))
+ 
+ .pivot(index='seccion', 
+        columns='año',
+        values='expo')
   
-  .assign(año = lambda x: [i.replace('y_','') for i in x['año']], 
-          temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']])
+  .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
+               ascending=False)
   
-  .sort_values(['temp_var','año'])
-  
-  .drop('temp_var',axis=1)
-  
-  .reset_index(drop=True)
+  .reset_index(drop=False)
 
 )
 ```
@@ -4296,7 +4363,7 @@ longer_py = (wider_py
 
 
 ```r
-longer_r %&gt;% head(2) %&gt;% gt::gt()
+wider_r %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="cpexnevbrx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4642,17 +4709,23 @@ longer_r %&gt;% head(2) %&gt;% gt::gt()
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2017</td>
-<td class="gt_row gt_right">17689911</td></tr>
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2018</td>
-<td class="gt_row gt_right">90227077</td></tr>
+    <tr><td class="gt_row gt_left">Unspecified</td>
+<td class="gt_row gt_right">96332</td>
+<td class="gt_row gt_right">225954813</td>
+<td class="gt_row gt_right">342756705</td>
+<td class="gt_row gt_right">201113334</td></tr>
+    <tr><td class="gt_row gt_left">Chemical Products</td>
+<td class="gt_row gt_right">114416816</td>
+<td class="gt_row gt_right">73527737</td>
+<td class="gt_row gt_right">65993570</td>
+<td class="gt_row gt_right">65111224</td></tr>
   </tbody>
   
   
@@ -4663,7 +4736,7 @@ longer_r %&gt;% head(2) %&gt;% gt::gt()
 
 
 ```r
-py$longer_py %&gt;% head(2) %&gt;% gt::gt()
+py$wider_py %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="qrenhwhudy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -5009,17 +5082,23 @@ py$longer_py %&gt;% head(2) %&gt;% gt::gt()
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2017</td>
-<td class="gt_row gt_right">17689911</td></tr>
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2018</td>
-<td class="gt_row gt_right">90227077</td></tr>
+    <tr><td class="gt_row gt_left">Unspecified</td>
+<td class="gt_row gt_right">96332</td>
+<td class="gt_row gt_right">225954813</td>
+<td class="gt_row gt_right">342756705</td>
+<td class="gt_row gt_right">201113334</td></tr>
+    <tr><td class="gt_row gt_left">Chemical Products</td>
+<td class="gt_row gt_right">114416816</td>
+<td class="gt_row gt_right">73527737</td>
+<td class="gt_row gt_right">65993570</td>
+<td class="gt_row gt_right">65111224</td></tr>
   </tbody>
   
   
@@ -5033,8 +5112,8 @@ py$longer_py %&gt;% head(2) %&gt;% gt::gt()
 .panel[.panel-name[Comparación]
 
 ```r
-waldo::compare(data.frame(longer_r),
-               data.frame(py$longer_py))
+waldo::compare(data.frame(wider_r),
+               data.frame(py$wider_py))
 ```
 
 ```
@@ -5048,182 +5127,52 @@ v No differences
 
 ---
 
-class: inverse, center, middle
-
-# 7. Visualización
-
----
-
-Se definen las secciones relevantes: 
-
-
-```r
-secciones_relevantes &lt;- longer_r %&gt;% 
-  group_by(seccion) %&gt;% 
-  summarise(expo_4y=sum(expo)) %&gt;% 
-  ungroup() %&gt;% 
-  arrange(desc(expo_4y)) %&gt;% 
-  top_n(5) %&gt;% pull(seccion)
-```
-
-```
-Selecting by expo_4y
-```
-
-
----
+# Pivot longer
 
 .panelset[
 .panel[.panel-name[R]
 
-Reordenando las secciones por el promedio de las exportaciones:
-
 
 ```r
-longer_r %&gt;% 
-  filter(seccion %in% secciones_relevantes) %&gt;% 
-  ggplot(aes(x=expo, y=reorder(seccion, expo)))+
-    geom_boxplot()
+longer_r &lt;- wider_r %&gt;% 
+  
+  pivot_longer(-seccion, names_to='año', values_to='expo') %&gt;% 
+  
+  mutate(año=str_replace(año, 'y_','')) %&gt;% 
+  
+  arrange(seccion, año)
 ```
-
-![](rladies_r_python_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 
 ]
 
 .panel[.panel-name[Python]
 
-.details[
-
 ```python
-temp = longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
+longer_py = (wider_py
 
-orden = (temp.groupby('seccion', as_index=False).expo.mean()
-  .sort_values('expo', ascending=False)['seccion'])
+  .melt(id_vars='seccion', value_vars=['y_2017','y_2018','y_2019','y_2020'], 
+        value_name='expo')
+  
+  .assign(año = lambda x: [i.replace('y_','') for i in x['año']], 
+          temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']])
+  
+  .sort_values(['temp_var','año'])
+  
+  .drop('temp_var',axis=1)
+  
+  .reset_index(drop=True)
+
+)
 ```
 ]
 
+.panel[.panel-name[Dataframes generados]
 
-
-
-```python
-sns.boxplot(x="expo", y="seccion", data=temp, order = orden)
-```
-
-&lt;img src="rladies_r_python_files/figure-html/Librerías python-1.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
-]
-
-]
-
----
-
-
-Data on Y (Personal Consumption Expenditure) and X (Gross Domestic Product, 1960–2005),
-both in 2000 Billions of Dollars
+🔹 R dataframe:
 
 
 ```r
-pers_con = data.frame (
-  year = c(1960:2005),
-  epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
-             2007.7, 2121.8, 2185.0, 2310.5, 2396.4,
-              2451.9, 2545.5, 2701.3, 2833.8, 2812.3,
-             2876.9, 3035.5, 3164.1, 3303.1, 3383.4,
-              3374.1, 3422.2, 3470.3, 3668.6, 3863.3,
-             4064.0, 4228.9, 4369.8, 4546.9, 4675.0,
-              4770.3, 4778.4, 4934.8, 5099.8, 5290.7,
-             5433.5, 5619.4, 5831.8, 6125.8, 6438.6,
-              6739.4, 6910.4, 7099.3, 7259.3, 7577.1,
-             7841.2),
-  gdp = c(2501.8, 2560.0, 2715.2, 2834.0, 2998.6,
-              3191.1, 3399.1, 3484.6, 3652.7, 3765.4,
-               3771.9, 3898.6, 4105.0, 4341.5, 4319.6,
-              4311.2, 4540.9, 4750.5, 5015.0, 5173.4,
-               5161.7, 5291.7, 5189.3, 5423.8, 5813.6,
-              6053.7, 6263.6, 6475.1, 6742.7, 6981.4,
-               7112.5, 7100.5, 7336.6, 7532.7, 7835.5,
-              8031.7, 8328.9, 8703.5, 9066.9, 9470.3,
-               9817.0, 9890.7, 10048.8, 10301.0, 10703.5,
-              11048.6))
-```
-
----
-
-
-```python
-import statsmodels.formula.api as smf
-
-reg = smf.ols ("epc ~ gdp", r.pers_con).fit()
-
-modelo = reg.summary2()
-```
-
-.panelset[
-.panel[.panel-name[Tabla 1]
-
-
-```python
-modelo.tables[0]
-```
-
-```
-                     0                 1                    2          3
-0               Model:               OLS      Adj. R-squared:      0.998
-1  Dependent Variable:               epc                 AIC:   525.9004
-2                Date:  2022-04-03 11:31                 BIC:   529.5577
-3    No. Observations:                46      Log-Likelihood:    -260.95
-4            Df Model:                 1         F-statistic:  2.779e+04
-5        Df Residuals:                44  Prob (F-statistic):   2.84e-63
-6           R-squared:             0.998               Scale:     5178.3
-```
-]
-
-.panel[.panel-name[Tabla 2]
-
-
-```python
-modelo.tables[1]
-```
-
-```
-            Coef.  Std.Err.      t  P&gt;|t|  [0.025  0.975]
-Intercept -297.02     28.14 -10.56   0.00 -353.73 -240.31
-gdp          0.72      0.00 166.70   0.00    0.71    0.73
-```
-]
-
-.panel[.panel-name[Tabla 3]
-
-
-```python
-modelo.tables[2]
-```
-
-```
-                0      1                  2      3
-0        Omnibus:  1.889     Durbin-Watson:  0.334
-1  Prob(Omnibus):  0.389  Jarque-Bera (JB):  1.488
-2           Skew:  0.440          Prob(JB):  0.475
-3       Kurtosis:  2.950     Condition No.:  17245
-```
-]
-
-]
-
-
-
----
-
-
-```r
-py$modelo$tables[[1]] %&gt;% gt() %&gt;% 
-  
-  #fmt_number(everything(),decimals = 2) %&gt;% 
-  
-  tab_header(title=md('**Tabla 1:** Modelo OLS'),
-             
-             subtitle = 'Statsmodels (python) a R') %&gt;% 
-  
-  opt_align_table_header('left')
+longer_r %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="dgjrmuvspv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -5258,7 +5207,7 @@ py$modelo$tables[[1]] %&gt;% gt() %&gt;%
 
 #dgjrmuvspv .gt_heading {
   background-color: #FFFFFF;
-  text-align: left;
+  text-align: center;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -5565,70 +5514,32 @@ py$modelo$tables[[1]] %&gt;% gt() %&gt;%
 }
 </style>
 <table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="4" class="gt_heading gt_title gt_font_normal" style><strong>Tabla 1:</strong> Modelo OLS</th>
-    </tr>
-    <tr>
-      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
-    </tr>
-  </thead>
+  
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">0</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">1</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">2</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Model:</td>
-<td class="gt_row gt_left">OLS</td>
-<td class="gt_row gt_left">Adj. R-squared:</td>
-<td class="gt_row gt_left">0.998</td></tr>
-    <tr><td class="gt_row gt_left">Dependent Variable:</td>
-<td class="gt_row gt_left">epc</td>
-<td class="gt_row gt_left">AIC:</td>
-<td class="gt_row gt_left">525.9004</td></tr>
-    <tr><td class="gt_row gt_left">Date:</td>
-<td class="gt_row gt_left">2022-04-03 11:31</td>
-<td class="gt_row gt_left">BIC:</td>
-<td class="gt_row gt_left">529.5577</td></tr>
-    <tr><td class="gt_row gt_left">No. Observations:</td>
-<td class="gt_row gt_left">46</td>
-<td class="gt_row gt_left">Log-Likelihood:</td>
-<td class="gt_row gt_left">-260.95</td></tr>
-    <tr><td class="gt_row gt_left">Df Model:</td>
-<td class="gt_row gt_left">1</td>
-<td class="gt_row gt_left">F-statistic:</td>
-<td class="gt_row gt_left">2.779e+04</td></tr>
-    <tr><td class="gt_row gt_left">Df Residuals:</td>
-<td class="gt_row gt_left">44</td>
-<td class="gt_row gt_left">Prob (F-statistic):</td>
-<td class="gt_row gt_left">2.84e-63</td></tr>
-    <tr><td class="gt_row gt_left">R-squared:</td>
-<td class="gt_row gt_left">0.998</td>
-<td class="gt_row gt_left">Scale:</td>
-<td class="gt_row gt_left">5178.3</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2017</td>
+<td class="gt_row gt_right">17689911</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2018</td>
+<td class="gt_row gt_right">90227077</td></tr>
   </tbody>
   
   
 </table>
 </div>
 
----
+🔹 Pandas dataframe: 
 
 
 ```r
-py$modelo$tables[[2]] %&gt;% gt() %&gt;% 
-  
-  fmt_number(everything(),decimals = 2) %&gt;% 
-  
-  tab_header(title=md('**Tabla 2:** Modelo OLS'),
-             
-             subtitle = 'Statsmodels (python) a R') %&gt;% 
-  
-  opt_align_table_header('left')
+py$longer_py %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="qliyukyzph" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -5663,7 +5574,7 @@ py$modelo$tables[[2]] %&gt;% gt() %&gt;%
 
 #qliyukyzph .gt_heading {
   background-color: #FFFFFF;
-  text-align: left;
+  text-align: center;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -5970,9 +5881,1378 @@ py$modelo$tables[[2]] %&gt;% gt() %&gt;%
 }
 </style>
 <table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2017</td>
+<td class="gt_row gt_right">17689911</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2018</td>
+<td class="gt_row gt_right">90227077</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+]
+
+
+
+.panel[.panel-name[Comparación]
+
+```r
+waldo::compare(data.frame(longer_r),
+               data.frame(py$longer_py))
+```
+
+```
+v No differences
+```
+
+]
+
+]
+
+
+---
+
+class: inverse, center, middle
+
+# 7. Visualización
+
+---
+
+Se definen las secciones relevantes: 
+
+
+```r
+secciones_relevantes &lt;- longer_r %&gt;% 
+  
+  group_by(seccion) %&gt;% 
+  
+  summarise(expo_4y=sum(expo)) %&gt;% 
+  
+  ungroup() %&gt;% 
+  
+  arrange(desc(expo_4y)) %&gt;% 
+  
+  top_n(5) %&gt;% 
+  
+  pull(seccion)
+```
+
+```
+Selecting by expo_4y
+```
+
+
+---
+
+.panelset[
+.panel[.panel-name[R]
+
+
+```r
+longer_r %&gt;% filter(seccion %in% secciones_relevantes) %&gt;% 
+  
+  ggplot(aes(x=expo, y=reorder(seccion, expo)))+
+    geom_boxplot()+
+    scale_x_continuous(labels = scales::unit_format(unit = "M", scale = 1e-6))+
+    labs(title='Variación en las principales exportaciones entre 2017 y 2020',
+         x='Exportaciones (USD)',
+         y='Sección') +
+    theme_bw() 
+```
+
+![](rladies_r_python_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+
+]
+
+.panel[.panel-name[Python]
+
+
+
+
+
+```python
+plt.figure(figsize=(13,4))
+```
+
+```{=html}
+(longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
+  
+   .pipe((sns.boxplot,"data"), 
+        x="expo",  y="seccion", order=orden, color='white')
+        
+   .set(xlabel = "Exportaciones (USD)", ylabel='Sección', 
+        title = 'Variación en las principales exportaciones entre 2017 y 2020')
+)
+plt.show()
+```
+
+&lt;img src="rladies_r_python_files/figure-html/Librerías python-1.png" width="100%" height="60%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+]
+]
+
+---
+
+
+Data on Y (Personal Consumption Expenditure) and X (Gross Domestic Product, 1960–2005),
+both in 2000 Billions of Dollars
+
+
+```r
+pers_con = data.frame (
+  year = c(1960:2005),
+  epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
+             2007.7, 2121.8, 2185.0, 2310.5, 2396.4,
+              2451.9, 2545.5, 2701.3, 2833.8, 2812.3,
+             2876.9, 3035.5, 3164.1, 3303.1, 3383.4,
+              3374.1, 3422.2, 3470.3, 3668.6, 3863.3,
+             4064.0, 4228.9, 4369.8, 4546.9, 4675.0,
+              4770.3, 4778.4, 4934.8, 5099.8, 5290.7,
+             5433.5, 5619.4, 5831.8, 6125.8, 6438.6,
+              6739.4, 6910.4, 7099.3, 7259.3, 7577.1,
+             7841.2),
+  gdp = c(2501.8, 2560.0, 2715.2, 2834.0, 2998.6,
+              3191.1, 3399.1, 3484.6, 3652.7, 3765.4,
+               3771.9, 3898.6, 4105.0, 4341.5, 4319.6,
+              4311.2, 4540.9, 4750.5, 5015.0, 5173.4,
+               5161.7, 5291.7, 5189.3, 5423.8, 5813.6,
+              6053.7, 6263.6, 6475.1, 6742.7, 6981.4,
+               7112.5, 7100.5, 7336.6, 7532.7, 7835.5,
+              8031.7, 8328.9, 8703.5, 9066.9, 9470.3,
+               9817.0, 9890.7, 10048.8, 10301.0, 10703.5,
+              11048.6))
+```
+
+---
+
+
+```python
+import statsmodels.formula.api as smf
+
+reg = smf.ols ("epc ~ gdp", r.pers_con).fit()
+
+modelo = reg.summary2()
+```
+
+.panelset[
+.panel[.panel-name[Tabla 1]
+
+
+```python
+modelo.tables[0]
+```
+
+```
+                     0                 1                    2          3
+0               Model:               OLS      Adj. R-squared:      0.998
+1  Dependent Variable:               epc                 AIC:   525.9004
+2                Date:  2022-04-09 00:47                 BIC:   529.5577
+3    No. Observations:                46      Log-Likelihood:    -260.95
+4            Df Model:                 1         F-statistic:  2.779e+04
+5        Df Residuals:                44  Prob (F-statistic):   2.84e-63
+6           R-squared:             0.998               Scale:     5178.3
+```
+]
+
+.panel[.panel-name[Tabla 2]
+
+
+```python
+modelo.tables[1]
+```
+
+```
+            Coef.  Std.Err.      t  P&gt;|t|  [0.025  0.975]
+Intercept -297.02     28.14 -10.56   0.00 -353.73 -240.31
+gdp          0.72      0.00 166.70   0.00    0.71    0.73
+```
+]
+
+.panel[.panel-name[Tabla 3]
+
+
+```python
+modelo.tables[2]
+```
+
+```
+                0      1                  2      3
+0        Omnibus:  1.889     Durbin-Watson:  0.334
+1  Prob(Omnibus):  0.389  Jarque-Bera (JB):  1.488
+2           Skew:  0.440          Prob(JB):  0.475
+3       Kurtosis:  2.950     Condition No.:  17245
+```
+]
+
+]
+
+
+
+---
+
+Comparando los `coeficientes` ajustando el modelo de regresión lineal con python o R:
+
+.panelset[
+.panel[.panel-name[Regresión en Python]
+
+
+```r
+py$modelo$tables[[2]] %&gt;% gt() %&gt;% 
+  
+  fmt_number(everything(), decimals = 3) %&gt;% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'),
+             subtitle = 'Statsmodels (python) a R') %&gt;% 
+  
+  opt_align_table_header('left')
+```
+
+<div id="wfamneiwpz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wfamneiwpz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wfamneiwpz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wfamneiwpz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wfamneiwpz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wfamneiwpz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wfamneiwpz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wfamneiwpz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wfamneiwpz .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wfamneiwpz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wfamneiwpz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wfamneiwpz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wfamneiwpz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wfamneiwpz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#wfamneiwpz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfamneiwpz .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfamneiwpz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wfamneiwpz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#wfamneiwpz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wfamneiwpz .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#wfamneiwpz .gt_left {
+  text-align: left;
+}
+
+#wfamneiwpz .gt_center {
+  text-align: center;
+}
+
+#wfamneiwpz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wfamneiwpz .gt_font_normal {
+  font-weight: normal;
+}
+
+#wfamneiwpz .gt_font_bold {
+  font-weight: bold;
+}
+
+#wfamneiwpz .gt_font_italic {
+  font-style: italic;
+}
+
+#wfamneiwpz .gt_super {
+  font-size: 65%;
+}
+
+#wfamneiwpz .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla 2:</strong> Modelo OLS</th>
+      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">&minus;297.020</td>
+<td class="gt_row gt_right">28.137</td>
+<td class="gt_row gt_right">&minus;10.556</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">&minus;353.727</td>
+<td class="gt_row gt_right">&minus;240.314</td></tr>
+    <tr><td class="gt_row gt_right">0.721</td>
+<td class="gt_row gt_right">0.004</td>
+<td class="gt_row gt_right">166.702</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">0.713</td>
+<td class="gt_row gt_right">0.730</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+]
+
+.panel[.panel-name[Regresión en R]
+
+
+```r
+lm(formula = epc ~ gdp, data = pers_con) %&gt;% 
+  
+  gtsummary::tbl_regression(intercept=TRUE) %&gt;% 
+  
+  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %&gt;% 
+  
+  gtsummary::as_gt() %&gt;% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'), 
+             subtitle='R Base') %&gt;% 
+  
+  opt_align_table_header('left')
+```
+
+<div id="kjjxayysqn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#kjjxayysqn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kjjxayysqn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kjjxayysqn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kjjxayysqn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kjjxayysqn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kjjxayysqn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kjjxayysqn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kjjxayysqn .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kjjxayysqn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kjjxayysqn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kjjxayysqn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kjjxayysqn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kjjxayysqn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#kjjxayysqn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kjjxayysqn .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kjjxayysqn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kjjxayysqn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#kjjxayysqn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kjjxayysqn .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#kjjxayysqn .gt_left {
+  text-align: left;
+}
+
+#kjjxayysqn .gt_center {
+  text-align: center;
+}
+
+#kjjxayysqn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kjjxayysqn .gt_font_normal {
+  font-weight: normal;
+}
+
+#kjjxayysqn .gt_font_bold {
+  font-weight: bold;
+}
+
+#kjjxayysqn .gt_font_italic {
+  font-style: italic;
+}
+
+#kjjxayysqn .gt_super {
+  font-size: 65%;
+}
+
+#kjjxayysqn .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>R Base</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Característica</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Statistic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>p-valor</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">(Intercept)</td>
+<td class="gt_row gt_center">-297</td>
+<td class="gt_row gt_center">28.1</td>
+<td class="gt_row gt_center">-10.6</td>
+<td class="gt_row gt_center">-354, -240</td>
+<td class="gt_row gt_center"><0.001</td></tr>
+    <tr><td class="gt_row gt_left">gdp</td>
+<td class="gt_row gt_center">0.72</td>
+<td class="gt_row gt_center">0.004</td>
+<td class="gt_row gt_center">167</td>
+<td class="gt_row gt_center">0.71, 0.73</td>
+<td class="gt_row gt_center"><0.001</td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="6">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          SE = Standard Error, CI = Intervalo de confianza
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+]
+
+.panel[.panel-name[Comparación]
+
+Modelo python: 
+<div id="nofxokepqv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#nofxokepqv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nofxokepqv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nofxokepqv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nofxokepqv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nofxokepqv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nofxokepqv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nofxokepqv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nofxokepqv .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nofxokepqv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nofxokepqv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nofxokepqv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nofxokepqv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nofxokepqv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#nofxokepqv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nofxokepqv .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nofxokepqv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nofxokepqv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#nofxokepqv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nofxokepqv .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#nofxokepqv .gt_left {
+  text-align: left;
+}
+
+#nofxokepqv .gt_center {
+  text-align: center;
+}
+
+#nofxokepqv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nofxokepqv .gt_font_normal {
+  font-weight: normal;
+}
+
+#nofxokepqv .gt_font_bold {
+  font-weight: bold;
+}
+
+#nofxokepqv .gt_font_italic {
+  font-style: italic;
+}
+
+#nofxokepqv .gt_super {
+  font-size: 65%;
+}
+
+#nofxokepqv .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
     </tr>
     <tr>
       <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
@@ -6007,14 +7287,443 @@ py$modelo$tables[[2]] %&gt;% gt() %&gt;%
 </table>
 </div>
 
+Modelo R: 
 
+<div id="qrbfvfftob" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#qrbfvfftob .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qrbfvfftob .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qrbfvfftob .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qrbfvfftob .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qrbfvfftob .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qrbfvfftob .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qrbfvfftob .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qrbfvfftob .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qrbfvfftob .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qrbfvfftob .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qrbfvfftob .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qrbfvfftob .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qrbfvfftob .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#qrbfvfftob .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qrbfvfftob .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qrbfvfftob .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qrbfvfftob .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qrbfvfftob .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qrbfvfftob .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qrbfvfftob .gt_left {
+  text-align: left;
+}
+
+#qrbfvfftob .gt_center {
+  text-align: center;
+}
+
+#qrbfvfftob .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qrbfvfftob .gt_font_normal {
+  font-weight: normal;
+}
+
+#qrbfvfftob .gt_font_bold {
+  font-weight: bold;
+}
+
+#qrbfvfftob .gt_font_italic {
+  font-style: italic;
+}
+
+#qrbfvfftob .gt_super {
+  font-size: 65%;
+}
+
+#qrbfvfftob .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>R Base</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Característica</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Statistic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>p-valor</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">(Intercept)</td>
+<td class="gt_row gt_center">-297</td>
+<td class="gt_row gt_center">28.1</td>
+<td class="gt_row gt_center">-10.6</td>
+<td class="gt_row gt_center">-354, -240</td>
+<td class="gt_row gt_center"><0.001</td></tr>
+    <tr><td class="gt_row gt_left">gdp</td>
+<td class="gt_row gt_center">0.72</td>
+<td class="gt_row gt_center">0.004</td>
+<td class="gt_row gt_center">167</td>
+<td class="gt_row gt_center">0.71, 0.73</td>
+<td class="gt_row gt_center"><0.001</td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="6">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          SE = Standard Error, CI = Intervalo de confianza
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+]
+]
+
+---
+
+class: center, middle
+
+# Comentarios finales
+
+---
+
+Cosas que quiero que se lleven de este workshop:
+
+- R y python pueden ser complementarios
+
+- Tidyverse y pandas son bastante similares
+
+- El lenguaje utilizado no es un fin en sí mismo, sino que es un medio para resolver algo
+
+- Algunas configuraciones que mostré en segundos me llevaron mucho tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
+
+---
+
+# Links utiles
+
+https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
+
+---
+
+class: inverse, center, middle
+
+# Contacto
+
+&lt;a href="https://karbartolome-blog.netlify.com"&gt;&lt;i class="fa fa-link fa-fw"&gt;&lt;/i&gt;&amp;nbsp; karbartolome-blog.netlify.com&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://twitter.com/karbartolome"&gt;&lt;i class="fa fa-twitter fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @karbartolome&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://github.com/karbartolome"&gt;&lt;i class="fa fa-github fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @karbartolome&lt;/a&gt;&lt;br&gt;
 
 ---
 
 
-```r
-knitr::knit_exit()
-```
+class: center, middle
+
+# Muchas gracias!!
+
+Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
+
+
 
 
 

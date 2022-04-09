@@ -1,0 +1,47 @@
+---
+title: "R & python: lo mejor de ambos mundos"
+author: "Karina Bartolomé"
+date: '2022-04-06'
+output: html_document
+params:
+    param1: 'Hola'
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE, 
+                      warning = FALSE)
+```
+# Librerías y configuraciones
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(reticulate)
+reticulate::use_condaenv(condaenv = 'rladies', 
+                         required = TRUE)
+```
+
+```{python, code_folding=TRUE}
+import numpy as np
+import pandas as pd
+```
+
+# Uso de parametros 
+
+Se definieron ciertos parametros en el YAML. Para acceder a ellos desde un chunk R, se utiliza el signo $:
+
+```{r}
+params$param1
+```
+
+En cambio, en un chunk python se utiliza {reticulate} para acceder al objeto params (R). 
+Este objeto en R pasa a ser un diccionario, con lo cual se accede a los valores de cada clave mediante el método .get():
+
+```{python}
+print('El objeto params es un', type(r.params))
+print('Mediante get() se obtiene el valor (value) asignado a un param (key)',r.params.get('param1'))
+```
+
+
+
