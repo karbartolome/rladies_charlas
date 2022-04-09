@@ -261,6 +261,10 @@ reticulate::use_condaenv(condaenv = 'rladies',
                          required = TRUE)
 ```
 
+```{r, out.width='45%', echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/its_happening.gif')
+```
+
 
 🔹Se utiliza un `chunk python` para cargar los paquetes `python`:
 
@@ -598,6 +602,10 @@ class: inverse, center, middle
 
 # 3. Filtros
 
+```{r, out_width='50%', echo=FALSE}
+knitr::include_graphics('images/filter.gif')
+```
+
 ---
 .panelset[
 .panel[.panel-name[R]
@@ -683,7 +691,6 @@ waldo::compare(data.frame(filtro_r),
 class: inverse, center, middle
 
 # 3. Nuevas columnas
-
 ---
 
 
@@ -773,16 +780,15 @@ waldo::compare(data.frame(columnas_r),
 
 
 
-
-
-
-
-
 ---
 
 class: inverse, center, middle
 
-# 5. Agregación
+# 5. Agregación / Group by
+
+```{r, out.width='45%', echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/group.gif')
+```
 
 ---
 
@@ -1015,6 +1021,11 @@ class: inverse, center, middle
 
 # 7. Visualización
 
+
+```{r, out_width='50%', echo=FALSE}
+knitr::include_graphics('images/viz.gif')
+```
+
 ---
 
 Se definen las secciones relevantes: 
@@ -1093,11 +1104,20 @@ plt.close('all')
 
 ---
 
+class: inverse, center, middle
+
+# 8. Modelos
+
+```{r, out.width='50%', echo=FALSE}
+knitr::include_graphics('images/yeah_science.gif')
+```
+
+---
 
 Data on Y (Personal Consumption Expenditure) and X (Gross Domestic Product, 1960–2005),
 both in 2000 Billions of Dollars
 
-```{r}
+```{r, code_folding=TRUE}
 pers_con = data.frame (
   year = c(1960:2005),
   epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
@@ -1238,13 +1258,13 @@ class: center, middle
 
 Cosas que quiero que se lleven de este workshop:
 
-- R y python pueden ser complementarios
+- 💜 R y python pueden ser complementarios 💜
 
 - Tidyverse y pandas son bastante similares
 
-- El lenguaje utilizado no es un fin en sí mismo, sino que es un medio para resolver algo
+- **El lenguaje utilizado no es un fin en sí mismo**, sino que es un medio para resolver algo
 
-- Algunas configuraciones que mostré en segundos me llevaron mucho tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
+- Algunas configuraciones que mostré en segundos me llevaron tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
 
 ---
 
