@@ -105,20 +105,20 @@ class: center, inverse
 background-position: 50% 50%
 class: inverse, center, middle
 
-# { memes }
+# { espacio de memes }
 
 .pull-left[
 &lt;img src="memes/r_python.jpg" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="memes/bilingual.jpg" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="memes/byelingual.jpg" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 
 ---
 
-# El uso de diversos lenguajes en rmarkdown
+# El uso de diversos lenguajes en Rmarkdown
 
 Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
 
@@ -159,9 +159,6 @@ library(gt)         # tablas
 ```
 
 ---
-
-
-
 
 # Python en Rmarkdown
 
@@ -246,6 +243,12 @@ import seaborn as sns           # visualización
 
 ---
 
+class: inverse, center, middle
+
+# {cómo se ve lo anterior desde RStudio}
+
+---
+
 # Diferentes objetos:
 
 
@@ -267,27 +270,26 @@ class: inverse, center, middle
 
 # 0. Datos
 
+Se utilizarán datos del comercio bilateral entre Argentina y México
+
+&lt;img src="images/arg_mx.jpg" width="50%" /&gt;
+
+
 ---
 
-Aclaración!
+# Aclaraciones
 
+🔹 Los datos para esta presentación provienen del paquete [{opentradestatistics}](https://docs.ropensci.org/tradestatistics/index.html)
 
-- Los datos para esta presentación provienen del paquete {opentradestatistics}
+🔹 Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí
 
-- Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí. 
-
-- Sin embargo, siempre me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego. 
+🔹 Sin embargo, siempre me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego
 
 
 
 ---
 
 # Lectura de datos con R
-
-🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN
-
-
-
 
 
 ```r
@@ -405,6 +407,9 @@ class: inverse, center, middle
 
 # 1. Estadística descriptiva
 
+
+&lt;img src="images/numbers.gif" width="45%" style="display: block; margin: auto;" /&gt;
+
 ---
 .panelset[
 .panel[.panel-name[R summary]
@@ -487,12 +492,12 @@ py$df_comercio_pd %&gt;%
   fmt_number(columns=3:4) 
 ```
 
-<div id="gopufqrenr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ujppjsvrcj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gopufqrenr .gt_table {
+#ujppjsvrcj .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -517,7 +522,7 @@ py$df_comercio_pd %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_heading {
+#ujppjsvrcj .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -529,7 +534,7 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_title {
+#ujppjsvrcj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -539,7 +544,7 @@ py$df_comercio_pd %&gt;%
   border-bottom-width: 0;
 }
 
-#gopufqrenr .gt_subtitle {
+#ujppjsvrcj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -549,13 +554,13 @@ py$df_comercio_pd %&gt;%
   border-top-width: 0;
 }
 
-#gopufqrenr .gt_bottom_border {
+#ujppjsvrcj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_col_headings {
+#ujppjsvrcj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -570,7 +575,7 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_col_heading {
+#ujppjsvrcj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -590,7 +595,7 @@ py$df_comercio_pd %&gt;%
   overflow-x: hidden;
 }
 
-#gopufqrenr .gt_column_spanner_outer {
+#ujppjsvrcj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -602,15 +607,15 @@ py$df_comercio_pd %&gt;%
   padding-right: 4px;
 }
 
-#gopufqrenr .gt_column_spanner_outer:first-child {
+#ujppjsvrcj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gopufqrenr .gt_column_spanner_outer:last-child {
+#ujppjsvrcj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gopufqrenr .gt_column_spanner {
+#ujppjsvrcj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -622,7 +627,7 @@ py$df_comercio_pd %&gt;%
   width: 100%;
 }
 
-#gopufqrenr .gt_group_heading {
+#ujppjsvrcj .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -644,7 +649,7 @@ py$df_comercio_pd %&gt;%
   vertical-align: middle;
 }
 
-#gopufqrenr .gt_empty_group_heading {
+#ujppjsvrcj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -659,15 +664,15 @@ py$df_comercio_pd %&gt;%
   vertical-align: middle;
 }
 
-#gopufqrenr .gt_from_md > :first-child {
+#ujppjsvrcj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gopufqrenr .gt_from_md > :last-child {
+#ujppjsvrcj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gopufqrenr .gt_row {
+#ujppjsvrcj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -686,7 +691,7 @@ py$df_comercio_pd %&gt;%
   overflow-x: hidden;
 }
 
-#gopufqrenr .gt_stub {
+#ujppjsvrcj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -698,7 +703,7 @@ py$df_comercio_pd %&gt;%
   padding-left: 12px;
 }
 
-#gopufqrenr .gt_summary_row {
+#ujppjsvrcj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -708,7 +713,7 @@ py$df_comercio_pd %&gt;%
   padding-right: 5px;
 }
 
-#gopufqrenr .gt_first_summary_row {
+#ujppjsvrcj .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -718,7 +723,7 @@ py$df_comercio_pd %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_grand_summary_row {
+#ujppjsvrcj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -728,7 +733,7 @@ py$df_comercio_pd %&gt;%
   padding-right: 5px;
 }
 
-#gopufqrenr .gt_first_grand_summary_row {
+#ujppjsvrcj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -738,11 +743,11 @@ py$df_comercio_pd %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_striped {
+#ujppjsvrcj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gopufqrenr .gt_table_body {
+#ujppjsvrcj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -751,7 +756,7 @@ py$df_comercio_pd %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_footnotes {
+#ujppjsvrcj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -765,13 +770,13 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_footnote {
+#ujppjsvrcj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#gopufqrenr .gt_sourcenotes {
+#ujppjsvrcj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -785,41 +790,41 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gopufqrenr .gt_sourcenote {
+#ujppjsvrcj .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#gopufqrenr .gt_left {
+#ujppjsvrcj .gt_left {
   text-align: left;
 }
 
-#gopufqrenr .gt_center {
+#ujppjsvrcj .gt_center {
   text-align: center;
 }
 
-#gopufqrenr .gt_right {
+#ujppjsvrcj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gopufqrenr .gt_font_normal {
+#ujppjsvrcj .gt_font_normal {
   font-weight: normal;
 }
 
-#gopufqrenr .gt_font_bold {
+#ujppjsvrcj .gt_font_bold {
   font-weight: bold;
 }
 
-#gopufqrenr .gt_font_italic {
+#ujppjsvrcj .gt_font_italic {
   font-style: italic;
 }
 
-#gopufqrenr .gt_super {
+#ujppjsvrcj .gt_super {
   font-size: 65%;
 }
 
-#gopufqrenr .gt_footnote_marks {
+#ujppjsvrcj .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -5990,7 +5995,7 @@ longer_r %&gt;% filter(seccion %in% secciones_relevantes) %&gt;%
     theme_bw() 
 ```
 
-![](rladies_r_python_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+![](rladies_r_python_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -6035,118 +6040,25 @@ class: inverse, center, middle
 
 ---
 
-Data on Y (Personal Consumption Expenditure) and X (Gross Domestic Product, 1960–2005),
-both in 2000 Billions of Dollars
+Se utiliza el paquete `{AER}` 📦 (Applied Econometric with R), que contiene un gran número de datasets econométricos. 
+
+En este caso, los datos contienen información sobre resultados educativos, Stock and Watson (2007). Incluyen características sociodemográficas de estudiantes y escuelas en distritos de California. 
 
 
 ```r
-pers_con = data.frame (
-  year = c(1960:2005),
-  epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
-             2007.7, 2121.8, 2185.0, 2310.5, 2396.4,
-              2451.9, 2545.5, 2701.3, 2833.8, 2812.3,
-             2876.9, 3035.5, 3164.1, 3303.1, 3383.4,
-              3374.1, 3422.2, 3470.3, 3668.6, 3863.3,
-             4064.0, 4228.9, 4369.8, 4546.9, 4675.0,
-              4770.3, 4778.4, 4934.8, 5099.8, 5290.7,
-             5433.5, 5619.4, 5831.8, 6125.8, 6438.6,
-              6739.4, 6910.4, 7099.3, 7259.3, 7577.1,
-             7841.2),
-  gdp = c(2501.8, 2560.0, 2715.2, 2834.0, 2998.6,
-              3191.1, 3399.1, 3484.6, 3652.7, 3765.4,
-               3771.9, 3898.6, 4105.0, 4341.5, 4319.6,
-              4311.2, 4540.9, 4750.5, 5015.0, 5173.4,
-               5161.7, 5291.7, 5189.3, 5423.8, 5813.6,
-              6053.7, 6263.6, 6475.1, 6742.7, 6981.4,
-               7112.5, 7100.5, 7336.6, 7532.7, 7835.5,
-              8031.7, 8328.9, 8703.5, 9066.9, 9470.3,
-               9817.0, 9890.7, 10048.8, 10301.0, 10703.5,
-              11048.6))
+library(AER) 
+#data(package='AER') # Lista los datasets disponibles en el paquete AER
 ```
 
----
-
-
-```python
-import statsmodels.formula.api as smf
-
-reg = smf.ols ("epc ~ gdp", r.pers_con).fit()
-
-modelo = reg.summary2()
-```
-
-.panelset[
-.panel[.panel-name[Tabla 1]
-
-
-```python
-modelo.tables[0]
-```
-
-```
-                     0                 1                    2          3
-0               Model:               OLS      Adj. R-squared:      0.998
-1  Dependent Variable:               epc                 AIC:   525.9004
-2                Date:  2022-04-09 10:14                 BIC:   529.5577
-3    No. Observations:                46      Log-Likelihood:    -260.95
-4            Df Model:                 1         F-statistic:  2.779e+04
-5        Df Residuals:                44  Prob (F-statistic):   2.84e-63
-6           R-squared:             0.998               Scale:     5178.3
-```
-]
-
-.panel[.panel-name[Tabla 2]
-
-
-```python
-modelo.tables[1]
-```
-
-```
-            Coef.  Std.Err.      t  P&gt;|t|  [0.025  0.975]
-Intercept -297.02     28.14 -10.56   0.00 -353.73 -240.31
-gdp          0.72      0.00 166.70   0.00    0.71    0.73
-```
-]
-
-.panel[.panel-name[Tabla 3]
-
-
-```python
-modelo.tables[2]
-```
-
-```
-                0      1                  2      3
-0        Omnibus:  1.889     Durbin-Watson:  0.334
-1  Prob(Omnibus):  0.389  Jarque-Bera (JB):  1.488
-2           Skew:  0.440          Prob(JB):  0.475
-3       Kurtosis:  2.950     Condition No.:  17245
-```
-]
-
-]
-
-
-
----
-
-Comparando los `coeficientes` ajustando el modelo de regresión lineal con python o R:
-
-.panelset[
-.panel[.panel-name[Regresión en Python]
+Se cargan los datos, generando una variable adicional de tamaño de la clase: 
 
 
 ```r
-py$modelo$tables[[2]] %&gt;% gt() %&gt;% 
-  
-  fmt_number(everything(), decimals = 3) %&gt;% 
-  
-  tab_header(title=md('**Tabla:** Modelo OLS'),
-             subtitle = 'Statsmodels (python) a R') %&gt;% 
-  
-  opt_align_table_header('left')
+data("CASchools")
+CASchools &lt;- CASchools %&gt;% 
+  mutate(tamaño = (students/teachers))
 ```
+
 
 <div id="wfamneiwpz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
@@ -6180,7 +6092,7 @@ py$modelo$tables[[2]] %&gt;% gt() %&gt;%
 
 #wfamneiwpz .gt_heading {
   background-color: #FFFFFF;
-  text-align: left;
+  text-align: center;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -6489,56 +6401,211 @@ py$modelo$tables[[2]] %&gt;% gt() %&gt;%
 <table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+      <th colspan="9" class="gt_heading gt_title gt_font_normal" style><strong>Tamaño de clase y desempeño en matemática</strong></th>
     </tr>
     <tr>
-      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
+      <th colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Distribución de las variables relevantes</th>
     </tr>
   </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">SD</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Min</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">p25</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Mediana</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Max</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Distribución</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">N faltantes</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">&minus;297.020</td>
-<td class="gt_row gt_right">28.137</td>
-<td class="gt_row gt_right">&minus;10.556</td>
-<td class="gt_row gt_right">0.000</td>
-<td class="gt_row gt_right">&minus;353.727</td>
-<td class="gt_row gt_right">&minus;240.314</td></tr>
-    <tr><td class="gt_row gt_right">0.721</td>
-<td class="gt_row gt_right">0.004</td>
-<td class="gt_row gt_right">166.702</td>
-<td class="gt_row gt_right">0.000</td>
-<td class="gt_row gt_right">0.713</td>
-<td class="gt_row gt_right">0.730</td></tr>
+    <tr><td class="gt_row gt_left">math</td>
+<td class="gt_row gt_right">653.34</td>
+<td class="gt_row gt_right">18.75</td>
+<td class="gt_row gt_right">605.40</td>
+<td class="gt_row gt_right">639.38</td>
+<td class="gt_row gt_right">652.45</td>
+<td class="gt_row gt_right">709.50</td>
+<td class="gt_row gt_left">▁▆▇▃▁</td>
+<td class="gt_row gt_right">0</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_right">19.64</td>
+<td class="gt_row gt_right">1.89</td>
+<td class="gt_row gt_right">14.00</td>
+<td class="gt_row gt_right">18.58</td>
+<td class="gt_row gt_right">19.72</td>
+<td class="gt_row gt_right">25.80</td>
+<td class="gt_row gt_left">▁▃▇▃▁</td>
+<td class="gt_row gt_right">0</td></tr>
   </tbody>
   
   
 </table>
 </div>
-]
 
-.panel[.panel-name[Regresión en R]
+---
+
+
+
+Se busca estimar el coeficiente asociado al tamaño de la clase, definido como la cantidad de estudiantes por la cantidad de profesores. 
 
 
 ```r
-lm(formula = epc ~ gdp, data = pers_con) %&gt;% 
+reg_lineal &lt;- lm(formula = math ~ tamaño, data = CASchools)
+```
+
+Con {equatiomatic} se visualiza la ecuación del modelo:
+
+
+```r
+equatiomatic::extract_eq(reg_lineal, 
+                         greek_colors     = c('black','violet','black'), 
+                         subscript_colors = c('black','violet', 'black'))
+```
+
+$$
+\operatorname{math} = {\color{black}{\alpha}} + {\color{violet}{\beta}}_{{\color{violet}{1}}}(\operatorname{tamaño}) + {\color{black}{\epsilon}}
+$$
+
+También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
+
+
+```r
+equatiomatic::extract_eq(reg_lineal, use_coefs=TRUE)
+```
+
+$$
+\operatorname{\widehat{math}} = 691.42 - 1.94(\operatorname{tamaño})
+$$
+
+---
+
+# Visualmente:
+
+- Ordenada al orígen = `\(\hat{⍺}\)`
+
+- Pendiente = `\(\hat{𝛽}\)`
+
+
+.panelset[
+
+.panel[.panel-name[Gráfico]
+
+![](rladies_r_python_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+
+]
+
+.panel[.panel-name[Código]
+
+
+```r
+m_eq &lt;- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
+prep_eq &lt;- gsub("\\\\_", "-", m_eq)
+prep_eq &lt;- paste("$", as.character(prep_eq), "$", sep = "")
+
+CASchools %&gt;% 
+  ggplot(aes(x=tamaño, y=math))+
+  geom_point()+
+  xlim(c(0,max(CASchools$tamaño)))+
+  stat_smooth(method='lm', color='violet', se=FALSE, fullrange=TRUE)+
+  labs(
+    title = "Relación entre el tamaño de la clase y el desempeño en matemática",
+    subtitle = latex2exp::TeX(prep_eq)
+  )+
+  theme_minimal()
+```
+
+]
+]
+
+
+
+
+---
+
+
+```python
+import statsmodels.formula.api as smf
+
+reg = smf.ols ("math ~ tamaño", r.CASchools).fit()
+
+modelo = reg.summary2()
+```
+
+.panelset[
+
+.panel[.panel-name[Tabla 1]
+
+
+```python
+modelo.tables[0]
+```
+
+```
+                     0                 1                    2          3
+0               Model:               OLS      Adj. R-squared:      0.036
+1  Dependent Variable:              math                 AIC:  3640.9217
+2                Date:  2022-04-09 20:07                 BIC:  3649.0022
+3    No. Observations:               420      Log-Likelihood:    -1818.5
+4            Df Model:                 1         F-statistic:      16.62
+5        Df Residuals:               418  Prob (F-statistic):   5.47e-05
+6           R-squared:             0.038               Scale:     339.08
+```
+]
+
+.panel[.panel-name[Tabla 2]
+
+
+```python
+modelo.tables[1]
+```
+
+```
+           Coef.  Std.Err.     t  P&gt;|t|  [0.025  0.975]
+Intercept 691.42      9.38 73.69   0.00  672.97  709.86
+tamaño     -1.94      0.48 -4.08   0.00   -2.87   -1.00
+```
+]
+
+.panel[.panel-name[Tabla 3]
+
+
+```python
+modelo.tables[2]
+```
+
+```
+                0      1                  2      3
+0        Omnibus:  5.043     Durbin-Watson:  0.216
+1  Prob(Omnibus):  0.080  Jarque-Bera (JB):  4.199
+2           Skew:  0.155          Prob(JB):  0.123
+3       Kurtosis:  2.620     Condition No.:    207
+```
+]
+
+]
+
+
+
+---
+
+Comparando los `coeficientes` ajustando el modelo de regresión lineal con python o R:
+
+.panelset[
+.panel[.panel-name[Regresión en Python]
+
+
+```r
+py$modelo$tables[[2]] %&gt;% tibble::rownames_to_column('Variable') %&gt;% 
   
-  gtsummary::tbl_regression(intercept=TRUE) %&gt;% 
+  gt() %&gt;% 
   
-  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %&gt;% 
+  fmt_number(where(is.numeric), decimals = 3) %&gt;% 
   
-  gtsummary::as_gt() %&gt;% 
-  
-  tab_header(title=md('**Tabla:** Modelo OLS'), 
-             subtitle='R Base') %&gt;% 
+  tab_header(title=md('**Tabla:** Modelo OLS'),
+             subtitle = 'Statsmodels (python) a R') %&gt;% 
   
   opt_align_table_header('left')
 ```
@@ -6884,58 +6951,63 @@ lm(formula = epc ~ gdp, data = pers_con) %&gt;%
 <table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
     </tr>
     <tr>
-      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>R Base</th>
+      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
     </tr>
   </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Característica</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Statistic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>p-valor</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">(Intercept)</td>
-<td class="gt_row gt_center">-297</td>
-<td class="gt_row gt_center">28.1</td>
-<td class="gt_row gt_center">-10.6</td>
-<td class="gt_row gt_center">-354, -240</td>
-<td class="gt_row gt_center"><0.001</td></tr>
-    <tr><td class="gt_row gt_left">gdp</td>
-<td class="gt_row gt_center">0.72</td>
-<td class="gt_row gt_center">0.004</td>
-<td class="gt_row gt_center">167</td>
-<td class="gt_row gt_center">0.71, 0.73</td>
-<td class="gt_row gt_center"><0.001</td></tr>
+    <tr><td class="gt_row gt_left">Intercept</td>
+<td class="gt_row gt_right">691.417</td>
+<td class="gt_row gt_right">9.382</td>
+<td class="gt_row gt_right">73.692</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">672.975</td>
+<td class="gt_row gt_right">709.860</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_right">&minus;1.939</td>
+<td class="gt_row gt_right">0.476</td>
+<td class="gt_row gt_right">&minus;4.077</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">&minus;2.873</td>
+<td class="gt_row gt_right">&minus;1.004</td></tr>
   </tbody>
   
-  <tfoot>
-    <tr class="gt_footnotes">
-      <td colspan="6">
-        <p class="gt_footnote">
-          <sup class="gt_footnote_marks">
-            <em>1</em>
-          </sup>
-           
-          SE = Standard Error, CI = Intervalo de confianza
-          <br />
-        </p>
-      </td>
-    </tr>
-  </tfoot>
+  
 </table>
 </div>
 ]
 
-.panel[.panel-name[Comparación]
+.panel[.panel-name[Regresión en R]
 
-Modelo python: 
+
+```r
+lm(formula = math ~ tamaño, data = CASchools) %&gt;% 
+  
+  gtsummary::tbl_regression(intercept=TRUE) %&gt;% 
+  
+  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %&gt;% 
+  
+  gtsummary::as_gt() %&gt;% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'), 
+             subtitle='R Base') %&gt;% 
+  
+  opt_align_table_header('left')
+```
+
 <div id="nofxokepqv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -7280,39 +7352,55 @@ Modelo python:
       <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
     </tr>
     <tr>
-      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
+      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>R Base</th>
     </tr>
   </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Característica</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Statistic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>p-valor</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">&minus;297.02</td>
-<td class="gt_row gt_right">28.14</td>
-<td class="gt_row gt_right">&minus;10.56</td>
-<td class="gt_row gt_right">0.00</td>
-<td class="gt_row gt_right">&minus;353.73</td>
-<td class="gt_row gt_right">&minus;240.31</td></tr>
-    <tr><td class="gt_row gt_right">0.72</td>
-<td class="gt_row gt_right">0.00</td>
-<td class="gt_row gt_right">166.70</td>
-<td class="gt_row gt_right">0.00</td>
-<td class="gt_row gt_right">0.71</td>
-<td class="gt_row gt_right">0.73</td></tr>
+    <tr><td class="gt_row gt_left">(Intercept)</td>
+<td class="gt_row gt_center">691</td>
+<td class="gt_row gt_center">9.38</td>
+<td class="gt_row gt_center">73.7</td>
+<td class="gt_row gt_center">673, 710</td>
+<td class="gt_row gt_center"><0.001</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_center">-1.9</td>
+<td class="gt_row gt_center">0.476</td>
+<td class="gt_row gt_center">-4.08</td>
+<td class="gt_row gt_center">-2.9, -1.0</td>
+<td class="gt_row gt_center"><0.001</td></tr>
   </tbody>
   
-  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="6">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          SE = Standard Error, CI = Intervalo de confianza
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
 </table>
 </div>
+]
 
-Modelo R: 
+.panel[.panel-name[Comparación]
+
+🔹 Modelo python: 
 
 <div id="qrbfvfftob" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
@@ -7655,6 +7743,387 @@ Modelo R:
 <table class="gt_table">
   <thead class="gt_header">
     <tr>
+      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Intercept</td>
+<td class="gt_row gt_right">691.417</td>
+<td class="gt_row gt_right">9.382</td>
+<td class="gt_row gt_right">73.692</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">672.975</td>
+<td class="gt_row gt_right">709.860</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_right">&minus;1.939</td>
+<td class="gt_row gt_right">0.476</td>
+<td class="gt_row gt_right">&minus;4.077</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">&minus;2.873</td>
+<td class="gt_row gt_right">&minus;1.004</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+🔹 Modelo R: 
+
+<div id="jwlziabxxb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#jwlziabxxb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jwlziabxxb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jwlziabxxb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jwlziabxxb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jwlziabxxb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jwlziabxxb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jwlziabxxb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jwlziabxxb .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jwlziabxxb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jwlziabxxb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jwlziabxxb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jwlziabxxb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jwlziabxxb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#jwlziabxxb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwlziabxxb .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwlziabxxb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jwlziabxxb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jwlziabxxb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jwlziabxxb .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jwlziabxxb .gt_left {
+  text-align: left;
+}
+
+#jwlziabxxb .gt_center {
+  text-align: center;
+}
+
+#jwlziabxxb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jwlziabxxb .gt_font_normal {
+  font-weight: normal;
+}
+
+#jwlziabxxb .gt_font_bold {
+  font-weight: bold;
+}
+
+#jwlziabxxb .gt_font_italic {
+  font-style: italic;
+}
+
+#jwlziabxxb .gt_super {
+  font-size: 65%;
+}
+
+#jwlziabxxb .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
       <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
     </tr>
     <tr>
@@ -7673,16 +8142,16 @@ Modelo R:
   </thead>
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">(Intercept)</td>
-<td class="gt_row gt_center">-297</td>
-<td class="gt_row gt_center">28.1</td>
-<td class="gt_row gt_center">-10.6</td>
-<td class="gt_row gt_center">-354, -240</td>
+<td class="gt_row gt_center">691</td>
+<td class="gt_row gt_center">9.38</td>
+<td class="gt_row gt_center">73.7</td>
+<td class="gt_row gt_center">673, 710</td>
 <td class="gt_row gt_center"><0.001</td></tr>
-    <tr><td class="gt_row gt_left">gdp</td>
-<td class="gt_row gt_center">0.72</td>
-<td class="gt_row gt_center">0.004</td>
-<td class="gt_row gt_center">167</td>
-<td class="gt_row gt_center">0.71, 0.73</td>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_center">-1.9</td>
+<td class="gt_row gt_center">0.476</td>
+<td class="gt_row gt_center">-4.08</td>
+<td class="gt_row gt_center">-2.9, -1.0</td>
 <td class="gt_row gt_center"><0.001</td></tr>
   </tbody>
   
@@ -7706,6 +8175,15 @@ Modelo R:
 ]
 
 ---
+class: inverse, center, middle
+
+# {Algunas cosas adicionales} 
+
+1. {rpy2}: paquete para ejecutar código R en python
+
+2. Renderizar parametrizados que incluyen código R y python
+
+---
 
 class: center, middle
 
@@ -7713,15 +8191,15 @@ class: center, middle
 
 ---
 
-Cosas que quiero que se lleven de este workshop:
+# Cosas que quiero que se lleven de este workshop:
 
 - 💜 R y python pueden ser complementarios 💜
 
-- Tidyverse y pandas son bastante similares
+- Tidyverse y pandas son bastante similares (:
 
 - **El lenguaje utilizado no es un fin en sí mismo**, sino que es un medio para resolver algo
 
-- Algunas configuraciones que mostré en segundos me llevaron tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
+- 👉 Algunas configuraciones que mostré en segundos me llevaron tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
 
 ---
 

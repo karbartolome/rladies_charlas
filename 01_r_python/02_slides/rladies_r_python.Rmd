@@ -124,7 +124,7 @@ image_link(
 background-position: 50% 50%
 class: inverse, center, middle
 
-# { memes }
+# { espacio de memes }
 
 .pull-left[
 ```{r, out.height='100%', out.width='100%',  fig.align='center', echo=FALSE}
@@ -134,14 +134,14 @@ knitr::include_graphics('memes/r_python.jpg')
 
 .pull-right[
 ```{r, out.height='100%', out.width='100%',  fig.align='center', echo=FALSE}
-knitr::include_graphics('memes/bilingual.jpg')
+knitr::include_graphics('memes/byelingual.jpg')
 ```
 ]
 
 
 ---
 
-# El uso de diversos lenguajes en rmarkdown
+# El uso de diversos lenguajes en Rmarkdown
 
 Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
 
@@ -181,22 +181,6 @@ library(gt)         # tablas
 ```
 
 ---
-```{r example-plot, echo=FALSE, eval=FALSE}
-ggplot(iris) +
-  aes(x = Sepal.Length) +
-  geom_histogram(   #<<
-    binwidth = 0.25 #<<
-  )                 #<<
-```
-
-```{r, eval=FALSE, echo=FALSE}
-
-{{ iris %>% }}
-  {{ ggplot() + }}
-  aes(x = {{ Sepal.Length }} ) + 
-  geom_histogram(binwidth = 0.25) 
-          
-```
 
 # Python en Rmarkdown
 
@@ -284,6 +268,12 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x) # 2 decimales
 
 ---
 
+class: inverse, center, middle
+
+# {cómo se ve lo anterior desde RStudio}
+
+---
+
 # Diferentes objetos:
 
 
@@ -305,31 +295,28 @@ class: inverse, center, middle
 
 # 0. Datos
 
+Se utilizarán datos del comercio bilateral entre Argentina y México
+
+```{r, echo=FALSE, out.width='50%'}
+knitr::include_graphics('images/arg_mx.jpg')
+```
+
+
 ---
 
-Aclaración!
+# Aclaraciones
 
+🔹 Los datos para esta presentación provienen del paquete [{opentradestatistics}](https://docs.ropensci.org/tradestatistics/index.html)
 
-- Los datos para esta presentación provienen del paquete {opentradestatistics}
+🔹 Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí
 
-- Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí. 
-
-- Sin embargo, siempre me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego. 
+🔹 Sin embargo, siempre me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego
 
 
 
 ---
 
 # Lectura de datos con R
-
-🔹 Datos de Tidytuesday: Vignettes de paquetes en CRAN
-
-```{r data_1, message=FALSE, echo=FALSE, eval=FALSE}
-df_cran <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-15/cran.csv')
-
-df_task_views <- readr::read_csv('https://raw.githubusercontent.com/karbartolome/cran-packages/main/01_data/df_task_views.csv')
-```
-
 
 ```{r data_comercio, message=FALSE, warning=FALSE}
 df_comercio  <- readr::read_csv('data/df_arg_mx.csv')
@@ -423,6 +410,11 @@ py$df_comercio_pd %>%
 class: inverse, center, middle
 
 # 1. Estadística descriptiva
+
+
+```{r, out.width='45%', echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/numbers.gif')
+```
 
 ---
 .panelset[
@@ -1137,45 +1129,133 @@ knitr::include_graphics('images/yeah_science.gif')
 
 ---
 
-Data on Y (Personal Consumption Expenditure) and X (Gross Domestic Product, 1960–2005),
-both in 2000 Billions of Dollars
+Se utiliza el paquete `{AER}` 📦 (Applied Econometric with R), que contiene un gran número de datasets econométricos. 
 
-```{r, code_folding=TRUE}
-pers_con = data.frame (
-  year = c(1960:2005),
-  epc = c(1597.4, 1630.3, 1711.1, 1781.6, 1888.4,
-             2007.7, 2121.8, 2185.0, 2310.5, 2396.4,
-              2451.9, 2545.5, 2701.3, 2833.8, 2812.3,
-             2876.9, 3035.5, 3164.1, 3303.1, 3383.4,
-              3374.1, 3422.2, 3470.3, 3668.6, 3863.3,
-             4064.0, 4228.9, 4369.8, 4546.9, 4675.0,
-              4770.3, 4778.4, 4934.8, 5099.8, 5290.7,
-             5433.5, 5619.4, 5831.8, 6125.8, 6438.6,
-              6739.4, 6910.4, 7099.3, 7259.3, 7577.1,
-             7841.2),
-  gdp = c(2501.8, 2560.0, 2715.2, 2834.0, 2998.6,
-              3191.1, 3399.1, 3484.6, 3652.7, 3765.4,
-               3771.9, 3898.6, 4105.0, 4341.5, 4319.6,
-              4311.2, 4540.9, 4750.5, 5015.0, 5173.4,
-               5161.7, 5291.7, 5189.3, 5423.8, 5813.6,
-              6053.7, 6263.6, 6475.1, 6742.7, 6981.4,
-               7112.5, 7100.5, 7336.6, 7532.7, 7835.5,
-              8031.7, 8328.9, 8703.5, 9066.9, 9470.3,
-               9817.0, 9890.7, 10048.8, 10301.0, 10703.5,
-              11048.6))
+En este caso, los datos contienen información sobre resultados educativos, Stock and Watson (2007). Incluyen características sociodemográficas de estudiantes y escuelas en distritos de California. 
+
+```{r, message=FALSE, warning=FALSE}
+library(AER) 
+#data(package='AER') # Lista los datasets disponibles en el paquete AER
 ```
+
+Se cargan los datos, generando una variable adicional de tamaño de la clase: 
+
+```{r}
+data("CASchools")
+CASchools <- CASchools %>% 
+  mutate(tamaño = (students/teachers))
+```
+
+
+```{r, echo=FALSE}
+CASchools %>% select(math, tamaño) %>% skimr::skim() %>% 
+  select(Variable = skim_variable,
+         Prom = numeric.mean, 
+         SD = numeric.sd, 
+         Min = numeric.p0,
+         p25 = numeric.p25,
+         Mediana = numeric.p50,
+         Max = numeric.p100,
+         Distribución = numeric.hist, 
+         `N faltantes`=n_missing) %>% 
+  gt() %>% fmt_number(2:7, decimals = 2) %>% 
+  tab_header(title=md('**Tamaño de clase y desempeño en matemática**'),
+             subtitle='Distribución de las variables relevantes') 
+```
+
+---
+
+
+
+Se busca estimar el coeficiente asociado al tamaño de la clase, definido como la cantidad de estudiantes por la cantidad de profesores. 
+
+```{r}
+reg_lineal <- lm(formula = math ~ tamaño, data = CASchools)
+```
+
+Con {equatiomatic} se visualiza la ecuación del modelo:
+
+```{r}
+equatiomatic::extract_eq(reg_lineal, 
+                         greek_colors     = c('black','violet','black'), 
+                         subscript_colors = c('black','violet', 'black'))
+```
+
+También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
+
+```{r}
+equatiomatic::extract_eq(reg_lineal, use_coefs=TRUE)
+```
+
+---
+
+# Visualmente:
+
+- Ordenada al orígen = $\hat{⍺}$
+
+- Pendiente = $\hat{𝛽}$
+
+
+.panelset[
+
+.panel[.panel-name[Gráfico]
+
+```{r, fig.height=4, fig.width=10, echo=FALSE, message=FALSE}
+m_eq <- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
+prep_eq <- gsub("\\\\_", "-", m_eq)
+prep_eq <- paste("$", as.character(prep_eq), "$", sep = "")
+
+CASchools %>% 
+  ggplot(aes(x=tamaño, y=math))+
+  geom_point()+
+  xlim(c(0,max(CASchools$tamaño)))+
+  stat_smooth(method='lm', color='violet', se=FALSE, fullrange=TRUE)+
+  labs(
+    title = "Relación entre el tamaño de la clase y el desempeño en matemática",
+    subtitle = latex2exp::TeX(prep_eq)
+  )+
+  theme_minimal()
+```
+
+]
+
+.panel[.panel-name[Código]
+
+```{r, fig.height=7, fig.width=10, eval=FALSE}
+m_eq <- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
+prep_eq <- gsub("\\\\_", "-", m_eq)
+prep_eq <- paste("$", as.character(prep_eq), "$", sep = "")
+
+CASchools %>% 
+  ggplot(aes(x=tamaño, y=math))+
+  geom_point()+
+  xlim(c(0,max(CASchools$tamaño)))+
+  stat_smooth(method='lm', color='violet', se=FALSE, fullrange=TRUE)+
+  labs(
+    title = "Relación entre el tamaño de la clase y el desempeño en matemática",
+    subtitle = latex2exp::TeX(prep_eq)
+  )+
+  theme_minimal()
+```
+
+]
+]
+
+
+
 
 ---
 
 ```{python}
 import statsmodels.formula.api as smf
 
-reg = smf.ols ("epc ~ gdp", r.pers_con).fit()
+reg = smf.ols ("math ~ tamaño", r.CASchools).fit()
 
 modelo = reg.summary2()
 ```
 
 .panelset[
+
 .panel[.panel-name[Tabla 1]
 
 ```{python}
@@ -1209,9 +1289,11 @@ Comparando los `coeficientes` ajustando el modelo de regresión lineal con pytho
 .panel[.panel-name[Regresión en Python]
 
 ```{r}
-py$modelo$tables[[2]] %>% gt() %>% 
+py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>% 
   
-  fmt_number(everything(), decimals = 3) %>% 
+  gt() %>% 
+  
+  fmt_number(where(is.numeric), decimals = 3) %>% 
   
   tab_header(title=md('**Tabla:** Modelo OLS'),
              subtitle = 'Statsmodels (python) a R') %>% 
@@ -1223,7 +1305,7 @@ py$modelo$tables[[2]] %>% gt() %>%
 .panel[.panel-name[Regresión en R]
 
 ```{r}
-lm(formula = epc ~ gdp, data = pers_con) %>% 
+lm(formula = math ~ tamaño, data = CASchools) %>% 
   
   gtsummary::tbl_regression(intercept=TRUE) %>% 
   
@@ -1240,11 +1322,14 @@ lm(formula = epc ~ gdp, data = pers_con) %>%
 
 .panel[.panel-name[Comparación]
 
-Modelo python: 
+🔹 Modelo python: 
+
 ```{r, echo=FALSE}
-py$modelo$tables[[2]] %>% gt() %>% 
+py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>% 
   
-  fmt_number(everything(), decimals = 2) %>% 
+  gt() %>% 
+  
+  fmt_number(where(is.numeric), decimals = 3) %>% 
   
   tab_header(title=md('**Tabla:** Modelo OLS'),
              subtitle = 'Statsmodels (python) a R') %>% 
@@ -1252,10 +1337,10 @@ py$modelo$tables[[2]] %>% gt() %>%
   opt_align_table_header('left')
 ```
 
-Modelo R: 
+🔹 Modelo R: 
 
 ```{r, echo=FALSE}
-lm(formula = epc ~ gdp, data = pers_con) %>% 
+lm(formula = math ~ tamaño, data = CASchools) %>% 
   
   gtsummary::tbl_regression(intercept=TRUE) %>% 
   
@@ -1272,6 +1357,15 @@ lm(formula = epc ~ gdp, data = pers_con) %>%
 ]
 
 ---
+class: inverse, center, middle
+
+# {Algunas cosas adicionales} 
+
+1. {rpy2}: paquete para ejecutar código R en python
+
+2. Renderizar parametrizados que incluyen código R y python
+
+---
 
 class: center, middle
 
@@ -1279,15 +1373,15 @@ class: center, middle
 
 ---
 
-Cosas que quiero que se lleven de este workshop:
+# Cosas que quiero que se lleven de este workshop:
 
 - 💜 R y python pueden ser complementarios 💜
 
-- Tidyverse y pandas son bastante similares
+- Tidyverse y pandas son bastante similares (:
 
 - **El lenguaje utilizado no es un fin en sí mismo**, sino que es un medio para resolver algo
 
-- Algunas configuraciones que mostré en segundos me llevaron tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
+- 👉 Algunas configuraciones que mostré en segundos me llevaron tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
 
 ---
 

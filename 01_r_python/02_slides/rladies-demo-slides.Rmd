@@ -22,6 +22,29 @@ class: inverse, center, middle
 
 # Keep in touch
 
+---
+<details>
+<summary> Còdigo </summary>
+
+```{r}
+print('hola')
+```
+
+</details>
+
+
+
+
+---
+
+
+
+---
+```{r}
+knitr::knit_exit()
+```
+
+
 <a href="mailto:apresstats@gmail.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; apresstats@gmail.com</a><br>
 <a href="https://apreshill.rbind.io"><i class="fa fa-link fa-fw"></i>&nbsp; apreshill.rbind.io</a><br>
 <a href="http://twitter.com/apreshill"><i class="fa fa-twitter fa-fw"></i>&nbsp; @apreshill</a><br>
