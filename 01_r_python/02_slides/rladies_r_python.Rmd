@@ -499,6 +499,11 @@ class: inverse, center, middle
 
 # 2. Unión de dataframes
 
+```{r, out.width='50%', echo=FALSE}
+knitr::include_graphics('images/union.gif')
+```
+
+
 ---
 .panelset[
 .panel[.panel-name[R]
@@ -691,6 +696,11 @@ waldo::compare(data.frame(filtro_r),
 class: inverse, center, middle
 
 # 3. Nuevas columnas
+
+```{r, out.width='50%', echo=FALSE}
+knitr::include_graphics('images/more.gif')
+```
+
 ---
 
 
@@ -868,6 +878,19 @@ waldo::compare(data.frame(agg_r),
 class: inverse, center, middle
 
 # 6. Formato wide a long / long a wide (pivot)
+
+```{r, out.width='50%', echo=FALSE}
+knitr::include_graphics('images/changes.gif')
+```
+
+
+---
+
+Las transformaciones del formato de los datos permiten visualizar la misma información de diferentes formas: 
+
+```{r, out.width='80%', echo=FALSE}
+knitr::include_graphics('images/pivot.png')
+```
 
 ---
 
@@ -1271,6 +1294,8 @@ Cosas que quiero que se lleven de este workshop:
 # Links utiles
 
 https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
+
+[Comparación entre R y python para ciencia de datos](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ---
 
