@@ -1236,7 +1236,7 @@ equatiomatic::extract_eq(reg_lineal)
 
 ```{r, echo=FALSE}
 equatiomatic::extract_eq(reg_lineal, 
-                         vars_colors      = c('black', '#9f3fb5', 'black'),
+                         vars_colors      = c(tamaño = '#9f3fb5'),
                          greek_colors     = c('black', '#9f3fb5', 'black'), 
                          subscript_colors = c('black', '#9f3fb5', 'black'))
 ```
@@ -1257,10 +1257,11 @@ $$
 ---
 
 # Visualmente:
-Ordenada al orígen = $\hat{⍺}$, pendiente = $\hat{𝛽}$
 
 .panelset[
 .panel[.panel-name[Modelo]
+
+Ordenada al orígen = $\hat{⍺}$, pendiente = $\hat{𝛽}$
 
 ```{r, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
 m_eq <- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
@@ -1317,6 +1318,16 @@ ggplot(data=CASchools)+
     subtitle = latex2exp::TeX(prep_eq))+
   theme_minimal()+theme(legend.position = 'none')
 ```
+]
+
+
+.panel[.panel-name[Eval supuestos Reg Lineal]
+
+```{r, fig.height=5, fig.width=10, echo=FALSE}
+performance::check_model(reg_lineal,
+                         check = c("ncv","normality","outliers", "homogeneity"))
+```
+
 ]
 ]
 
@@ -1443,7 +1454,7 @@ class: inverse, center, middle
 
 1. {rpy2}: paquete para ejecutar código R en python
 
-2. Renderizar parametrizados que incluyen código R y python
+2. Renderizar Rmarkdowns parametrizados que incluyen código R y python
 
 ---
 

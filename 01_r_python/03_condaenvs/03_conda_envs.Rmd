@@ -1,0 +1,120 @@
+---
+title: "R y python - Rladies"
+output: html_document
+date: '2022-04-09'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Conda environments
+
+[Documentación de conda]](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+
+
+# Librerías
+
+```{r}
+#install.packages('reticulate')
+library(reticulate)
+```
+
+Se utiliza {reticulate} para instalar miniconda con:
+
+```{r, eval=FALSE}
+reticulate::install_miniconda()
+```
+
+Se visualiza la versión de python:
+
+```{r}
+reticulate::py_version()
+```
+
+Se visualiza la configuración de python:
+
+```{r, eval=FALSE}
+reticulate::py_config()
+```
+
+
+Se crea un nuevo conda environment, estableciendo la versión de python a utilizar:
+
+```{r, eval=FALSE}
+reticulate::conda_create('rladies-env', 
+                         # En este caso, versión de python que tenemos en RStudio cloud:
+                         python_version = '3.8.13' 
+                         )
+```
+
+# Conda desde la terminal / instalación de paquetes
+
+Para poder ejecutar comandos desde la terminal es necesario ejecutar lo siguiente. Copiar el output del chunk siguiente y pegar en la terminal.
+
+```{r}
+paste0('source ',gsub('C:','',reticulate::miniconda_path()),'/etc/profile.d/conda.sh')
+```
+
+- Se activa el environment creado:
+
+conda activate rladies-env
+
+
+- Se listan los environments, visualizando que está seleccionado el correcto:
+
+conda env list
+
+
+- Se instalan 2 paquetes para probar que funciona correctamente
+
+conda install numpy 
+
+conda install pandas
+
+
+# Uso del conda environment creado
+
+```{r}
+reticulate::use_condaenv(condaenv = 'rladies-env',  
+                         required = TRUE)
+```
+
+Se importan las librerías python instaladas mediante conda en el environment creado:
+
+```{python}
+import numpy as np
+import pandas as pd
+```
+
+Se crea un df en un chunk R:
+
+```{r}
+df = iris
+```
+
+# Se convierte a pandas df, visualizando el resúmen de las variables:
+
+```{python}
+df_pandas = r.df
+
+df_pandas.describe().transpose()
+```
+
+
+# Eliminar el conda environment creado:
+
+- Se retorna al environment base
+
+conda activate
+
+
+- Se elimina el environment creado
+
+conda remove --name rladies-env --all
+
+
+
+- Se listan los environment disponibles
+
+conda env list
