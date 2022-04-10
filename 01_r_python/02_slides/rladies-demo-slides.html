@@ -28,25 +28,74 @@ class: inverse, center, middle
 # Keep in touch
 
 ---
-&lt;details&gt;
-&lt;summary&gt; Còdigo &lt;/summary&gt;
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 50px;
+height: 50px;
+z-index: 0;
+background-image: url(images/github.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('a')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = 'www.google.com.ar'
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+---
+&lt;div style="position: absolute;left:60px;bottom:11px;color:gray;"&gt;Alison Presmanes Hill &lt;/div&gt;
+
 
 
 ```r
-print('hola')
+library(ggplot2)
+ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width))+
+  {{ geom_point() }} + 
+  geom_smooth() 
 ```
 
 ```
-## [1] "hola"
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-&lt;/details&gt;
+![](rladies-demo-slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
 
 
 
 
 ---
 
+Stock JH, Watson MW (2007) `\(^1\)`
+
+&lt;div style="position: absolute;left:60px;bottom:11px;color:gray;font-size:10px"&gt;
+
+ `\(^1\)` Stock JH, Watson MW (2007). Introduction to Econometrics. 2nd edition. Addison-Wesley,
+    Reading, MA. 
+
+&lt;/div&gt;
 
 
 ---

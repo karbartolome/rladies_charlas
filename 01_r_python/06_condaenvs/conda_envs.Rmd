@@ -4,9 +4,6 @@ output: html_document
 date: '2022-04-09'
 ---
 
-
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -32,19 +29,17 @@ reticulate::conda_create('rladies-env',
 paste0('source ',gsub('C:','',reticulate::miniconda_path()),'/etc/profile.d/conda.sh')
 ```
 
-
-https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html 
+<https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>
 
 # Se activa el environment creado:
+
 conda activate rladies-env
 
 # Se listan los environments, visualizando que está seleccionado el correcto
 
 # Se instalan 2 paquetes para probar que funciona correctamente
-conda install numpy
-conda install pandas
 
-
+conda install numpy conda install pandas
 
 # Prueba del conda environment
 
@@ -69,18 +64,14 @@ df_pandas = r.df
 df_pandas.head(2)
 ```
 
-
 # Se retorna al environment base
+
 conda activate
 
 # Se elimina el environment creado
+
 conda remove --name rladies-env --all
 
 # Se listan los environment disponibles
+
 conda env list
-
-
-
-
-
-

@@ -61,6 +61,40 @@ class: center, inverse
 
 
 
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 30px;
+height: 30px;
+z-index: 0;
+background-image: url(images/github.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('a')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = 'https://github.com/karbartolome/rladies_charlas/tree/main/01_r_python'
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
 &lt;style type="text/css"&gt;
 /* Table width = 100% max-width */
 .remark-slide table{
@@ -492,12 +526,12 @@ py$df_comercio_pd %&gt;%
   fmt_number(columns=3:4) 
 ```
 
-<div id="ujppjsvrcj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ypvspotjqc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ujppjsvrcj .gt_table {
+#ypvspotjqc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -522,7 +556,7 @@ py$df_comercio_pd %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_heading {
+#ypvspotjqc .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -534,7 +568,7 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_title {
+#ypvspotjqc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -544,7 +578,7 @@ py$df_comercio_pd %&gt;%
   border-bottom-width: 0;
 }
 
-#ujppjsvrcj .gt_subtitle {
+#ypvspotjqc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -554,13 +588,13 @@ py$df_comercio_pd %&gt;%
   border-top-width: 0;
 }
 
-#ujppjsvrcj .gt_bottom_border {
+#ypvspotjqc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_col_headings {
+#ypvspotjqc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -575,7 +609,7 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_col_heading {
+#ypvspotjqc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -595,7 +629,7 @@ py$df_comercio_pd %&gt;%
   overflow-x: hidden;
 }
 
-#ujppjsvrcj .gt_column_spanner_outer {
+#ypvspotjqc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -607,15 +641,15 @@ py$df_comercio_pd %&gt;%
   padding-right: 4px;
 }
 
-#ujppjsvrcj .gt_column_spanner_outer:first-child {
+#ypvspotjqc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ujppjsvrcj .gt_column_spanner_outer:last-child {
+#ypvspotjqc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ujppjsvrcj .gt_column_spanner {
+#ypvspotjqc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -627,7 +661,7 @@ py$df_comercio_pd %&gt;%
   width: 100%;
 }
 
-#ujppjsvrcj .gt_group_heading {
+#ypvspotjqc .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -649,7 +683,7 @@ py$df_comercio_pd %&gt;%
   vertical-align: middle;
 }
 
-#ujppjsvrcj .gt_empty_group_heading {
+#ypvspotjqc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -664,15 +698,15 @@ py$df_comercio_pd %&gt;%
   vertical-align: middle;
 }
 
-#ujppjsvrcj .gt_from_md > :first-child {
+#ypvspotjqc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ujppjsvrcj .gt_from_md > :last-child {
+#ypvspotjqc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ujppjsvrcj .gt_row {
+#ypvspotjqc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -691,7 +725,7 @@ py$df_comercio_pd %&gt;%
   overflow-x: hidden;
 }
 
-#ujppjsvrcj .gt_stub {
+#ypvspotjqc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -703,7 +737,7 @@ py$df_comercio_pd %&gt;%
   padding-left: 12px;
 }
 
-#ujppjsvrcj .gt_summary_row {
+#ypvspotjqc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -713,7 +747,7 @@ py$df_comercio_pd %&gt;%
   padding-right: 5px;
 }
 
-#ujppjsvrcj .gt_first_summary_row {
+#ypvspotjqc .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -723,7 +757,7 @@ py$df_comercio_pd %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_grand_summary_row {
+#ypvspotjqc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -733,7 +767,7 @@ py$df_comercio_pd %&gt;%
   padding-right: 5px;
 }
 
-#ujppjsvrcj .gt_first_grand_summary_row {
+#ypvspotjqc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -743,11 +777,11 @@ py$df_comercio_pd %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_striped {
+#ypvspotjqc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ujppjsvrcj .gt_table_body {
+#ypvspotjqc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -756,7 +790,7 @@ py$df_comercio_pd %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_footnotes {
+#ypvspotjqc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -770,13 +804,13 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_footnote {
+#ypvspotjqc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#ujppjsvrcj .gt_sourcenotes {
+#ypvspotjqc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -790,41 +824,41 @@ py$df_comercio_pd %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ujppjsvrcj .gt_sourcenote {
+#ypvspotjqc .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#ujppjsvrcj .gt_left {
+#ypvspotjqc .gt_left {
   text-align: left;
 }
 
-#ujppjsvrcj .gt_center {
+#ypvspotjqc .gt_center {
   text-align: center;
 }
 
-#ujppjsvrcj .gt_right {
+#ypvspotjqc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ujppjsvrcj .gt_font_normal {
+#ypvspotjqc .gt_font_normal {
   font-weight: normal;
 }
 
-#ujppjsvrcj .gt_font_bold {
+#ypvspotjqc .gt_font_bold {
   font-weight: bold;
 }
 
-#ujppjsvrcj .gt_font_italic {
+#ypvspotjqc .gt_font_italic {
   font-style: italic;
 }
 
-#ujppjsvrcj .gt_super {
+#ypvspotjqc .gt_super {
   font-size: 65%;
 }
 
-#ujppjsvrcj .gt_footnote_marks {
+#ypvspotjqc .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -917,45 +951,6 @@ py$df_comercio_pd %&gt;%
 
 ---
 
-Las semillas no funcionan igual en r y python, sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varìan los resultados. 
-
-
-
-```r
-set.seed(42)
-df_comercio %&gt;% 
-  sample_n(2) %&gt;% 
-  select(commodity_code, year)
-```
-
-```
-# A tibble: 2 x 2
-  commodity_code  year
-  &lt;chr&gt;          &lt;dbl&gt;
-1 640419          2018
-2 846711          2017
-```
-
-
-
-```python
-(r.df_comercio
-  .sample(2, random_state=42)
-  [['commodity_code', 'year']]
-)
-```
-
-```
-     commodity_code    year
-3571         831120 2019.00
-4168         847689 2017.00
-```
-
-
-
-
----
-
 class: inverse, center, middle
 
 # 2. Unión de dataframes
@@ -1044,6 +1039,1751 @@ df_py = (r.df_comercio
 
 ```r
 df %&gt;% head(1) %&gt;% gt::gt()
+```
+
+<div id="kjhveftcaa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#kjhveftcaa .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kjhveftcaa .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kjhveftcaa .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kjhveftcaa .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kjhveftcaa .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kjhveftcaa .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kjhveftcaa .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kjhveftcaa .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kjhveftcaa .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kjhveftcaa .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kjhveftcaa .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kjhveftcaa .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kjhveftcaa .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#kjhveftcaa .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kjhveftcaa .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kjhveftcaa .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kjhveftcaa .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#kjhveftcaa .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kjhveftcaa .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#kjhveftcaa .gt_left {
+  text-align: left;
+}
+
+#kjhveftcaa .gt_center {
+  text-align: center;
+}
+
+#kjhveftcaa .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kjhveftcaa .gt_font_normal {
+  font-weight: normal;
+}
+
+#kjhveftcaa .gt_font_bold {
+  font-weight: bold;
+}
+
+#kjhveftcaa .gt_font_italic {
+  font-style: italic;
+}
+
+#kjhveftcaa .gt_super {
+  font-size: 65%;
+}
+
+#kjhveftcaa .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_left">Argentina</td>
+<td class="gt_row gt_left">Mexico</td>
+<td class="gt_row gt_left">Horses; live, pure-bred breeding animals</td>
+<td class="gt_row gt_left">Animals; live</td>
+<td class="gt_row gt_left">Animal Products</td>
+<td class="gt_row gt_right">15000</td>
+<td class="gt_row gt_right">0</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+🔹 Pandas dataframe: 
+
+
+```r
+py$df_py %&gt;% head(1) %&gt;% gt::gt()
+```
+
+<div id="azfxzrxdmk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#azfxzrxdmk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#azfxzrxdmk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#azfxzrxdmk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#azfxzrxdmk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#azfxzrxdmk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#azfxzrxdmk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#azfxzrxdmk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#azfxzrxdmk .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#azfxzrxdmk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#azfxzrxdmk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#azfxzrxdmk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#azfxzrxdmk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#azfxzrxdmk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#azfxzrxdmk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azfxzrxdmk .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azfxzrxdmk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#azfxzrxdmk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#azfxzrxdmk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#azfxzrxdmk .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#azfxzrxdmk .gt_left {
+  text-align: left;
+}
+
+#azfxzrxdmk .gt_center {
+  text-align: center;
+}
+
+#azfxzrxdmk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#azfxzrxdmk .gt_font_normal {
+  font-weight: normal;
+}
+
+#azfxzrxdmk .gt_font_bold {
+  font-weight: bold;
+}
+
+#azfxzrxdmk .gt_font_italic {
+  font-style: italic;
+}
+
+#azfxzrxdmk .gt_super {
+  font-size: 65%;
+}
+
+#azfxzrxdmk .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_left">Argentina</td>
+<td class="gt_row gt_left">Mexico</td>
+<td class="gt_row gt_left">Horses; live, pure-bred breeding animals</td>
+<td class="gt_row gt_left">Animals; live</td>
+<td class="gt_row gt_left">Animal Products</td>
+<td class="gt_row gt_right">15000</td>
+<td class="gt_row gt_right">0</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+]
+
+.panel[.panel-name[Comparación]
+
+Se utiliza el paquete waldo para comparar los filtros generados:
+
+
+```r
+waldo::compare(data.frame(df),
+               data.frame(py$df_py))
+```
+
+```
+v No differences
+```
+
+]
+
+]
+
+---
+
+class: inverse, center, middle
+
+# 3. Filtros y muestreo
+
+![](images/filter.gif)&lt;!-- --&gt;
+
+---
+.panelset[
+.panel[.panel-name[R]
+
+
+```r
+filtro_r &lt;- df %&gt;% 
+  
+* filter(
+*  
+*   # Condición simple (equivalencia)
+*   año == 2019 &amp;
+*  
+*   # Condición OR con función quantile()
+*   (expo   &gt; quantile(df$expo,0.6) |
+*    impo   &gt; quantile(df$impo,0.6) ) &amp;
+*  
+*   # Filtro por expresión regular
+*   str_detect(tolower(commodity), 'metal')
+  )
+```
+
+]
+
+.panel[.panel-name[Python]
+
+
+```python
+filtro_py = (r.df
+
+  .query("""
+         año == 2019 and                              \
+                                                      \
+         (expo   &gt; expo.quantile(0.6) or              \
+          impo   &gt; impo.quantile(0.6)) and            \
+                                                      \
+         commodity.str.lower().str.contains('metal')
+        """,  
+        engine='python')                              
+        
+  .reset_index(drop=True)
+)
+```
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+
+```r
+filtro_r %&gt;% head(1) %&gt;% gt::gt()
+```
+
+<div id="vetalfmtlm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#vetalfmtlm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vetalfmtlm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vetalfmtlm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vetalfmtlm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vetalfmtlm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vetalfmtlm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vetalfmtlm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vetalfmtlm .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vetalfmtlm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vetalfmtlm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vetalfmtlm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vetalfmtlm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vetalfmtlm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#vetalfmtlm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vetalfmtlm .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vetalfmtlm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vetalfmtlm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#vetalfmtlm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vetalfmtlm .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#vetalfmtlm .gt_left {
+  text-align: left;
+}
+
+#vetalfmtlm .gt_center {
+  text-align: center;
+}
+
+#vetalfmtlm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vetalfmtlm .gt_font_normal {
+  font-weight: normal;
+}
+
+#vetalfmtlm .gt_font_bold {
+  font-weight: bold;
+}
+
+#vetalfmtlm .gt_font_italic {
+  font-style: italic;
+}
+
+#vetalfmtlm .gt_super {
+  font-size: 65%;
+}
+
+#vetalfmtlm .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_left">Argentina</td>
+<td class="gt_row gt_left">Mexico</td>
+<td class="gt_row gt_left">Alkali or alkali-earth metals; calcium</td>
+<td class="gt_row gt_left">Inorganic chemicals; organic and inorganic compounds of precious metals; of rare earth metals, of radio-active elements and of isotopes</td>
+<td class="gt_row gt_left">Chemical Products</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">105154</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+🔹 Pandas dataframe: 
+
+
+```r
+py$filtro_py %&gt;% head(1) %&gt;% gt::gt()
+```
+
+<div id="ljwxfwpbxz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ljwxfwpbxz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ljwxfwpbxz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ljwxfwpbxz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ljwxfwpbxz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ljwxfwpbxz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ljwxfwpbxz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ljwxfwpbxz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ljwxfwpbxz .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ljwxfwpbxz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ljwxfwpbxz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ljwxfwpbxz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ljwxfwpbxz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ljwxfwpbxz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#ljwxfwpbxz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ljwxfwpbxz .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ljwxfwpbxz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ljwxfwpbxz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ljwxfwpbxz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ljwxfwpbxz .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ljwxfwpbxz .gt_left {
+  text-align: left;
+}
+
+#ljwxfwpbxz .gt_center {
+  text-align: center;
+}
+
+#ljwxfwpbxz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ljwxfwpbxz .gt_font_normal {
+  font-weight: normal;
+}
+
+#ljwxfwpbxz .gt_font_bold {
+  font-weight: bold;
+}
+
+#ljwxfwpbxz .gt_font_italic {
+  font-style: italic;
+}
+
+#ljwxfwpbxz .gt_super {
+  font-size: 65%;
+}
+
+#ljwxfwpbxz .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_left">Argentina</td>
+<td class="gt_row gt_left">Mexico</td>
+<td class="gt_row gt_left">Alkali or alkali-earth metals; calcium</td>
+<td class="gt_row gt_left">Inorganic chemicals; organic and inorganic compounds of precious metals; of rare earth metals, of radio-active elements and of isotopes</td>
+<td class="gt_row gt_left">Chemical Products</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">105154</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+]
+
+
+.panel[.panel-name[Comparación]
+
+Se utiliza el paquete waldo para comparar los filtros generados:
+
+
+```r
+waldo::compare(data.frame(filtro_r),
+               data.frame(py$filtro_py))
+```
+
+```
+v No differences
+```
+]
+
+]
+
+
+---
+
+# Muestreo
+
+Las semillas no funcionan igual en r y python. Sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varían los resultados. 
+
+
+.panelset[
+.panel[.panel-name[Muestreo en R]
+
+En `{tidyverse}` se utiliza **sample_n()**
+
+
+```r
+set.seed(42)
+df_comercio %&gt;% 
+  sample_n(2) %&gt;% 
+  select(commodity_code, year)
+```
+
+```
+# A tibble: 2 x 2
+  commodity_code  year
+  &lt;chr&gt;          &lt;dbl&gt;
+1 640419          2018
+2 846711          2017
+```
+
+]
+
+.panel[.panel-name[Muestreo en Python]
+
+En `{pandas}` se utiliza **.sample()**
+
+
+```python
+(r.df_comercio
+  .sample(2, random_state=42)
+  [['commodity_code', 'year']]
+)
+```
+
+```
+     commodity_code    year
+3571         831120 2019.00
+4168         847689 2017.00
+```
+
+]
+
+.panel[.panel-name[Comparación]
+
+Comparando ambos resultados: 
+
+R: 
+
+
+```
+# A tibble: 2 x 2
+  commodity_code  year
+  &lt;chr&gt;          &lt;dbl&gt;
+1 640419          2018
+2 846711          2017
+```
+
+Python: 
+
+
+```
+     commodity_code    year
+3571         831120 2019.00
+4168         847689 2017.00
+```
+
+]
+]
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# 3. Nuevas columnas
+
+&lt;img src="images/more.gif" width="50%" /&gt;
+
+---
+
+
+.panelset[
+.panel[.panel-name[R]
+
+
+```r
+columnas_r &lt;- df %&gt;% 
+  
+  mutate( 
+    
+    # Cálculo
+*   expo_netas = expo - impo,
+*  
+*   # If else
+*   d_2020 = ifelse(año==2020,1,0),
+*  
+*   # Case when
+*   categoria_extra = case_when(
+*  
+*     str_detect(commodity,'metal|machines') ~ 'Metal &amp; maquinarias',
+*     str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales',
+*     TRUE ~ 'Otros'
+      
+    ) 
+  )
+```
+
+]
+
+.panel[.panel-name[Python]
+
+```python
+columnas_py = (r.df
+  .assign(  
+    
+*   # Cálculo
+*   expo_netas      = lambda x: x['expo'] - x['impo'],
+*  
+*   # If else
+*   d_2020          = lambda x: np.where(x['año']==2020,1,0),
+*  
+*   # Case when
+*   categoria_extra = lambda x: np.select(
+*  
+*     [x['commodity'].str.contains('metal|machines'),
+*      x['commodity'].str.contains('animal|food|vegetable')],
+*  
+*     ['Metal &amp; maquinarias',
+*      'Cultivos y animales'],
+*  
+*     default = 'Otros')
+    
+  )
+)
+```
+
+]
+
+.panel[.panel-name[Dataframes generados]
+
+🔹 R dataframe:
+
+
+```r
+columnas_r %&gt;% head(1) %&gt;% gt::gt()
 ```
 
 <div id="ayjdrzqoxg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1396,6 +3136,9 @@ df %&gt;% head(1) %&gt;% gt::gt()
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_netas</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">d_2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">categoria_extra</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
@@ -1406,7 +3149,10 @@ df %&gt;% head(1) %&gt;% gt::gt()
 <td class="gt_row gt_left">Animals; live</td>
 <td class="gt_row gt_left">Animal Products</td>
 <td class="gt_row gt_right">15000</td>
-<td class="gt_row gt_right">0</td></tr>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">15000</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_left">Cultivos y animales</td></tr>
   </tbody>
   
   
@@ -1417,7 +3163,7 @@ df %&gt;% head(1) %&gt;% gt::gt()
 
 
 ```r
-py$df_py %&gt;% head(1) %&gt;% gt::gt()
+py$columnas_py %&gt;% head(1) %&gt;% gt::gt()
 ```
 
 <div id="dyentzroci" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1770,6 +3516,9 @@ py$df_py %&gt;% head(1) %&gt;% gt::gt()
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_netas</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">d_2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">categoria_extra</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
@@ -1780,7 +3529,10 @@ py$df_py %&gt;% head(1) %&gt;% gt::gt()
 <td class="gt_row gt_left">Animals; live</td>
 <td class="gt_row gt_left">Animal Products</td>
 <td class="gt_row gt_right">15000</td>
-<td class="gt_row gt_right">0</td></tr>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">15000</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_left">Cultivos y animales</td></tr>
   </tbody>
   
   
@@ -1789,14 +3541,13 @@ py$df_py %&gt;% head(1) %&gt;% gt::gt()
 
 ]
 
+
+
 .panel[.panel-name[Comparación]
 
-Se utiliza el paquete waldo para comparar los filtros generados:
-
-
 ```r
-waldo::compare(data.frame(df),
-               data.frame(py$df_py))
+waldo::compare(data.frame(columnas_r),
+               data.frame(py$columnas_py))
 ```
 
 ```
@@ -1807,55 +3558,59 @@ v No differences
 
 ]
 
+
+
+
 ---
 
 class: inverse, center, middle
 
-# 3. Filtros
+# 5. Agregación / Group by
 
-![](images/filter.gif)&lt;!-- --&gt;
+&lt;img src="images/group.gif" width="45%" style="display: block; margin: auto;" /&gt;
 
 ---
+
 .panelset[
 .panel[.panel-name[R]
 
 
 ```r
-filtro_r &lt;- df %&gt;% 
+agg_r &lt;- df %&gt;% 
   
-* filter(
+* group_by(seccion) %&gt;%
 *  
-*   # Condición simple (equivalencia)
-*   año == 2019 &amp;
+* summarise(
+*   expo_total = sum(expo),
+*   impo_total = sum(impo),
+*   expo_prom = mean(expo),
+*   impo_prom = mean(impo),
+* ) %&gt;%
 *  
-*   # Condición OR con función quantile()
-*   (expo   &gt; quantile(df$expo,0.6) |
-*    impo   &gt; quantile(df$impo,0.6) ) &amp;
-*  
-*   # Filtro por expresión regular
-*   str_detect(tolower(commodity), 'metal')
-  )
+* ungroup() %&gt;%
+  
+  arrange(desc(expo_total))
 ```
 
 ]
 
 .panel[.panel-name[Python]
 
-
 ```python
-filtro_py = (r.df
+agg_py = (df_py
 
-  .query("""
-         año == 2019 and                              \
-                                                      \
-         (expo   &gt; expo.quantile(0.6) or              \
-          impo   &gt; impo.quantile(0.6)) and            \
-                                                      \
-         commodity.str.lower().str.contains('metal')
-        """,  
-        engine='python')                              
-        
-  .reset_index(drop=True)
+* .groupby('seccion', as_index=False)
+*  
+* .agg(
+*    expo_total = ('expo','sum' ),
+*    impo_total = ('impo','sum' ),
+*    expo_prom  = ('expo','mean'),
+*    impo_prom  = ('impo','mean')
+*  )
+   
+   .sort_values('expo_total', ascending=False)
+   
+   .reset_index(drop=True)
 )
 ```
 ]
@@ -1866,7 +3621,7 @@ filtro_py = (r.df
 
 
 ```r
-filtro_r %&gt;% head(1) %&gt;% gt::gt()
+agg_r %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="ydemetbhcz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2211,25 +3966,24 @@ filtro_r %&gt;% head(1) %&gt;% gt::gt()
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_prom</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">2019</td>
-<td class="gt_row gt_left">Argentina</td>
-<td class="gt_row gt_left">Mexico</td>
-<td class="gt_row gt_left">Alkali or alkali-earth metals; calcium</td>
-<td class="gt_row gt_left">Inorganic chemicals; organic and inorganic compounds of precious metals; of rare earth metals, of radio-active elements and of isotopes</td>
-<td class="gt_row gt_left">Chemical Products</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">105154</td></tr>
+    <tr><td class="gt_row gt_left">Unspecified</td>
+<td class="gt_row gt_right">769921184</td>
+<td class="gt_row gt_right">48065</td>
+<td class="gt_row gt_right">192480296</td>
+<td class="gt_row gt_right">12016.25</td></tr>
+    <tr><td class="gt_row gt_left">Transportation</td>
+<td class="gt_row gt_right">397349013</td>
+<td class="gt_row gt_right">1883795611</td>
+<td class="gt_row gt_right">2631450</td>
+<td class="gt_row gt_right">12475467.62</td></tr>
   </tbody>
   
   
@@ -2240,7 +3994,7 @@ filtro_r %&gt;% head(1) %&gt;% gt::gt()
 
 
 ```r
-py$filtro_py %&gt;% head(1) %&gt;% gt::gt()
+py$agg_py %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="ajxkovzhdd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2585,25 +4339,24 @@ py$filtro_py %&gt;% head(1) %&gt;% gt::gt()
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_total</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_prom</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">2019</td>
-<td class="gt_row gt_left">Argentina</td>
-<td class="gt_row gt_left">Mexico</td>
-<td class="gt_row gt_left">Alkali or alkali-earth metals; calcium</td>
-<td class="gt_row gt_left">Inorganic chemicals; organic and inorganic compounds of precious metals; of rare earth metals, of radio-active elements and of isotopes</td>
-<td class="gt_row gt_left">Chemical Products</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">105154</td></tr>
+    <tr><td class="gt_row gt_left">Unspecified</td>
+<td class="gt_row gt_right">769921184</td>
+<td class="gt_row gt_right">48065</td>
+<td class="gt_row gt_right">192480296</td>
+<td class="gt_row gt_right">12016.25</td></tr>
+    <tr><td class="gt_row gt_left">Transportation</td>
+<td class="gt_row gt_right">397349013</td>
+<td class="gt_row gt_right">1883795611</td>
+<td class="gt_row gt_right">2631450</td>
+<td class="gt_row gt_right">12475467.62</td></tr>
   </tbody>
   
   
@@ -2613,66 +4366,60 @@ py$filtro_py %&gt;% head(1) %&gt;% gt::gt()
 ]
 
 
+
 .panel[.panel-name[Comparación]
 
-Se utiliza el paquete waldo para comparar los filtros generados:
-
-
 ```r
-waldo::compare(data.frame(filtro_r),
-               data.frame(py$filtro_py))
+waldo::compare(data.frame(agg_r),
+               data.frame(py$agg_py))
 ```
 
 ```
 v No differences
 ```
-]
 
 ]
 
-
-
-
-
-
-
+]
 
 
 ---
 
 class: inverse, center, middle
 
-# 3. Nuevas columnas
+# 6. Formato wide a long / long a wide (pivot)
 
-&lt;img src="images/more.gif" width="50%" /&gt;
+&lt;img src="images/changes.gif" width="50%" /&gt;
+
 
 ---
 
+Las transformaciones del formato de los datos permiten visualizar la misma información de diferentes formas: 
+
+&lt;img src="images/pivot.png" width="80%" /&gt;
+
+---
+
+# Pivot wider
 
 .panelset[
 .panel[.panel-name[R]
 
 
 ```r
-columnas_r &lt;- df %&gt;% 
+wider_r &lt;- df %&gt;% 
   
-  mutate( 
-    
-    # Cálculo
-*   expo_netas = expo - impo,
-                              
-    # If else
-*   d_2020 = ifelse(año==2020,1,0),
-    
-    # Case when
-*   categoria_extra = case_when(
-*  
-*     str_detect(commodity,'metal|machines') ~ 'Metal &amp; maquinarias',
-*     str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales',
-*     TRUE ~ 'Otros'
-      
-    ) 
-  )
+  group_by(seccion, año) %&gt;% 
+  
+  summarise(expo = sum(expo), .groups = 'keep') %&gt;% 
+  
+  ungroup() %&gt;% 
+  
+* pivot_wider(names_from=año,
+*             names_prefix='y_',
+*             values_from=expo) %&gt;%
+  
+  arrange(desc(y_2020, y_2019, y_2018, y_2017))
 ```
 
 ]
@@ -2680,30 +4427,25 @@ columnas_r &lt;- df %&gt;%
 .panel[.panel-name[Python]
 
 ```python
-columnas_py = (r.df
-  .assign(  
-    
-    # Cálculo 
-*   expo_netas      = lambda x: x['expo'] - x['impo'],
-    
-    # If else 
-*   d_2020          = lambda x: np.where(x['año']==2020,1,0),
-     
-    # Case when 
-*   categoria_extra = lambda x: np.select(
-*  
-*     [x['commodity'].str.contains('metal|machines'),
-*      x['commodity'].str.contains('animal|food|vegetable')],
-*  
-*     ['Metal &amp; maquinarias',
-*      'Cultivos y animales'],
-*  
-*     default = 'Otros')
-    
-  )
+wider_py = (r.df
+
+ .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
+ 
+ .groupby(['seccion','año'], as_index=False)
+ 
+ .agg(expo = ('expo','sum'))
+ 
+*.pivot(index='seccion',
+*       columns='año',
+*       values='expo')
+  
+  .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
+               ascending=False)
+  
+  .reset_index(drop=False)
+
 )
 ```
-
 ]
 
 .panel[.panel-name[Dataframes generados]
@@ -2712,7 +4454,7 @@ columnas_py = (r.df
 
 
 ```r
-columnas_r %&gt;% head(1) %&gt;% gt::gt()
+wider_r %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="vrmedbxrcx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3057,31 +4799,24 @@ columnas_r %&gt;% head(1) %&gt;% gt::gt()
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_netas</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">d_2020</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">categoria_extra</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">2017</td>
-<td class="gt_row gt_left">Argentina</td>
-<td class="gt_row gt_left">Mexico</td>
-<td class="gt_row gt_left">Horses; live, pure-bred breeding animals</td>
-<td class="gt_row gt_left">Animals; live</td>
-<td class="gt_row gt_left">Animal Products</td>
-<td class="gt_row gt_right">15000</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">15000</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_left">Cultivos y animales</td></tr>
+    <tr><td class="gt_row gt_left">Unspecified</td>
+<td class="gt_row gt_right">96332</td>
+<td class="gt_row gt_right">225954813</td>
+<td class="gt_row gt_right">342756705</td>
+<td class="gt_row gt_right">201113334</td></tr>
+    <tr><td class="gt_row gt_left">Chemical Products</td>
+<td class="gt_row gt_right">114416816</td>
+<td class="gt_row gt_right">73527737</td>
+<td class="gt_row gt_right">65993570</td>
+<td class="gt_row gt_right">65111224</td></tr>
   </tbody>
   
   
@@ -3092,7 +4827,7 @@ columnas_r %&gt;% head(1) %&gt;% gt::gt()
 
 
 ```r
-py$columnas_py %&gt;% head(1) %&gt;% gt::gt()
+py$wider_py %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="wquzrffbtc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3437,31 +5172,24 @@ py$columnas_py %&gt;% head(1) %&gt;% gt::gt()
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pais</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">socio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">commodity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">grupo</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_netas</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">d_2020</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">categoria_extra</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">2017</td>
-<td class="gt_row gt_left">Argentina</td>
-<td class="gt_row gt_left">Mexico</td>
-<td class="gt_row gt_left">Horses; live, pure-bred breeding animals</td>
-<td class="gt_row gt_left">Animals; live</td>
-<td class="gt_row gt_left">Animal Products</td>
-<td class="gt_row gt_right">15000</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">15000</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_left">Cultivos y animales</td></tr>
+    <tr><td class="gt_row gt_left">Unspecified</td>
+<td class="gt_row gt_right">96332</td>
+<td class="gt_row gt_right">225954813</td>
+<td class="gt_row gt_right">342756705</td>
+<td class="gt_row gt_right">201113334</td></tr>
+    <tr><td class="gt_row gt_left">Chemical Products</td>
+<td class="gt_row gt_right">114416816</td>
+<td class="gt_row gt_right">73527737</td>
+<td class="gt_row gt_right">65993570</td>
+<td class="gt_row gt_right">65111224</td></tr>
   </tbody>
   
   
@@ -3475,8 +5203,8 @@ py$columnas_py %&gt;% head(1) %&gt;% gt::gt()
 .panel[.panel-name[Comparación]
 
 ```r
-waldo::compare(data.frame(columnas_r),
-               data.frame(py$columnas_py))
+waldo::compare(data.frame(wider_r),
+               data.frame(py$wider_py))
 ```
 
 ```
@@ -3488,37 +5216,24 @@ v No differences
 ]
 
 
-
-
 ---
 
-class: inverse, center, middle
-
-# 5. Agregación / Group by
-
-&lt;img src="images/group.gif" width="45%" style="display: block; margin: auto;" /&gt;
-
----
+# Pivot longer
 
 .panelset[
 .panel[.panel-name[R]
 
 
 ```r
-agg_r &lt;- df %&gt;% 
+longer_r &lt;- wider_r %&gt;% 
   
-  group_by(seccion) %&gt;%
+* pivot_longer(-seccion,
+*              names_to='año',
+*              values_to='expo') %&gt;%
   
-  summarise(
-    expo_total = sum(expo),
-    impo_total = sum(impo),
-    expo_prom = mean(expo),
-    impo_prom = mean(impo),
-  ) %&gt;%
+  mutate(año=str_replace(año, 'y_','')) %&gt;% 
   
-  ungroup() %&gt;% 
-  
-  arrange(desc(expo_total))
+  arrange(seccion, año)
 ```
 
 ]
@@ -3526,20 +5241,23 @@ agg_r &lt;- df %&gt;%
 .panel[.panel-name[Python]
 
 ```python
-agg_py = (df_py
+longer_py = (wider_py
 
-  .groupby('seccion', as_index=False)
+* .melt(
+*   id_vars='seccion',
+*   value_vars=['y_2017','y_2018','y_2019','y_2020'],
+*   value_name='expo'
+* )
   
-  .agg(
-     expo_total = ('expo','sum' ), 
-     impo_total = ('impo','sum' ), 
-     expo_prom  = ('expo','mean'), 
-     impo_prom  = ('impo','mean')
-   )
-   
-   .sort_values('expo_total', ascending=False)
-   
-   .reset_index(drop=True)
+  .assign(
+    año      = lambda x: [i.replace('y_','') for i in x['año']], 
+    temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']]
+  )
+  
+  .sort_values(['temp_var','año'])
+  .drop('temp_var',axis=1)
+  .reset_index(drop=True)
+
 )
 ```
 ]
@@ -3550,7 +5268,7 @@ agg_py = (df_py
 
 
 ```r
-agg_r %&gt;% head(2) %&gt;% gt::gt()
+longer_r %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="vubwfzjhea" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3896,23 +5614,17 @@ agg_r %&gt;% head(2) %&gt;% gt::gt()
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_total</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_total</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_prom</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Unspecified</td>
-<td class="gt_row gt_right">769921184</td>
-<td class="gt_row gt_right">48065</td>
-<td class="gt_row gt_right">192480296</td>
-<td class="gt_row gt_right">12016.25</td></tr>
-    <tr><td class="gt_row gt_left">Transportation</td>
-<td class="gt_row gt_right">397349013</td>
-<td class="gt_row gt_right">1883795611</td>
-<td class="gt_row gt_right">2631450</td>
-<td class="gt_row gt_right">12475467.62</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2017</td>
+<td class="gt_row gt_right">17689911</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2018</td>
+<td class="gt_row gt_right">90227077</td></tr>
   </tbody>
   
   
@@ -3923,7 +5635,7 @@ agg_r %&gt;% head(2) %&gt;% gt::gt()
 
 
 ```r
-py$agg_py %&gt;% head(2) %&gt;% gt::gt()
+py$longer_py %&gt;% head(2) %&gt;% gt::gt()
 ```
 
 <div id="qgdmjiltik" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4269,23 +5981,17 @@ py$agg_py %&gt;% head(2) %&gt;% gt::gt()
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_total</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_total</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo_prom</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">impo_prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Unspecified</td>
-<td class="gt_row gt_right">769921184</td>
-<td class="gt_row gt_right">48065</td>
-<td class="gt_row gt_right">192480296</td>
-<td class="gt_row gt_right">12016.25</td></tr>
-    <tr><td class="gt_row gt_left">Transportation</td>
-<td class="gt_row gt_right">397349013</td>
-<td class="gt_row gt_right">1883795611</td>
-<td class="gt_row gt_right">2631450</td>
-<td class="gt_row gt_right">12475467.62</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2017</td>
+<td class="gt_row gt_right">17689911</td></tr>
+    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
+<td class="gt_row gt_left">2018</td>
+<td class="gt_row gt_right">90227077</td></tr>
   </tbody>
   
   
@@ -4299,8 +6005,8 @@ py$agg_py %&gt;% head(2) %&gt;% gt::gt()
 .panel[.panel-name[Comparación]
 
 ```r
-waldo::compare(data.frame(agg_r),
-               data.frame(py$agg_py))
+waldo::compare(data.frame(longer_r),
+               data.frame(py$longer_py))
 ```
 
 ```
@@ -4316,75 +6022,125 @@ v No differences
 
 class: inverse, center, middle
 
-# 6. Formato wide a long / long a wide (pivot)
-
-&lt;img src="images/changes.gif" width="50%" /&gt;
+# 7. Visualización
 
 
----
-
-Las transformaciones del formato de los datos permiten visualizar la misma información de diferentes formas: 
-
-&lt;img src="images/pivot.png" width="80%" /&gt;
+![](images/viz.gif)&lt;!-- --&gt;
 
 ---
 
-# Pivot wider
+Se definen las secciones relevantes: 
+
+
+```r
+secciones_relevantes &lt;- longer_r %&gt;% 
+  
+  group_by(seccion) %&gt;% 
+  
+  summarise(expo_4y=sum(expo)) %&gt;% 
+  
+  ungroup() %&gt;% 
+  
+  arrange(desc(expo_4y)) %&gt;% 
+  
+* top_n(5) %&gt;%
+  
+  pull(seccion)
+```
+
+```
+Selecting by expo_4y
+```
+
+
+---
 
 .panelset[
 .panel[.panel-name[R]
 
 
 ```r
-wider_r &lt;- df %&gt;% 
+longer_r %&gt;% filter(seccion %in% secciones_relevantes) %&gt;% 
   
-  group_by(seccion, año) %&gt;% 
-  
-  summarise(expo = sum(expo), .groups = 'keep') %&gt;% 
-  
-  ungroup() %&gt;% 
-  
-  pivot_wider(names_from=año, 
-              names_prefix='y_',
-              values_from=expo) %&gt;% 
-  
-  arrange(desc(y_2020, y_2019, y_2018, y_2017))
+* ggplot(aes(x=expo, y=reorder(seccion, expo)))+
+*   geom_boxplot()+
+    scale_x_continuous(labels = scales::unit_format(unit = "M", scale = 1e-6))+
+    labs(title='Variación en las principales exportaciones entre 2017 y 2020', 
+         x='Exportaciones (USD)', 
+         y='Sección') + 
+    theme_bw()
 ```
+
+![](rladies_r_python_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
 
 ]
 
 .panel[.panel-name[Python]
 
+
+
+
+
 ```python
-wider_py = (r.df
-
- .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
- 
- .groupby(['seccion','año'], as_index=False)
- 
- .agg(expo = ('expo','sum'))
- 
- .pivot(index='seccion', 
-        columns='año',
-        values='expo')
-  
-  .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
-               ascending=False)
-  
-  .reset_index(drop=False)
-
-)
+plt.figure(figsize=(13,4))
 ```
+
+```{=html}
+(longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
+  
+*  .pipe((sns.boxplot,"data"),
+*       x="expo",  y="seccion", order=orden, color='white')
+        
+   .set(xlabel = "Exportaciones (USD)", ylabel='Sección', 
+        title = 'Variación en las principales exportaciones entre 2017 y 2020')
+)
+plt.show()
+```
+
+&lt;img src="rladies_r_python_files/figure-html/Librerías python-1.png" width="100%" height="60%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+]
 ]
 
-.panel[.panel-name[Dataframes generados]
+---
 
-🔹 R dataframe:
+class: inverse, center, middle
+
+# 8. Modelos
+
+&lt;img src="images/yeah_science.gif" width="50%" /&gt;
+
+---
+
+Se utiliza el paquete `{AER}` 📦 (Applied Econometric with R), que contiene un gran número de datasets econométricos. 
+
+En este caso, los datos contienen información sobre resultados educativos,Stock &amp; Watson (2007) `\(^1\)`. Incluyen características sociodemográficas de estudiantes y escuelas en distritos de California. 
+
+&lt;div style="position: absolute;left:60px;bottom:11px;color:gray;font-size:10px"&gt;
+ `\(^1\)` Stock JH, Watson MW (2007). Introduction to Econometrics. 2nd edition. Addison-Wesley,
+    Reading, MA. 
+&lt;/div&gt;
+
 
 
 ```r
-wider_r %&gt;% head(2) %&gt;% gt::gt()
+library(AER) 
+#data(package='AER') # Lista los datasets disponibles en el paquete AER
 ```
+
+Se cargan los datos, generando una variable adicional de tamaño de la clase: 
+
+
+```r
+data("CASchools")
+CASchools &lt;- CASchools %&gt;% 
+* mutate(tamaño = (students/teachers))
+```
+
 
 <div id="cpexnevbrx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
@@ -4725,38 +6481,199 @@ wider_r %&gt;% head(2) %&gt;% gt::gt()
 }
 </style>
 <table class="gt_table">
-  
+  <thead class="gt_header">
+    <tr>
+      <th colspan="9" class="gt_heading gt_title gt_font_normal" style><strong>Tamaño de clase y desempeño en matemática</strong></th>
+    </tr>
+    <tr>
+      <th colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Distribución de las variables relevantes</th>
+    </tr>
+  </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Prom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">SD</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Min</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">p25</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Mediana</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Max</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Distribución</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">N faltantes</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Unspecified</td>
-<td class="gt_row gt_right">96332</td>
-<td class="gt_row gt_right">225954813</td>
-<td class="gt_row gt_right">342756705</td>
-<td class="gt_row gt_right">201113334</td></tr>
-    <tr><td class="gt_row gt_left">Chemical Products</td>
-<td class="gt_row gt_right">114416816</td>
-<td class="gt_row gt_right">73527737</td>
-<td class="gt_row gt_right">65993570</td>
-<td class="gt_row gt_right">65111224</td></tr>
+    <tr><td class="gt_row gt_left">math</td>
+<td class="gt_row gt_right">653.34</td>
+<td class="gt_row gt_right">18.75</td>
+<td class="gt_row gt_right">605.40</td>
+<td class="gt_row gt_right">639.38</td>
+<td class="gt_row gt_right">652.45</td>
+<td class="gt_row gt_right">709.50</td>
+<td class="gt_row gt_left">▁▆▇▃▁</td>
+<td class="gt_row gt_right">0</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_right">19.64</td>
+<td class="gt_row gt_right">1.89</td>
+<td class="gt_row gt_right">14.00</td>
+<td class="gt_row gt_right">18.58</td>
+<td class="gt_row gt_right">19.72</td>
+<td class="gt_row gt_right">25.80</td>
+<td class="gt_row gt_left">▁▃▇▃▁</td>
+<td class="gt_row gt_right">0</td></tr>
   </tbody>
   
   
 </table>
 </div>
 
-🔹 Pandas dataframe: 
+---
+
+
+
+Se busca estimar el coeficiente asociado al tamaño de la clase, definido como la cantidad de estudiantes por la cantidad de profesores. 
 
 
 ```r
-py$wider_py %&gt;% head(2) %&gt;% gt::gt()
+reg_lineal &lt;- lm(formula = math ~ tamaño, data = CASchools)
+```
+
+Con {equatiomatic} se visualiza la ecuación del modelo:
+
+
+```r
+equatiomatic::extract_eq(reg_lineal)
+```
+
+$$
+\operatorname{math} = {\color{black}{\alpha}} + {\color{#9f3fb5}{\beta}}_{{\color{#9f3fb5}{1}}}(\operatorname{tamaño}) + {\color{black}{\epsilon}}
+$$
+
+También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
+
+
+```r
+equatiomatic::extract_eq(reg_lineal, use_coefs=TRUE)
+```
+
+$$
+\operatorname{\widehat{math}} = 691.42 - 1.94(\operatorname{tamaño})
+$$
+
+El error de estimación es la diferencia entre el valor observado y el valor predicho:
+
+$$
+\operatorname{math} - \operatorname{\widehat{math}} = \epsilon
+$$
+
+
+---
+
+# Visualmente:
+Ordenada al orígen = `\(\hat{⍺}\)`, pendiente = `\(\hat{𝛽}\)`
+
+.panelset[
+.panel[.panel-name[Modelo]
+
+![](rladies_r_python_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
+
+]
+
+.panel[.panel-name[Predicción]
+
+![](rladies_r_python_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
+]
+]
+
+
+
+
+
+---
+
+
+```python
+import statsmodels.formula.api as smf
+
+*reg = smf.ols ("math ~ tamaño", r.CASchools).fit()
+
+modelo = reg.summary2()
+```
+
+.panelset[
+
+.panel[.panel-name[Tabla 1]
+
+
+```python
+modelo.tables[0]
+```
+
+```
+                     0                 1                    2          3
+0               Model:               OLS      Adj. R-squared:      0.036
+1  Dependent Variable:              math                 AIC:  3640.9217
+2                Date:  2022-04-10 15:48                 BIC:  3649.0022
+3    No. Observations:               420      Log-Likelihood:    -1818.5
+4            Df Model:                 1         F-statistic:      16.62
+5        Df Residuals:               418  Prob (F-statistic):   5.47e-05
+6           R-squared:             0.038               Scale:     339.08
+```
+]
+
+.panel[.panel-name[Tabla 2]
+
+
+```python
+modelo.tables[1]
+```
+
+```
+           Coef.  Std.Err.     t  P&gt;|t|  [0.025  0.975]
+Intercept 691.42      9.38 73.69   0.00  672.97  709.86
+tamaño     -1.94      0.48 -4.08   0.00   -2.87   -1.00
+```
+]
+
+.panel[.panel-name[Tabla 3]
+
+
+```python
+modelo.tables[2]
+```
+
+```
+                0      1                  2      3
+0        Omnibus:  5.043     Durbin-Watson:  0.216
+1  Prob(Omnibus):  0.080  Jarque-Bera (JB):  4.199
+2           Skew:  0.155          Prob(JB):  0.123
+3       Kurtosis:  2.620     Condition No.:    207
+```
+]
+
+]
+
+
+
+---
+
+Comparando los `coeficientes` ajustando el modelo de regresión lineal con python o R:
+
+.panelset[
+.panel[.panel-name[Regresión en Python]
+
+
+```r
+py$modelo$tables[[2]] %&gt;% tibble::rownames_to_column('Variable') %&gt;% 
+  
+  gt() %&gt;% 
+  
+  fmt_number(where(is.numeric), decimals = 3) %&gt;% 
+  
+  tab_header(title=md('**Tabla:** Modelo OLS'),
+             subtitle = 'Statsmodels (python) a R') %&gt;% 
+  
+  opt_align_table_header('left')
 ```
 
 <div id="qrenhwhudy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4791,7 +6708,7 @@ py$wider_py %&gt;% head(2) %&gt;% gt::gt()
 
 #qrenhwhudy .gt_heading {
   background-color: #FFFFFF;
-  text-align: center;
+  text-align: left;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -5098,101 +7015,63 @@ py$wider_py %&gt;% head(2) %&gt;% gt::gt()
 }
 </style>
 <table class="gt_table">
-  
+  <thead class="gt_header">
+    <tr>
+      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
+    </tr>
+  </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2017</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2018</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2019</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">y_2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Unspecified</td>
-<td class="gt_row gt_right">96332</td>
-<td class="gt_row gt_right">225954813</td>
-<td class="gt_row gt_right">342756705</td>
-<td class="gt_row gt_right">201113334</td></tr>
-    <tr><td class="gt_row gt_left">Chemical Products</td>
-<td class="gt_row gt_right">114416816</td>
-<td class="gt_row gt_right">73527737</td>
-<td class="gt_row gt_right">65993570</td>
-<td class="gt_row gt_right">65111224</td></tr>
+    <tr><td class="gt_row gt_left">Intercept</td>
+<td class="gt_row gt_right">691.417</td>
+<td class="gt_row gt_right">9.382</td>
+<td class="gt_row gt_right">73.692</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">672.975</td>
+<td class="gt_row gt_right">709.860</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_right">&minus;1.939</td>
+<td class="gt_row gt_right">0.476</td>
+<td class="gt_row gt_right">&minus;4.077</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">&minus;2.873</td>
+<td class="gt_row gt_right">&minus;1.004</td></tr>
   </tbody>
   
   
 </table>
 </div>
-
 ]
 
-
-
-.panel[.panel-name[Comparación]
-
-```r
-waldo::compare(data.frame(wider_r),
-               data.frame(py$wider_py))
-```
-
-```
-v No differences
-```
-
-]
-
-]
-
-
----
-
-# Pivot longer
-
-.panelset[
-.panel[.panel-name[R]
+.panel[.panel-name[Regresión en R]
 
 
 ```r
-longer_r &lt;- wider_r %&gt;% 
+*lm(formula = math ~ tamaño, data = CASchools) %&gt;%
   
-  pivot_longer(-seccion, names_to='año', values_to='expo') %&gt;% 
+  gtsummary::tbl_regression(intercept=TRUE) %&gt;% 
   
-  mutate(año=str_replace(año, 'y_','')) %&gt;% 
+  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %&gt;% 
   
-  arrange(seccion, año)
-```
-
-]
-
-.panel[.panel-name[Python]
-
-```python
-longer_py = (wider_py
-
-  .melt(id_vars='seccion', value_vars=['y_2017','y_2018','y_2019','y_2020'], 
-        value_name='expo')
+  gtsummary::as_gt() %&gt;% 
   
-  .assign(año = lambda x: [i.replace('y_','') for i in x['año']], 
-          temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']])
+  tab_header(title=md('**Tabla:** Modelo OLS'), 
+             subtitle='R Base') %&gt;% 
   
-  .sort_values(['temp_var','año'])
-  
-  .drop('temp_var',axis=1)
-  
-  .reset_index(drop=True)
-
-)
-```
-]
-
-.panel[.panel-name[Dataframes generados]
-
-🔹 R dataframe:
-
-
-```r
-longer_r %&gt;% head(2) %&gt;% gt::gt()
+  opt_align_table_header('left')
 ```
 
 <div id="dgjrmuvspv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -5227,7 +7106,7 @@ longer_r %&gt;% head(2) %&gt;% gt::gt()
 
 #dgjrmuvspv .gt_heading {
   background-color: #FFFFFF;
-  text-align: center;
+  text-align: left;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -5534,33 +7413,60 @@ longer_r %&gt;% head(2) %&gt;% gt::gt()
 }
 </style>
 <table class="gt_table">
-  
+  <thead class="gt_header">
+    <tr>
+      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>R Base</th>
+    </tr>
+  </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Característica</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Statistic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>p-valor</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2017</td>
-<td class="gt_row gt_right">17689911</td></tr>
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2018</td>
-<td class="gt_row gt_right">90227077</td></tr>
+    <tr><td class="gt_row gt_left">(Intercept)</td>
+<td class="gt_row gt_center">691</td>
+<td class="gt_row gt_center">9.38</td>
+<td class="gt_row gt_center">73.7</td>
+<td class="gt_row gt_center">673, 710</td>
+<td class="gt_row gt_center"><0.001</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_center">-1.9</td>
+<td class="gt_row gt_center">0.476</td>
+<td class="gt_row gt_center">-4.08</td>
+<td class="gt_row gt_center">-2.9, -1.0</td>
+<td class="gt_row gt_center"><0.001</td></tr>
   </tbody>
   
-  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="6">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          SE = Standard Error, CI = Intervalo de confianza
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
 </table>
 </div>
+]
 
-🔹 Pandas dataframe: 
+.panel[.panel-name[Comparación]
 
-
-```r
-py$longer_py %&gt;% head(2) %&gt;% gt::gt()
-```
+🔹 Modelo python: 
 
 <div id="qliyukyzph" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
@@ -5594,7 +7500,7 @@ py$longer_py %&gt;% head(2) %&gt;% gt::gt()
 
 #qliyukyzph .gt_heading {
   background-color: #FFFFFF;
-  text-align: center;
+  text-align: left;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -5901,164 +7807,47 @@ py$longer_py %&gt;% head(2) %&gt;% gt::gt()
 }
 </style>
 <table class="gt_table">
-  
+  <thead class="gt_header">
+    <tr>
+      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
+    </tr>
+    <tr>
+      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
+    </tr>
+  </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">seccion</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">año</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">expo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2017</td>
-<td class="gt_row gt_right">17689911</td></tr>
-    <tr><td class="gt_row gt_left">Animal and Vegetable Bi-Products</td>
-<td class="gt_row gt_left">2018</td>
-<td class="gt_row gt_right">90227077</td></tr>
+    <tr><td class="gt_row gt_left">Intercept</td>
+<td class="gt_row gt_right">691.417</td>
+<td class="gt_row gt_right">9.382</td>
+<td class="gt_row gt_right">73.692</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">672.975</td>
+<td class="gt_row gt_right">709.860</td></tr>
+    <tr><td class="gt_row gt_left">tamaño</td>
+<td class="gt_row gt_right">&minus;1.939</td>
+<td class="gt_row gt_right">0.476</td>
+<td class="gt_row gt_right">&minus;4.077</td>
+<td class="gt_row gt_right">0.000</td>
+<td class="gt_row gt_right">&minus;2.873</td>
+<td class="gt_row gt_right">&minus;1.004</td></tr>
   </tbody>
   
   
 </table>
 </div>
 
-]
-
-
-
-.panel[.panel-name[Comparación]
-
-```r
-waldo::compare(data.frame(longer_r),
-               data.frame(py$longer_py))
-```
-
-```
-v No differences
-```
-
-]
-
-]
-
-
----
-
-class: inverse, center, middle
-
-# 7. Visualización
-
-
-![](images/viz.gif)&lt;!-- --&gt;
-
----
-
-Se definen las secciones relevantes: 
-
-
-```r
-secciones_relevantes &lt;- longer_r %&gt;% 
-  
-  group_by(seccion) %&gt;% 
-  
-  summarise(expo_4y=sum(expo)) %&gt;% 
-  
-  ungroup() %&gt;% 
-  
-  arrange(desc(expo_4y)) %&gt;% 
-  
-  top_n(5) %&gt;% 
-  
-  pull(seccion)
-```
-
-```
-Selecting by expo_4y
-```
-
-
----
-
-.panelset[
-.panel[.panel-name[R]
-
-
-```r
-longer_r %&gt;% filter(seccion %in% secciones_relevantes) %&gt;% 
-  
-  ggplot(aes(x=expo, y=reorder(seccion, expo)))+
-    geom_boxplot()+
-    scale_x_continuous(labels = scales::unit_format(unit = "M", scale = 1e-6))+
-    labs(title='Variación en las principales exportaciones entre 2017 y 2020',
-         x='Exportaciones (USD)',
-         y='Sección') +
-    theme_bw() 
-```
-
-![](rladies_r_python_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
-
-]
-
-.panel[.panel-name[Python]
-
-
-
-
-
-```python
-plt.figure(figsize=(13,4))
-```
-
-```{=html}
-(longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
-  
-   .pipe((sns.boxplot,"data"), 
-        x="expo",  y="seccion", order=orden, color='white')
-        
-   .set(xlabel = "Exportaciones (USD)", ylabel='Sección', 
-        title = 'Variación en las principales exportaciones entre 2017 y 2020')
-)
-plt.show()
-```
-
-&lt;img src="rladies_r_python_files/figure-html/Librerías python-1.png" width="100%" height="60%" style="display: block; margin: auto;" /&gt;
-
-
-
-
-
-]
-]
-
----
-
-class: inverse, center, middle
-
-# 8. Modelos
-
-&lt;img src="images/yeah_science.gif" width="50%" /&gt;
-
----
-
-Se utiliza el paquete `{AER}` 📦 (Applied Econometric with R), que contiene un gran número de datasets econométricos. 
-
-En este caso, los datos contienen información sobre resultados educativos, Stock and Watson (2007). Incluyen características sociodemográficas de estudiantes y escuelas en distritos de California. 
-
-
-```r
-library(AER) 
-#data(package='AER') # Lista los datasets disponibles en el paquete AER
-```
-
-Se cargan los datos, generando una variable adicional de tamaño de la clase: 
-
-
-```r
-data("CASchools")
-CASchools &lt;- CASchools %&gt;% 
-  mutate(tamaño = (students/teachers))
-```
-
+🔹 Modelo R: 
 
 <div id="wfamneiwpz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
@@ -6092,7 +7881,7 @@ CASchools &lt;- CASchools %&gt;%
 
 #wfamneiwpz .gt_heading {
   background-color: #FFFFFF;
-  text-align: center;
+  text-align: left;
   border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
@@ -6401,1729 +8190,6 @@ CASchools &lt;- CASchools %&gt;%
 <table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="9" class="gt_heading gt_title gt_font_normal" style><strong>Tamaño de clase y desempeño en matemática</strong></th>
-    </tr>
-    <tr>
-      <th colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Distribución de las variables relevantes</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Prom</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">SD</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Min</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">p25</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Mediana</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Max</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Distribución</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">N faltantes</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">math</td>
-<td class="gt_row gt_right">653.34</td>
-<td class="gt_row gt_right">18.75</td>
-<td class="gt_row gt_right">605.40</td>
-<td class="gt_row gt_right">639.38</td>
-<td class="gt_row gt_right">652.45</td>
-<td class="gt_row gt_right">709.50</td>
-<td class="gt_row gt_left">▁▆▇▃▁</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">tamaño</td>
-<td class="gt_row gt_right">19.64</td>
-<td class="gt_row gt_right">1.89</td>
-<td class="gt_row gt_right">14.00</td>
-<td class="gt_row gt_right">18.58</td>
-<td class="gt_row gt_right">19.72</td>
-<td class="gt_row gt_right">25.80</td>
-<td class="gt_row gt_left">▁▃▇▃▁</td>
-<td class="gt_row gt_right">0</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
-
----
-
-
-
-Se busca estimar el coeficiente asociado al tamaño de la clase, definido como la cantidad de estudiantes por la cantidad de profesores. 
-
-
-```r
-reg_lineal &lt;- lm(formula = math ~ tamaño, data = CASchools)
-```
-
-Con {equatiomatic} se visualiza la ecuación del modelo:
-
-
-```r
-equatiomatic::extract_eq(reg_lineal, 
-                         greek_colors     = c('black','violet','black'), 
-                         subscript_colors = c('black','violet', 'black'))
-```
-
-$$
-\operatorname{math} = {\color{black}{\alpha}} + {\color{violet}{\beta}}_{{\color{violet}{1}}}(\operatorname{tamaño}) + {\color{black}{\epsilon}}
-$$
-
-También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
-
-
-```r
-equatiomatic::extract_eq(reg_lineal, use_coefs=TRUE)
-```
-
-$$
-\operatorname{\widehat{math}} = 691.42 - 1.94(\operatorname{tamaño})
-$$
-
----
-
-# Visualmente:
-
-- Ordenada al orígen = `\(\hat{⍺}\)`
-
-- Pendiente = `\(\hat{𝛽}\)`
-
-
-.panelset[
-
-.panel[.panel-name[Gráfico]
-
-![](rladies_r_python_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
-
-]
-
-.panel[.panel-name[Código]
-
-
-```r
-m_eq &lt;- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
-prep_eq &lt;- gsub("\\\\_", "-", m_eq)
-prep_eq &lt;- paste("$", as.character(prep_eq), "$", sep = "")
-
-CASchools %&gt;% 
-  ggplot(aes(x=tamaño, y=math))+
-  geom_point()+
-  xlim(c(0,max(CASchools$tamaño)))+
-  stat_smooth(method='lm', color='violet', se=FALSE, fullrange=TRUE)+
-  labs(
-    title = "Relación entre el tamaño de la clase y el desempeño en matemática",
-    subtitle = latex2exp::TeX(prep_eq)
-  )+
-  theme_minimal()
-```
-
-]
-]
-
-
-
-
----
-
-
-```python
-import statsmodels.formula.api as smf
-
-reg = smf.ols ("math ~ tamaño", r.CASchools).fit()
-
-modelo = reg.summary2()
-```
-
-.panelset[
-
-.panel[.panel-name[Tabla 1]
-
-
-```python
-modelo.tables[0]
-```
-
-```
-                     0                 1                    2          3
-0               Model:               OLS      Adj. R-squared:      0.036
-1  Dependent Variable:              math                 AIC:  3640.9217
-2                Date:  2022-04-09 20:07                 BIC:  3649.0022
-3    No. Observations:               420      Log-Likelihood:    -1818.5
-4            Df Model:                 1         F-statistic:      16.62
-5        Df Residuals:               418  Prob (F-statistic):   5.47e-05
-6           R-squared:             0.038               Scale:     339.08
-```
-]
-
-.panel[.panel-name[Tabla 2]
-
-
-```python
-modelo.tables[1]
-```
-
-```
-           Coef.  Std.Err.     t  P&gt;|t|  [0.025  0.975]
-Intercept 691.42      9.38 73.69   0.00  672.97  709.86
-tamaño     -1.94      0.48 -4.08   0.00   -2.87   -1.00
-```
-]
-
-.panel[.panel-name[Tabla 3]
-
-
-```python
-modelo.tables[2]
-```
-
-```
-                0      1                  2      3
-0        Omnibus:  5.043     Durbin-Watson:  0.216
-1  Prob(Omnibus):  0.080  Jarque-Bera (JB):  4.199
-2           Skew:  0.155          Prob(JB):  0.123
-3       Kurtosis:  2.620     Condition No.:    207
-```
-]
-
-]
-
-
-
----
-
-Comparando los `coeficientes` ajustando el modelo de regresión lineal con python o R:
-
-.panelset[
-.panel[.panel-name[Regresión en Python]
-
-
-```r
-py$modelo$tables[[2]] %&gt;% tibble::rownames_to_column('Variable') %&gt;% 
-  
-  gt() %&gt;% 
-  
-  fmt_number(where(is.numeric), decimals = 3) %&gt;% 
-  
-  tab_header(title=md('**Tabla:** Modelo OLS'),
-             subtitle = 'Statsmodels (python) a R') %&gt;% 
-  
-  opt_align_table_header('left')
-```
-
-<div id="kjjxayysqn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#kjjxayysqn .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#kjjxayysqn .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#kjjxayysqn .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#kjjxayysqn .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#kjjxayysqn .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#kjjxayysqn .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#kjjxayysqn .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#kjjxayysqn .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#kjjxayysqn .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#kjjxayysqn .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#kjjxayysqn .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#kjjxayysqn .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#kjjxayysqn .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#kjjxayysqn .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kjjxayysqn .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kjjxayysqn .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#kjjxayysqn .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#kjjxayysqn .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#kjjxayysqn .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#kjjxayysqn .gt_left {
-  text-align: left;
-}
-
-#kjjxayysqn .gt_center {
-  text-align: center;
-}
-
-#kjjxayysqn .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#kjjxayysqn .gt_font_normal {
-  font-weight: normal;
-}
-
-#kjjxayysqn .gt_font_bold {
-  font-weight: bold;
-}
-
-#kjjxayysqn .gt_font_italic {
-  font-style: italic;
-}
-
-#kjjxayysqn .gt_super {
-  font-size: 65%;
-}
-
-#kjjxayysqn .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
-}
-</style>
-<table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
-    </tr>
-    <tr>
-      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Intercept</td>
-<td class="gt_row gt_right">691.417</td>
-<td class="gt_row gt_right">9.382</td>
-<td class="gt_row gt_right">73.692</td>
-<td class="gt_row gt_right">0.000</td>
-<td class="gt_row gt_right">672.975</td>
-<td class="gt_row gt_right">709.860</td></tr>
-    <tr><td class="gt_row gt_left">tamaño</td>
-<td class="gt_row gt_right">&minus;1.939</td>
-<td class="gt_row gt_right">0.476</td>
-<td class="gt_row gt_right">&minus;4.077</td>
-<td class="gt_row gt_right">0.000</td>
-<td class="gt_row gt_right">&minus;2.873</td>
-<td class="gt_row gt_right">&minus;1.004</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
-]
-
-.panel[.panel-name[Regresión en R]
-
-
-```r
-lm(formula = math ~ tamaño, data = CASchools) %&gt;% 
-  
-  gtsummary::tbl_regression(intercept=TRUE) %&gt;% 
-  
-  gtsummary::modify_header(statistic="**Statistic**", std.error="**SE**") %&gt;% 
-  
-  gtsummary::as_gt() %&gt;% 
-  
-  tab_header(title=md('**Tabla:** Modelo OLS'), 
-             subtitle='R Base') %&gt;% 
-  
-  opt_align_table_header('left')
-```
-
-<div id="nofxokepqv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#nofxokepqv .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#nofxokepqv .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#nofxokepqv .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#nofxokepqv .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#nofxokepqv .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#nofxokepqv .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#nofxokepqv .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#nofxokepqv .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#nofxokepqv .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#nofxokepqv .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#nofxokepqv .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#nofxokepqv .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#nofxokepqv .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#nofxokepqv .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#nofxokepqv .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#nofxokepqv .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#nofxokepqv .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#nofxokepqv .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#nofxokepqv .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#nofxokepqv .gt_left {
-  text-align: left;
-}
-
-#nofxokepqv .gt_center {
-  text-align: center;
-}
-
-#nofxokepqv .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#nofxokepqv .gt_font_normal {
-  font-weight: normal;
-}
-
-#nofxokepqv .gt_font_bold {
-  font-weight: bold;
-}
-
-#nofxokepqv .gt_font_italic {
-  font-style: italic;
-}
-
-#nofxokepqv .gt_super {
-  font-size: 65%;
-}
-
-#nofxokepqv .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
-}
-</style>
-<table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
-    </tr>
-    <tr>
-      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>R Base</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Característica</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Statistic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>p-valor</strong></th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">(Intercept)</td>
-<td class="gt_row gt_center">691</td>
-<td class="gt_row gt_center">9.38</td>
-<td class="gt_row gt_center">73.7</td>
-<td class="gt_row gt_center">673, 710</td>
-<td class="gt_row gt_center"><0.001</td></tr>
-    <tr><td class="gt_row gt_left">tamaño</td>
-<td class="gt_row gt_center">-1.9</td>
-<td class="gt_row gt_center">0.476</td>
-<td class="gt_row gt_center">-4.08</td>
-<td class="gt_row gt_center">-2.9, -1.0</td>
-<td class="gt_row gt_center"><0.001</td></tr>
-  </tbody>
-  
-  <tfoot>
-    <tr class="gt_footnotes">
-      <td colspan="6">
-        <p class="gt_footnote">
-          <sup class="gt_footnote_marks">
-            <em>1</em>
-          </sup>
-           
-          SE = Standard Error, CI = Intervalo de confianza
-          <br />
-        </p>
-      </td>
-    </tr>
-  </tfoot>
-</table>
-</div>
-]
-
-.panel[.panel-name[Comparación]
-
-🔹 Modelo python: 
-
-<div id="qrbfvfftob" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#qrbfvfftob .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#qrbfvfftob .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#qrbfvfftob .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#qrbfvfftob .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#qrbfvfftob .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#qrbfvfftob .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#qrbfvfftob .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#qrbfvfftob .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#qrbfvfftob .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#qrbfvfftob .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#qrbfvfftob .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#qrbfvfftob .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#qrbfvfftob .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#qrbfvfftob .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#qrbfvfftob .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#qrbfvfftob .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#qrbfvfftob .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#qrbfvfftob .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#qrbfvfftob .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#qrbfvfftob .gt_left {
-  text-align: left;
-}
-
-#qrbfvfftob .gt_center {
-  text-align: center;
-}
-
-#qrbfvfftob .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#qrbfvfftob .gt_font_normal {
-  font-weight: normal;
-}
-
-#qrbfvfftob .gt_font_bold {
-  font-weight: bold;
-}
-
-#qrbfvfftob .gt_font_italic {
-  font-style: italic;
-}
-
-#qrbfvfftob .gt_super {
-  font-size: 65%;
-}
-
-#qrbfvfftob .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
-}
-</style>
-<table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
-    </tr>
-    <tr>
-      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Statsmodels (python) a R</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Variable</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Coef.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Std.Err.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">t</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">P&gt;|t|</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">[0.025</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">0.975]</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Intercept</td>
-<td class="gt_row gt_right">691.417</td>
-<td class="gt_row gt_right">9.382</td>
-<td class="gt_row gt_right">73.692</td>
-<td class="gt_row gt_right">0.000</td>
-<td class="gt_row gt_right">672.975</td>
-<td class="gt_row gt_right">709.860</td></tr>
-    <tr><td class="gt_row gt_left">tamaño</td>
-<td class="gt_row gt_right">&minus;1.939</td>
-<td class="gt_row gt_right">0.476</td>
-<td class="gt_row gt_right">&minus;4.077</td>
-<td class="gt_row gt_right">0.000</td>
-<td class="gt_row gt_right">&minus;2.873</td>
-<td class="gt_row gt_right">&minus;1.004</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
-
-🔹 Modelo R: 
-
-<div id="jwlziabxxb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#jwlziabxxb .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#jwlziabxxb .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#jwlziabxxb .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#jwlziabxxb .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#jwlziabxxb .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#jwlziabxxb .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#jwlziabxxb .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#jwlziabxxb .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#jwlziabxxb .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#jwlziabxxb .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#jwlziabxxb .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#jwlziabxxb .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#jwlziabxxb .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#jwlziabxxb .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jwlziabxxb .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jwlziabxxb .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#jwlziabxxb .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#jwlziabxxb .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jwlziabxxb .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#jwlziabxxb .gt_left {
-  text-align: left;
-}
-
-#jwlziabxxb .gt_center {
-  text-align: center;
-}
-
-#jwlziabxxb .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#jwlziabxxb .gt_font_normal {
-  font-weight: normal;
-}
-
-#jwlziabxxb .gt_font_bold {
-  font-weight: bold;
-}
-
-#jwlziabxxb .gt_font_italic {
-  font-style: italic;
-}
-
-#jwlziabxxb .gt_super {
-  font-size: 65%;
-}
-
-#jwlziabxxb .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
-}
-</style>
-<table class="gt_table">
-  <thead class="gt_header">
-    <tr>
       <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>Tabla:</strong> Modelo OLS</th>
     </tr>
     <tr>
@@ -8205,9 +8271,15 @@ class: center, middle
 
 # Links utiles
 
-https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
+- [Guía de conversión entre R y python para manipulación de datos](https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/)
 
-[Comparación entre R y python para ciencia de datos](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [R &amp; python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
+
+
+- [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
+
+
+- [Otro link (:)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ---
 

@@ -68,6 +68,15 @@ modo_notdebug=TRUE
 xaringanExtra::use_panelset()
 ```
 
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = 'images/github.png', 
+  link_url  = 'https://github.com/karbartolome/rladies_charlas/tree/main/01_r_python', 
+  width     = '30px', 
+  height    = '30px'
+)
+```
+
 ```{css, echo=FALSE}
 /* Table width = 100% max-width */
 .remark-slide table{
@@ -464,29 +473,6 @@ py$df_comercio_pd %>%
 
 ---
 
-Las semillas no funcionan igual en r y python, sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varìan los resultados. 
-
-
-```{r, eval=modo_notdebug}
-set.seed(42)
-df_comercio %>% 
-  sample_n(2) %>% 
-  select(commodity_code, year)
-```
-
-
-```{python, eval=modo_notdebug}
-(r.df_comercio
-  .sample(2, random_state=42)
-  [['commodity_code', 'year']]
-)
-```
-
-
-
-
----
-
 class: inverse, center, middle
 
 # 2. Unión de dataframes
@@ -597,7 +583,7 @@ waldo::compare(data.frame(df),
 
 class: inverse, center, middle
 
-# 3. Filtros
+# 3. Filtros y muestreo
 
 ```{r, out_width='50%', echo=FALSE}
 knitr::include_graphics('images/filter.gif')
@@ -676,6 +662,64 @@ waldo::compare(data.frame(filtro_r),
 ]
 
 
+---
+
+# Muestreo
+
+Las semillas no funcionan igual en r y python. Sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varían los resultados. 
+
+
+.panelset[
+.panel[.panel-name[Muestreo en R]
+
+En `{tidyverse}` se utiliza **sample_n()**
+
+```{r, eval=modo_notdebug}
+set.seed(42)
+df_comercio %>% 
+  sample_n(2) %>% 
+  select(commodity_code, year)
+```
+
+]
+
+.panel[.panel-name[Muestreo en Python]
+
+En `{pandas}` se utiliza **.sample()**
+
+```{python, eval=modo_notdebug}
+(r.df_comercio
+  .sample(2, random_state=42)
+  [['commodity_code', 'year']]
+)
+```
+
+]
+
+.panel[.panel-name[Comparación]
+
+Comparando ambos resultados: 
+
+R: 
+
+```{r, eval=modo_notdebug, echo=FALSE}
+set.seed(42)
+df_comercio %>% 
+  sample_n(2) %>% 
+  select(commodity_code, year)
+```
+
+Python: 
+
+```{python, eval=modo_notdebug, echo=FALSE}
+(r.df_comercio
+  .sample(2, random_state=42)
+  [['commodity_code', 'year']]
+)
+```
+
+]
+]
 
 
 
@@ -705,17 +749,17 @@ columnas_r <- df %>%
   mutate( 
     
     # Cálculo
-    expo_netas = expo - impo,    #<<
-                              
-    # If else
-    d_2020 = ifelse(año==2020,1,0), #<<
-    
-    # Case when
-    categoria_extra = case_when(                #<<
-                                                    #<<
-      str_detect(commodity,'metal|machines') ~ 'Metal & maquinarias', #<<
+    expo_netas = expo - impo,                                                #<<
+                                                                             #<<
+    # If else                                                                #<<
+    d_2020 = ifelse(año==2020,1,0),                                          #<<
+                                                                             #<<
+    # Case when                                                              #<<
+    categoria_extra = case_when(                                             #<<
+                                                                             #<<
+      str_detect(commodity,'metal|machines') ~ 'Metal & maquinarias',        #<<
       str_detect(commodity,'animal|food|vegetable') ~ 'Cultivos y animales', #<<
-      TRUE ~ 'Otros' #<<
+      TRUE ~ 'Otros'                                                         #<<
       
     ) 
   )
@@ -728,13 +772,13 @@ columnas_r <- df %>%
 columnas_py = (r.df
   .assign(  
     
-    # Cálculo 
+    # Cálculo #<<
     expo_netas      = lambda x: x['expo'] - x['impo'], #<<
-    
-    # If else 
+    #<<
+    # If else #<<
     d_2020          = lambda x: np.where(x['año']==2020,1,0), #<<
-     
-    # Case when 
+     #<<
+    # Case when #<<
     categoria_extra = lambda x: np.select(  #<<
       #<<
       [x['commodity'].str.contains('metal|machines'),  #<<
@@ -800,16 +844,16 @@ knitr::include_graphics('images/group.gif')
 ```{r}
 agg_r <- df %>% 
   
-  group_by(seccion) %>%
-  
-  summarise(
-    expo_total = sum(expo),
-    impo_total = sum(impo),
-    expo_prom = mean(expo),
-    impo_prom = mean(impo),
-  ) %>%
-  
-  ungroup() %>% 
+  group_by(seccion) %>% #<<
+  #<<
+  summarise(#<<
+    expo_total = sum(expo),#<<
+    impo_total = sum(impo),#<<
+    expo_prom = mean(expo),#<<
+    impo_prom = mean(impo),#<<
+  ) %>%#<<
+  #<<
+  ungroup() %>% #<<
   
   arrange(desc(expo_total))
 ```
@@ -820,14 +864,14 @@ agg_r <- df %>%
 ```{python}
 agg_py = (df_py
 
-  .groupby('seccion', as_index=False)
-  
-  .agg(
-     expo_total = ('expo','sum' ), 
-     impo_total = ('impo','sum' ), 
-     expo_prom  = ('expo','mean'), 
-     impo_prom  = ('impo','mean')
-   )
+  .groupby('seccion', as_index=False)#<<
+  #<<
+  .agg(#<<
+     expo_total = ('expo','sum' ), #<<
+     impo_total = ('impo','sum' ), #<<
+     expo_prom  = ('expo','mean'), #<<
+     impo_prom  = ('impo','mean')  #<<
+   )#<<
    
    .sort_values('expo_total', ascending=False)
    
@@ -900,9 +944,9 @@ wider_r <- df %>%
   
   ungroup() %>% 
   
-  pivot_wider(names_from=año, 
-              names_prefix='y_',
-              values_from=expo) %>% 
+  pivot_wider(names_from=año, #<<
+              names_prefix='y_',#<<
+              values_from=expo) %>% #<<
   
   arrange(desc(y_2020, y_2019, y_2018, y_2017))
 ```
@@ -919,9 +963,9 @@ wider_py = (r.df
  
  .agg(expo = ('expo','sum'))
  
- .pivot(index='seccion', 
-        columns='año',
-        values='expo')
+ .pivot(index='seccion', #<<
+        columns='año',#<<
+        values='expo')#<<
   
   .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
                ascending=False)
@@ -972,7 +1016,9 @@ waldo::compare(data.frame(wider_r),
 ```{r}
 longer_r <- wider_r %>% 
   
-  pivot_longer(-seccion, names_to='año', values_to='expo') %>% 
+  pivot_longer(-seccion,  #<<
+               names_to='año',  #<<
+               values_to='expo') %>% #<<
   
   mutate(año=str_replace(año, 'y_','')) %>% 
   
@@ -985,16 +1031,19 @@ longer_r <- wider_r %>%
 ```{python}
 longer_py = (wider_py
 
-  .melt(id_vars='seccion', value_vars=['y_2017','y_2018','y_2019','y_2020'], 
-        value_name='expo')
+  .melt(                                                           #<<
+    id_vars='seccion',                                             #<< 
+    value_vars=['y_2017','y_2018','y_2019','y_2020'],              #<<
+    value_name='expo'                                              #<<
+  )                                                                #<<
   
-  .assign(año = lambda x: [i.replace('y_','') for i in x['año']], 
-          temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']])
+  .assign(
+    año      = lambda x: [i.replace('y_','') for i in x['año']], 
+    temp_var = lambda x: [i.lower().replace(' ','') for i in x['seccion']]
+  )
   
   .sort_values(['temp_var','año'])
-  
   .drop('temp_var',axis=1)
-  
   .reset_index(drop=True)
 
 )
@@ -1056,7 +1105,7 @@ secciones_relevantes <- longer_r %>%
   
   arrange(desc(expo_4y)) %>% 
   
-  top_n(5) %>% 
+  top_n(5) %>% #<<
   
   pull(seccion)
 ```
@@ -1070,13 +1119,13 @@ secciones_relevantes <- longer_r %>%
 ```{r, fig.height=4, fig.width=12}
 longer_r %>% filter(seccion %in% secciones_relevantes) %>% 
   
-  ggplot(aes(x=expo, y=reorder(seccion, expo)))+
-    geom_boxplot()+
+  ggplot(aes(x=expo, y=reorder(seccion, expo)))+                #<<
+    geom_boxplot()+                                             #<<
     scale_x_continuous(labels = scales::unit_format(unit = "M", scale = 1e-6))+
-    labs(title='Variación en las principales exportaciones entre 2017 y 2020',
-         x='Exportaciones (USD)',
-         y='Sección') +
-    theme_bw() 
+    labs(title='Variación en las principales exportaciones entre 2017 y 2020', 
+         x='Exportaciones (USD)', 
+         y='Sección') + 
+    theme_bw()
 ```
 
 ]
@@ -1099,8 +1148,8 @@ plt.figure(figsize=(13,4))
 
 (longer_py[longer_py['seccion'].isin(r.secciones_relevantes)]
   
-   .pipe((sns.boxplot,"data"), 
-        x="expo",  y="seccion", order=orden, color='white')
+   .pipe((sns.boxplot,"data"),                              #<<
+        x="expo",  y="seccion", order=orden, color='white') #<<
         
    .set(xlabel = "Exportaciones (USD)", ylabel='Sección', 
         title = 'Variación en las principales exportaciones entre 2017 y 2020')
@@ -1131,7 +1180,13 @@ knitr::include_graphics('images/yeah_science.gif')
 
 Se utiliza el paquete `{AER}` 📦 (Applied Econometric with R), que contiene un gran número de datasets econométricos. 
 
-En este caso, los datos contienen información sobre resultados educativos, Stock and Watson (2007). Incluyen características sociodemográficas de estudiantes y escuelas en distritos de California. 
+En este caso, los datos contienen información sobre resultados educativos,Stock & Watson (2007) $^1$. Incluyen características sociodemográficas de estudiantes y escuelas en distritos de California. 
+
+<div style="position: absolute;left:60px;bottom:11px;color:gray;font-size:10px">
+ $^1$ Stock JH, Watson MW (2007). Introduction to Econometrics. 2nd edition. Addison-Wesley,
+    Reading, MA. 
+</div>
+
 
 ```{r, message=FALSE, warning=FALSE}
 library(AER) 
@@ -1143,7 +1198,7 @@ Se cargan los datos, generando una variable adicional de tamaño de la clase:
 ```{r}
 data("CASchools")
 CASchools <- CASchools %>% 
-  mutate(tamaño = (students/teachers))
+  mutate(tamaño = (students/teachers)) #<<
 ```
 
 
@@ -1175,10 +1230,15 @@ reg_lineal <- lm(formula = math ~ tamaño, data = CASchools)
 
 Con {equatiomatic} se visualiza la ecuación del modelo:
 
-```{r}
+```{r, eval=FALSE}
+equatiomatic::extract_eq(reg_lineal)
+```
+
+```{r, echo=FALSE}
 equatiomatic::extract_eq(reg_lineal, 
-                         greek_colors     = c('black','violet','black'), 
-                         subscript_colors = c('black','violet', 'black'))
+                         vars_colors      = c('black', '#9f3fb5', 'black'),
+                         greek_colors     = c('black', '#9f3fb5', 'black'), 
+                         subscript_colors = c('black', '#9f3fb5', 'black'))
 ```
 
 También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
@@ -1187,20 +1247,22 @@ También es posible visualizar la regresión lineal estimada (con los coeficient
 equatiomatic::extract_eq(reg_lineal, use_coefs=TRUE)
 ```
 
+El error de estimación es la diferencia entre el valor observado y el valor predicho:
+
+$$
+\operatorname{math} - \operatorname{\widehat{math}} = \epsilon
+$$
+
+
 ---
 
 # Visualmente:
-
-- Ordenada al orígen = $\hat{⍺}$
-
-- Pendiente = $\hat{𝛽}$
-
+Ordenada al orígen = $\hat{⍺}$, pendiente = $\hat{𝛽}$
 
 .panelset[
+.panel[.panel-name[Modelo]
 
-.panel[.panel-name[Gráfico]
-
-```{r, fig.height=4, fig.width=10, echo=FALSE, message=FALSE}
+```{r, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
 m_eq <- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
 prep_eq <- gsub("\\\\_", "-", m_eq)
 prep_eq <- paste("$", as.character(prep_eq), "$", sep = "")
@@ -1209,7 +1271,7 @@ CASchools %>%
   ggplot(aes(x=tamaño, y=math))+
   geom_point()+
   xlim(c(0,max(CASchools$tamaño)))+
-  stat_smooth(method='lm', color='violet', se=FALSE, fullrange=TRUE)+
+  stat_smooth(method='lm', color='#9f3fb5', se=FALSE, fullrange=TRUE)+
   labs(
     title = "Relación entre el tamaño de la clase y el desempeño en matemática",
     subtitle = latex2exp::TeX(prep_eq)
@@ -1219,27 +1281,45 @@ CASchools %>%
 
 ]
 
-.panel[.panel-name[Código]
+.panel[.panel-name[Predicción]
 
-```{r, fig.height=7, fig.width=10, eval=FALSE}
-m_eq <- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
-prep_eq <- gsub("\\\\_", "-", m_eq)
-prep_eq <- paste("$", as.character(prep_eq), "$", sep = "")
+```{r, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+preds <- data.frame(tamaño = c(5,10,15)) %>% 
+  mutate(math_pred = predict(reg_lineal, .), 
+         caso = c('Caso 1','Caso 2', 'Caso 3'), 
+         texto= paste0('(Tamaño=',tamaño,', Math=',round(math_pred),')')) 
 
-CASchools %>% 
-  ggplot(aes(x=tamaño, y=math))+
-  geom_point()+
+ggplot(data=CASchools)+
+  
   xlim(c(0,max(CASchools$tamaño)))+
-  stat_smooth(method='lm', color='violet', se=FALSE, fullrange=TRUE)+
+  ylim(c(min(CASchools$math),max(CASchools$math)))+
+  stat_smooth(aes(x=tamaño, y=math), 
+              method='lm', color='#9f3fb5', se=FALSE, fullrange=TRUE)+
+  
+  geom_point(data=preds, show.legend = FALSE,
+             aes(x=tamaño, y=math_pred, color=caso), size=4)+
+  
+  geom_segment(data=preds, linetype=2, show.legend = FALSE,
+               aes(x=0, xend=tamaño,  
+                   y=math_pred, yend=math_pred, 
+                   color=caso)) +
+  geom_segment(data=preds, linetype=2, show.legend = FALSE,
+               aes(x=tamaño, xend=tamaño,  
+                   y=min(CASchools$math), yend=math_pred, 
+                   color=caso)) +
+  
+  geom_text(data=preds, vjust=-0.5, hjust=-0.1,
+            aes(x=tamaño, y=math_pred, label=texto, color=caso))+
+  
+  
   labs(
     title = "Relación entre el tamaño de la clase y el desempeño en matemática",
-    subtitle = latex2exp::TeX(prep_eq)
-  )+
-  theme_minimal()
+    subtitle = latex2exp::TeX(prep_eq))+
+  theme_minimal()+theme(legend.position = 'none')
 ```
+]
+]
 
-]
-]
 
 
 
@@ -1249,7 +1329,7 @@ CASchools %>%
 ```{python}
 import statsmodels.formula.api as smf
 
-reg = smf.ols ("math ~ tamaño", r.CASchools).fit()
+reg = smf.ols ("math ~ tamaño", r.CASchools).fit() #<<
 
 modelo = reg.summary2()
 ```
@@ -1305,7 +1385,7 @@ py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>%
 .panel[.panel-name[Regresión en R]
 
 ```{r}
-lm(formula = math ~ tamaño, data = CASchools) %>% 
+lm(formula = math ~ tamaño, data = CASchools) %>%  #<<
   
   gtsummary::tbl_regression(intercept=TRUE) %>% 
   
@@ -1387,9 +1467,15 @@ class: center, middle
 
 # Links utiles
 
-https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/#
+- [Guía de conversión entre R y python para manipulación de datos](https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/)
 
-[Comparación entre R y python para ciencia de datos](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [R & python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
+
+
+- [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
+
+
+- [Otro link (:)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ---
 
@@ -1417,7 +1503,7 @@ knitr::knit_exit()
 
 
 
-
+# cosas borrador (ignorar)
 
 
 

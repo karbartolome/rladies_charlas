@@ -23,20 +23,46 @@ class: inverse, center, middle
 # Keep in touch
 
 ---
-<details>
-<summary> Còdigo </summary>
 
-```{r}
-print('hola')
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "images/github.png", 
+  link_url = 'www.google.com.ar', 
+  width='50px', 
+  height = '50px'
+  
+  
+)
 ```
 
-</details>
+---
+<div style="position: absolute;left:60px;bottom:11px;color:gray;">`r rmarkdown::metadata$author` </div>
+
+
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width))+
+  {{ geom_point() }} + 
+  geom_smooth() 
+
+
+```
+
 
 
 
 
 ---
 
+Stock JH, Watson MW (2007) $^1$
+
+<div style="position: absolute;left:60px;bottom:11px;color:gray;font-size:10px">
+
+ $^1$ Stock JH, Watson MW (2007). Introduction to Econometrics. 2nd edition. Addison-Wesley,
+    Reading, MA. 
+
+</div>
 
 
 ---
