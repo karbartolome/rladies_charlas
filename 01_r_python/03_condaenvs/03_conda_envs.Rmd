@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Conda environments
 
-[Documentación de conda]](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+[Documentación de conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
 
 # Librerías
@@ -26,11 +26,6 @@ Se utiliza {reticulate} para instalar miniconda con:
 reticulate::install_miniconda()
 ```
 
-Se visualiza la versión de python:
-
-```{r}
-reticulate::py_version()
-```
 
 Se visualiza la configuración de python:
 
@@ -48,11 +43,14 @@ reticulate::conda_create('rladies-env',
                          )
 ```
 
+
+
+
 # Conda desde la terminal / instalación de paquetes
 
 Para poder ejecutar comandos desde la terminal es necesario ejecutar lo siguiente. Copiar el output del chunk siguiente y pegar en la terminal.
 
-```{r}
+```{r, eval=FALSE}
 paste0('source ',gsub('C:','',reticulate::miniconda_path()),'/etc/profile.d/conda.sh')
 ```
 
@@ -68,9 +66,9 @@ conda env list
 
 - Se instalan 2 paquetes para probar que funciona correctamente
 
-conda install numpy 
+conda install -c conda-forge numpy
 
-conda install pandas
+conda install -c conda-forge pandas
 
 
 # Uso del conda environment creado
@@ -83,6 +81,7 @@ reticulate::use_condaenv(condaenv = 'rladies-env',
 Se importan las librerías python instaladas mediante conda en el environment creado:
 
 ```{python}
+import re
 import numpy as np
 import pandas as pd
 ```
@@ -93,12 +92,48 @@ Se crea un df en un chunk R:
 df = iris
 ```
 
-# Se convierte a pandas df, visualizando el resúmen de las variables:
+
+Se convierte a pandas df, visualizando el resúmen de las variables:
 
 ```{python}
 df_pandas = r.df
 
 df_pandas.describe().transpose()
+```
+
+
+# Crear un .yml de los requerimientos del conda env
+
+conda env export --name rladies-env > rladies_requirements.yml
+
+Guarda el .yml en el path de getwd()
+
+```{r, eval=FALSE}
+getwd()
+```
+
+```{r}
+env_req <- base::system('conda list -n rladies-env', 
+             intern =  TRUE)
+```
+
+```{python}
+data = r.env_req
+
+def get_words(line): return re.findall("[^\s]+",line)
+words = [get_words(x) for x in data[3:-1]]
+
+requirements =  pd.DataFrame({
+  'Paquete': [i[0] for i in words], 
+  'Versión': [i[1] for i in words],
+  'Channel': [i[3] if len(i)==4 else '' for i in words]})
+```
+
+
+
+```{r, echo=FALSE}
+library(reticulate)
+gt::gt(py$requirements)
 ```
 
 
@@ -118,3 +153,7 @@ conda remove --name rladies-env --all
 - Se listan los environment disponibles
 
 conda env list
+
+
+
+

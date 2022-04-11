@@ -235,13 +235,13 @@ Si se quiere remover el environment, primero es necesario activar el environment
 
 🔹 Se instalan los paquetes 📦 a utilizar. En este caso, lo hice desde la terminal, teniendo activado el environment:
 
-    -   [x] ➕ **numpy**: conda install numpy
+    -   [x] ➕ numpy:       conda install -c conda-forge numpy
 
-    -   [x] 🐼 **pandas**: conda install pandas 
+    -   [x] 🐼 pandas:      conda install -c conda-forge pandas 
     
-    -   [x] 📊 **seaborn**: conda install seaborn
+    -   [x] 📊 seaborn:     conda install -c conda-forge seaborn
     
-    -   [x] 🔬 **statsmodels**: conda install -c anaconda statsmodels
+    -   [x] 🔬 statsmodels: conda install -c conda-forge statsmodels
     
 También es posible realizar la instalación de paquetes con la función `conda_install` de {reticulate} 📦 , aunque yo siempre lo hice desde la terminal. 
 
@@ -1486,7 +1486,7 @@ class: center, middle
 - [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
 
 
-- [Otro link (:)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [Otro link (:](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ---
 
