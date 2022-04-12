@@ -4,7 +4,10 @@ author: "Karina Bartolomé"
 date: '2022-04-06'
 output: html_document
 params:
-    param1: 'Hola'
+    descripcion: 'Ajuste de modelo'
+    var1: 'income'
+    var2: 'lunch'
+    var3: 'calworks'
 ---
 
 ```{r setup}
@@ -15,8 +18,8 @@ knitr::opts_chunk$set(echo = TRUE,
 # Librerías y configuraciones
 
 ```{r}
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
+library(AER)
 library(reticulate)
 reticulate::use_condaenv(condaenv = 'rladies', 
                          required = TRUE)
@@ -27,21 +30,85 @@ import numpy as np
 import pandas as pd
 ```
 
-# Uso de parametros 
-
-Se definieron ciertos parametros en el YAML. Para acceder a ellos desde un chunk R, se utiliza el signo $:
+# Datos
 
 ```{r}
-params$param1
+library(AER)
+data(CASchools)
 ```
+
+```{r, results='asis'}
+cat(params$descripcion)
+```
+
+
+# Transformaciones
 
 En cambio, en un chunk python se utiliza {reticulate} para acceder al objeto params (R). 
 Este objeto en R pasa a ser un diccionario, con lo cual se accede a los valores de cada clave mediante el método .get():
 
 ```{python}
 print('El objeto params es un', type(r.params))
-print('Mediante get() se obtiene el valor (value) asignado a un param (key)',r.params.get('param1'))
 ```
+
+```{python}
+df = (r.CASchools 
+    
+    [['math',r.params.get('var1'), r.params.get('var2'), r.params.get('var3')]]
+
+    .copy()
+)
+```
+
+
+# Modelo
+
+```{python}
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+
+X = df.drop('math',axis=1).copy()
+y = df['math']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+pipe = Pipeline([
+  ('imputador',      SimpleImputer(strategy='constant', fill_value= 0)),
+  ('scaler',         StandardScaler()), 
+  ('random_forest',  RandomForestRegressor(n_estimators=100, random_state=42))
+])
+  
+pipe.fit(X_train, y_train)
+modelo = pipe['random_forest']
+```
+
+# Inferencias
+
+```{python}
+preds_test = pd.DataFrame(
+    {
+    'math':y_test, 
+    'math_pred':pipe.predict(X_test)
+    }
+)
+```
+
+# Evaluación
+
+```{r}
+library(tidyverse)
+
+py$preds_test %>% 
+  ggplot(aes(x=math, y=math_pred))+
+  geom_point()+
+  geom_abline(intercept=0, slope=1, color='red')+
+  labs(title = "Desempeño en matemática: predicción vs valores observados")+
+  theme_minimal()
+```
+
 
 
 
