@@ -121,8 +121,7 @@ requirements =  pd.DataFrame({
 ```
 
 ```{r, echo=FALSE}
-library(reticulate)
-gt::gt(py$requirements)
+py$requirements
 ```
 
 # 6. Eliminar el conda environment creado:
