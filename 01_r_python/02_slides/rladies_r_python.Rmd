@@ -261,7 +261,7 @@ class: inverse, center, middle
 
 -- 
 
-👉 [Archivo .Rmd para ejecutar python en rmarkdown desde un conda environment](https://github.com/karbartolome/rladies_charlas/blob/main/01_r_python/03_condaenvs/03_conda_envs.Rmd)
+👉 [Archivo .Rmd para ejecutar python en rmarkdown desde un conda environment](https://github.com/karbartolome/rladies_charlas/blob/main/01_r_python/03_condaenvs/03_conda_envs.md)
 
 ---
 
