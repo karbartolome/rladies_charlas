@@ -7,7 +7,6 @@ output:
     css: ["default", "rladies", "rladies-fonts"]
     nature:
       highlightStyle: github
-      #highlightStyle: solarized-dark
       highlightLines: true
       countIncrementalSlides: false
       navigation: 
@@ -150,6 +149,30 @@ knitr::include_graphics('memes/byelingual.jpg')
 
 ---
 
+class: inverse, center, middle
+
+# Antes de empezar
+
+--
+
+¿se puede ejecutar código R o python sin tener que instalar nada en nuestra computadora?
+
+
+---
+
+Existen **recursos gratuitos**: 
+
+🔹 `RStudio Cloud`: https://rstudio.cloud/
+
+🔹 `Google Colab`: https://colab.research.google.com/
+
+🔹 `AWS Sagemaker Studio Lab`: https://studiolab.sagemaker.aws/
+
+Pero también hay recursos pagos si se busca mayor capacidad de cómputo / almacenamiento.
+
+---
+
+
 # El uso de diversos lenguajes en Rmarkdown
 
 Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
@@ -229,6 +252,17 @@ Si se quiere remover el environment, primero es necesario activar el environment
 
 ]
 
+
+---
+
+class: inverse, center, middle
+
+# {cómo se ve lo anterior desde RStudio}
+
+-- 
+
+👉 [Archivo .Rmd para ejecutar python en rmarkdown desde un conda environment](https://github.com/karbartolome/rladies_charlas/blob/main/01_r_python/03_condaenvs/03_conda_envs.Rmd)
+
 ---
 
 # Python en Rmarkdown
@@ -277,13 +311,7 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x) # 2 decimales
 
 ---
 
-class: inverse, center, middle
-
-# {cómo se ve lo anterior desde RStudio}
-
----
-
-# Diferentes objetos:
+# 📝 Diferentes objetos:
 
 
 | R                      | Python            | Examples                                         |
@@ -575,6 +603,12 @@ waldo::compare(data.frame(df),
                data.frame(py$df_py))
 ```
 
+
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/party1.gif')
+```
+
+
 ]
 
 ]
@@ -657,6 +691,11 @@ Se utiliza el paquete waldo para comparar los filtros generados:
 waldo::compare(data.frame(filtro_r),
                data.frame(py$filtro_py))
 ```
+
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/party2.gif')
+```
+
 ]
 
 ]
@@ -819,6 +858,10 @@ waldo::compare(data.frame(columnas_r),
                data.frame(py$columnas_py))
 ```
 
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/party3.gif')
+```
+
 ]
 
 ]
@@ -902,6 +945,10 @@ py$agg_py %>% head(2) %>% gt::gt()
 ```{r, eval=modo_notdebug}
 waldo::compare(data.frame(agg_r),
                data.frame(py$agg_py))
+```
+
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/party4.gif')
 ```
 
 ]
@@ -1001,6 +1048,10 @@ waldo::compare(data.frame(wider_r),
                data.frame(py$wider_py))
 ```
 
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/party5.gif')
+```
+
 ]
 
 ]
@@ -1072,6 +1123,10 @@ py$longer_py %>% head(2) %>% gt::gt()
 ```{r, eval=modo_notdebug}
 waldo::compare(data.frame(longer_r),
                data.frame(py$longer_py))
+```
+
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/party6.gif')
 ```
 
 ]
@@ -1234,7 +1289,7 @@ Con {equatiomatic} se visualiza la ecuación del modelo:
 equatiomatic::extract_eq(reg_lineal)
 ```
 
-```{r, echo=FALSE}
+```{r reg_lineal_eq, echo=FALSE}
 equatiomatic::extract_eq(reg_lineal, 
                          vars_colors      = c(tamaño = '#9f3fb5'),
                          greek_colors     = c('black', '#9f3fb5', 'black'), 
@@ -1243,7 +1298,7 @@ equatiomatic::extract_eq(reg_lineal,
 
 También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
 
-```{r}
+```{r reg_lineal_eq_coef}
 equatiomatic::extract_eq(reg_lineal, use_coefs=TRUE)
 ```
 
@@ -1261,9 +1316,10 @@ $$
 .panelset[
 .panel[.panel-name[Modelo]
 
-Ordenada al orígen = $\hat{⍺}$, pendiente = $\hat{𝛽}$
 
-```{r, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+```{r plot_reg, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+#Ordenada al orígen = $\hat{⍺}$, pendiente = $\hat{𝛽}$
+
 m_eq <- equatiomatic::extract_eq(reg_lineal, use_coef = TRUE, ital_vars = TRUE)
 prep_eq <- gsub("\\\\_", "-", m_eq)
 prep_eq <- paste("$", as.character(prep_eq), "$", sep = "")
@@ -1284,7 +1340,7 @@ CASchools %>%
 
 .panel[.panel-name[Predicción]
 
-```{r, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+```{r plot_reg_pred, fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
 preds <- data.frame(tamaño = c(5,10,15)) %>% 
   mutate(math_pred = predict(reg_lineal, .), 
          caso = c('Caso 1','Caso 2', 'Caso 3'), 
@@ -1323,7 +1379,7 @@ ggplot(data=CASchools)+
 
 .panel[.panel-name[Eval supuestos Reg Lineal]
 
-```{r, fig.height=5, fig.width=10, echo=FALSE}
+```{r check_supuestos, fig.height=5, fig.width=10, echo=FALSE, eval=TRUE}
 performance::check_model(reg_lineal,
                          check = c("ncv","normality","outliers", "homogeneity"))
 ```
@@ -1337,7 +1393,7 @@ performance::check_model(reg_lineal,
 
 ---
 
-```{python}
+```{python statsmodels}
 import statsmodels.formula.api as smf
 
 reg = smf.ols ("math ~ tamaño", r.CASchools).fit() #<<
@@ -1349,21 +1405,21 @@ modelo = reg.summary2()
 
 .panel[.panel-name[Tabla 1]
 
-```{python}
+```{python tabla_0_py}
 modelo.tables[0]
 ```
 ]
 
 .panel[.panel-name[Tabla 2]
 
-```{python}
+```{python tabla_1_py}
 modelo.tables[1]
 ```
 ]
 
 .panel[.panel-name[Tabla 3]
 
-```{python}
+```{python tabla_2_py}
 modelo.tables[2]
 ```
 ]
@@ -1379,7 +1435,7 @@ Comparando los `coeficientes` ajustando el modelo de regresión lineal con pytho
 .panelset[
 .panel[.panel-name[Regresión en Python]
 
-```{r}
+```{r tabla_reg_lineal_py}
 py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>% 
   
   gt() %>% 
@@ -1395,7 +1451,7 @@ py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>%
 
 .panel[.panel-name[Regresión en R]
 
-```{r}
+```{r tabla_reg_lineal_r}
 lm(formula = math ~ tamaño, data = CASchools) %>%  #<<
   
   gtsummary::tbl_regression(intercept=TRUE) %>% 
@@ -1415,7 +1471,7 @@ lm(formula = math ~ tamaño, data = CASchools) %>%  #<<
 
 🔹 Modelo python: 
 
-```{r, echo=FALSE}
+```{r compare_regs_py, echo=FALSE}
 py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>% 
   
   gt() %>% 
@@ -1430,7 +1486,7 @@ py$modelo$tables[[2]] %>% tibble::rownames_to_column('Variable') %>%
 
 🔹 Modelo R: 
 
-```{r, echo=FALSE}
+```{r compare_regs_r, echo=FALSE}
 lm(formula = math ~ tamaño, data = CASchools) %>% 
   
   gtsummary::tbl_regression(intercept=TRUE) %>% 

@@ -1,6 +1,6 @@
 ---
 title: "R y python - Rladies"
-output: html_document
+output: github_document
 date: '2022-04-09'
 ---
 
@@ -8,12 +8,11 @@ date: '2022-04-09'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Conda environments
+# 1. Conda environments
 
 [Documentación de conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
-
-# Librerías
+# 2. Librerías
 
 ```{r}
 #install.packages('reticulate')
@@ -26,52 +25,46 @@ Se utiliza {reticulate} para instalar miniconda con:
 reticulate::install_miniconda()
 ```
 
-
 Se visualiza la configuración de python:
 
 ```{r, eval=FALSE}
 reticulate::py_config()
 ```
 
-
 Se crea un nuevo conda environment, estableciendo la versión de python a utilizar:
 
 ```{r, eval=FALSE}
 reticulate::conda_create('rladies-env', 
-                         # En este caso, versión de python que tenemos en RStudio cloud:
+      # En este caso, versión de python que tenemos en RStudio cloud:
                          python_version = '3.8.13' 
                          )
 ```
 
-
-
-
-# Conda desde la terminal / instalación de paquetes
+# 3. Conda desde la terminal / instalación de paquetes
 
 Para poder ejecutar comandos desde la terminal es necesario ejecutar lo siguiente. Copiar el output del chunk siguiente y pegar en la terminal.
 
 ```{r, eval=FALSE}
-paste0('source ',gsub('C:','',reticulate::miniconda_path()),'/etc/profile.d/conda.sh')
+paste0('source ',
+       gsub('C:','',reticulate::miniconda_path()),
+       '/etc/profile.d/conda.sh')
 ```
 
-- Se activa el environment creado:
+-   Se activa el environment creado:
 
 conda activate rladies-env
 
-
-- Se listan los environments, visualizando que está seleccionado el correcto:
+-   Se listan los environments, visualizando que está seleccionado el correcto:
 
 conda env list
 
-
-- Se instalan 2 paquetes para probar que funciona correctamente
+-   Se instalan 2 paquetes para probar que funciona correctamente
 
 conda install -c conda-forge numpy
 
 conda install -c conda-forge pandas
 
-
-# Uso del conda environment creado
+# 4. Uso del conda environment creado
 
 ```{r}
 reticulate::use_condaenv(condaenv = 'rladies-env',  
@@ -92,7 +85,6 @@ Se crea un df en un chunk R:
 df = iris
 ```
 
-
 Se convierte a pandas df, visualizando el resúmen de las variables:
 
 ```{python}
@@ -101,10 +93,9 @@ df_pandas = r.df
 df_pandas.describe().transpose()
 ```
 
+# 5. Crear un .yml de los requerimientos del conda env
 
-# Crear un .yml de los requerimientos del conda env
-
-conda env export --name rladies-env > rladies_requirements.yml
+conda env export --name rladies-env \> rladies_requirements.yml
 
 Guarda el .yml en el path de getwd()
 
@@ -129,31 +120,21 @@ requirements =  pd.DataFrame({
   'Channel': [i[3] if len(i)==4 else '' for i in words]})
 ```
 
-
-
 ```{r, echo=FALSE}
 library(reticulate)
 gt::gt(py$requirements)
 ```
 
+# 6. Eliminar el conda environment creado:
 
-# Eliminar el conda environment creado:
-
-- Se retorna al environment base
+-   Se retorna al environment base
 
 conda activate
 
-
-- Se elimina el environment creado
+-   Se elimina el environment creado
 
 conda remove --name rladies-env --all
 
-
-
-- Se listan los environment disponibles
+-   Se listan los environment disponibles
 
 conda env list
-
-
-
-
