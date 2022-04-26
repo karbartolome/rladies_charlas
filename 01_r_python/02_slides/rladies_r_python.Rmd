@@ -20,6 +20,10 @@ output:
 
 .pull-left[
 
+<br>
+<br>
+<br>
+
 ```{r, out.width='50%', fig.align='center', echo=FALSE}
 knitr::include_graphics('images/imagen.jpg')
 ```
@@ -27,11 +31,17 @@ knitr::include_graphics('images/imagen.jpg')
 
 .pull-right[
 ### Karina Bartolomé
-- Economista (UNLP) 
-- Especialista en métodos cuantitativos (UBA)
-- Data Scientist en Ualá
+- Economista
+- Especialista en métodos cuantitativos
+- Data Scientist en Ualá (Fintech)
+<br>
+#### Cosas que hago / uso a diario:
+- R y python
+- Estadìstica descriptiva
+- Modelos
+- SQL y procesamiento de datos
+- RStudio, Jupyter, VSCode
 ]
-
 
 ---
 
@@ -160,6 +170,8 @@ class: inverse, center, middle
 
 ---
 
+# ☁️ Trabajar en la nube ☁️
+
 Existen **recursos gratuitos**: 
 
 🔹 `RStudio Cloud`: https://rstudio.cloud/
@@ -168,14 +180,17 @@ Existen **recursos gratuitos**:
 
 🔹 `AWS Sagemaker Studio Lab`: https://studiolab.sagemaker.aws/
 
-Pero también hay recursos pagos si se busca mayor capacidad de cómputo / almacenamiento.
+<br>
+<br>
+
+También hay **recursos pagos** si se busca mayor capacidad de cómputo o almacenamiento
 
 ---
 
-
 # El uso de diversos lenguajes en Rmarkdown
 
-Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
+📝 Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que indiquen el lenguaje que se quiere utilizar: 
+
 
 ````
 ```{r}`r ''`
@@ -200,11 +215,12 @@ Para trabajar con distintos lenguajes en Rmarkdown, se utilizan **`chunks`** que
 
 Etc.
 
+
 ---
 
 # R en Rmarkdown
 
-🔹 En **Rmarkdown**, se utiliza un chunk R para cargar los paquetes R 📦
+🔹 En **Rmarkdown**, se utiliza un `chunk R` para cargar los paquetes R 📦
 
 ```{r Librerías R, message=FALSE, warning=FALSE}
 library(reticulate) # python
@@ -216,7 +232,7 @@ library(gt)         # tablas
 
 # Python en Rmarkdown
 
-🔹 Definir un `conda environment` a utilizar. 
+🔹 Definir un `conda environment` a utilizar:
 
 ```{r, eval=FALSE}
 reticulate::conda_create(envname='rladies', 
@@ -293,7 +309,7 @@ knitr::include_graphics('images/its_happening.gif')
 ```
 
 
-🔹Se utiliza un `chunk python` para cargar los paquetes `python`:
+🔹Se utiliza un `chunk python` para cargar los paquetes `python` 📦:
 
 ```{python Librerías python}
 import pandas as pd             # manipulación de datos
@@ -302,8 +318,8 @@ import matplotlib.pyplot as plt # visualización
 import seaborn as sns           # visualización
 ```
 
-
 ```{python opciones_python, echo=FALSE}
+# Configuración de opciones de pandas:
 pd.set_option('display.max_columns',  10) # Máx cant de columnas
 pd.set_option('display.max_colwidth', 20) # Máx cant de caracteres
 pd.set_option('display.float_format', lambda x: '%.2f' % x) # 2 decimales
@@ -343,17 +359,17 @@ knitr::include_graphics('images/arg_mx.jpg')
 
 # Aclaraciones
 
-🔹 Los datos para esta presentación provienen del paquete [{opentradestatistics}](https://docs.ropensci.org/tradestatistics/index.html)
+🔹 Los datos para esta presentación provienen del paquete [{opentradestatistics}](https://docs.ropensci.org/tradestatistics/index.html).
 
-🔹 Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí
+🔹 Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí.
 
-🔹 Sin embargo, siempre me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego
-
-
+🔹 Me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego.
 
 ---
 
 # Lectura de datos con R
+
+Se realiza la **lectura de 3 dataframes** 📂. Los dataframes de secciones y commodities contienen las descripciones de los ids que aparecen en el dataframe de expo / impo. 
 
 ```{r data_comercio, message=FALSE, warning=FALSE}
 df_comercio  <- readr::read_csv('data/df_arg_mx.csv')
@@ -376,11 +392,13 @@ df_comercio_pd = pd.read_csv('data/df_arg_mx.csv')
 
 ---
 
+Se observan las primeras 2 observaciones:
+
 ```{r}
 df_comercio %>% head(2)
 ```
 
-⚡ Objetos cross lenguaje  R -> Python ⚡ 
+⚡ Objetos cross lenguaje  **R -> Python** ⚡   
 
 ```{python}
 r.df_comercio.head(2)
@@ -617,7 +635,7 @@ knitr::include_graphics('images/party1.gif')
 
 class: inverse, center, middle
 
-# 3. Filtros y muestreo
+# 3. Filtros
 
 ```{r, out_width='50%', echo=FALSE}
 knitr::include_graphics('images/filter.gif')
@@ -699,72 +717,6 @@ knitr::include_graphics('images/party2.gif')
 ]
 
 ]
-
-
----
-
-# Muestreo
-
-Las semillas no funcionan igual en r y python. Sirven para reproducibilidad dentro de un lenguaje pero al pasar al otro varían los resultados. 
-
-
-.panelset[
-.panel[.panel-name[Muestreo en R]
-
-En `{tidyverse}` se utiliza **sample_n()**
-
-```{r, eval=modo_notdebug}
-set.seed(42)
-df_comercio %>% 
-  sample_n(2) %>% 
-  select(commodity_code, year)
-```
-
-]
-
-.panel[.panel-name[Muestreo en Python]
-
-En `{pandas}` se utiliza **.sample()**
-
-```{python, eval=modo_notdebug}
-(r.df_comercio
-  .sample(2, random_state=42)
-  [['commodity_code', 'year']]
-)
-```
-
-]
-
-.panel[.panel-name[Comparación]
-
-Comparando ambos resultados: 
-
-R: 
-
-```{r, eval=modo_notdebug, echo=FALSE}
-set.seed(42)
-df_comercio %>% 
-  sample_n(2) %>% 
-  select(commodity_code, year)
-```
-
-Python: 
-
-```{python, eval=modo_notdebug, echo=FALSE}
-(r.df_comercio
-  .sample(2, random_state=42)
-  [['commodity_code', 'year']]
-)
-```
-
-]
-]
-
-
-
-
-
-
 
 ---
 
@@ -884,19 +836,34 @@ knitr::include_graphics('images/group.gif')
 .panelset[
 .panel[.panel-name[R]
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 agg_r <- df %>% 
   
-  group_by(seccion) %>% #<<
-  #<<
-  summarise(#<<
-    expo_total = sum(expo),#<<
-    impo_total = sum(impo),#<<
-    expo_prom = mean(expo),#<<
-    impo_prom = mean(impo),#<<
-  ) %>%#<<
-  #<<
-  ungroup() %>% #<<
+  group_by(seccion) %>%            #<<
+                                   #<<
+  summarise(                       #<<
+    expo_total = sum(expo),        #<<
+    impo_total = sum(impo),        #<<
+    expo_prom = mean(expo),        #<<
+    impo_prom = mean(impo),        #<<
+  ) %>%                            #<<
+                                   #<<
+  ungroup()                        #<<
+```
+
+```{r, eval=TRUE, echo=FALSE}
+agg_r <- df %>% 
+  
+  group_by(seccion) %>%           
+                                  
+  summarise(                      
+    expo_total = sum(expo),       
+    impo_total = sum(impo),       
+    expo_prom = mean(expo),       
+    impo_prom = mean(impo),       
+  ) %>%                           
+                                  
+  ungroup() %>%                   
   
   arrange(desc(expo_total))
 ```
@@ -904,23 +871,38 @@ agg_r <- df %>%
 ]
 
 .panel[.panel-name[Python]
-```{python}
+```{python, eval=FALSE, echo=TRUE}
 agg_py = (df_py
 
-  .groupby('seccion', as_index=False)#<<
-  #<<
-  .agg(#<<
-     expo_total = ('expo','sum' ), #<<
-     impo_total = ('impo','sum' ), #<<
-     expo_prom  = ('expo','mean'), #<<
-     impo_prom  = ('impo','mean')  #<<
-   )#<<
+  .groupby('seccion', as_index=False)   #<<
+                                        #<<
+  .agg(                                 #<<
+     expo_total = ('expo','sum' ),      #<<
+     impo_total = ('impo','sum' ),      #<<
+     expo_prom  = ('expo','mean'),      #<<
+     impo_prom  = ('impo','mean')       #<<
+   )                                    #<<
+)
+```
+
+```{python, eval=TRUE, echo=FALSE}
+agg_py = (df_py
+
+  .groupby('seccion', as_index=False)   #<<
+                                        #<<
+  .agg(                                 #<<
+     expo_total = ('expo','sum' ),      #<<
+     impo_total = ('impo','sum' ),      #<<
+     expo_prom  = ('expo','mean'),      #<<
+     impo_prom  = ('impo','mean')       #<<
+   )                                    #<<
    
    .sort_values('expo_total', ascending=False)
    
    .reset_index(drop=True)
 )
 ```
+
 ]
 
 .panel[.panel-name[Dataframes generados]
@@ -939,8 +921,6 @@ py$agg_py %>% head(2) %>% gt::gt()
 
 ]
 
-
-
 .panel[.panel-name[Comparación]
 ```{r, eval=modo_notdebug}
 waldo::compare(data.frame(agg_r),
@@ -952,7 +932,6 @@ knitr::include_graphics('images/party4.gif')
 ```
 
 ]
-
 ]
 
 
@@ -966,12 +945,11 @@ class: inverse, center, middle
 knitr::include_graphics('images/changes.gif')
 ```
 
-
 ---
 
 Las transformaciones del formato de los datos permiten visualizar la misma información de diferentes formas: 
 
-```{r, out.width='80%', echo=FALSE}
+```{r, out.width='70%', echo=FALSE}
 knitr::include_graphics('images/pivot.png')
 ```
 
@@ -982,7 +960,7 @@ knitr::include_graphics('images/pivot.png')
 .panelset[
 .panel[.panel-name[R]
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 wider_r <- df %>% 
   
   group_by(seccion, año) %>% 
@@ -991,9 +969,24 @@ wider_r <- df %>%
   
   ungroup() %>% 
   
-  pivot_wider(names_from=año, #<<
-              names_prefix='y_',#<<
-              values_from=expo) %>% #<<
+  pivot_wider(names_from=año,              #<<
+              names_prefix='y_',           #<<
+              values_from=expo)            #<<
+  
+```
+
+```{r, eval=TRUE, echo=FALSE}
+wider_r <- df %>% 
+  
+  group_by(seccion, año) %>% 
+  
+  summarise(expo = sum(expo), .groups = 'keep') %>% 
+  
+  ungroup() %>% 
+  
+  pivot_wider(names_from=año,              #<<
+              names_prefix='y_',           #<<
+              values_from=expo) %>%        #<<
   
   arrange(desc(y_2020, y_2019, y_2018, y_2017))
 ```
@@ -1001,7 +994,7 @@ wider_r <- df %>%
 ]
 
 .panel[.panel-name[Python]
-```{python}
+```{python, echo=TRUE, eval=FALSE}
 wider_py = (r.df
 
  .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
@@ -1010,18 +1003,32 @@ wider_py = (r.df
  
  .agg(expo = ('expo','sum'))
  
- .pivot(index='seccion', #<<
-        columns='año',#<<
-        values='expo')#<<
+ .pivot(index='seccion',    #<<
+        columns='año',      #<<
+        values='expo')      #<<
+)
+```
+
+```{python, echo=FALSE, eval=TRUE}
+wider_py = (r.df
+
+ .assign(año=lambda x: ['y_'+str(int(i)) for i in x['año']])
+ 
+ .groupby(['seccion','año'], as_index=False)
+ 
+ .agg(expo = ('expo','sum'))
+ 
+ .pivot(index='seccion',    #<<
+        columns='año',      #<<
+        values='expo')      #<<
   
   .sort_values(['y_2020', 'y_2019', 'y_2018', 'y_2017'], 
                ascending=False)
   
   .reset_index(drop=False)
-
 )
-
 ```
+
 ]
 
 .panel[.panel-name[Dataframes generados]
@@ -1040,8 +1047,6 @@ py$wider_py %>% head(2) %>% gt::gt()
 
 ]
 
-
-
 .panel[.panel-name[Comparación]
 ```{r, eval=modo_notdebug}
 waldo::compare(data.frame(wider_r),
@@ -1053,9 +1058,7 @@ knitr::include_graphics('images/party5.gif')
 ```
 
 ]
-
 ]
-
 
 ---
 
@@ -1064,14 +1067,24 @@ knitr::include_graphics('images/party5.gif')
 .panelset[
 .panel[.panel-name[R]
 
-```{r}
+```{r, echo=TRUE, eval=FALSE}
 longer_r <- wider_r %>% 
   
-  pivot_longer(-seccion,  #<<
-               names_to='año',  #<<
-               values_to='expo') %>% #<<
+  pivot_longer(-seccion,               #<<
+               names_to='año',         #<<
+               values_to='expo') %>%   #<<
   
-  mutate(año=str_replace(año, 'y_','')) %>% 
+  mutate(año=str_replace(año, 'y_',''))
+```
+
+```{r, echo=FALSE, eval=TRUE}
+longer_r <- wider_r %>% 
+  
+  pivot_longer(-seccion,               #<<
+               names_to='año',         #<<
+               values_to='expo') %>%   #<<
+  
+  mutate(año = str_replace(año, 'y_','')) %>% 
   
   arrange(seccion, año)
 ```
@@ -1079,7 +1092,21 @@ longer_r <- wider_r %>%
 ]
 
 .panel[.panel-name[Python]
-```{python}
+
+```{python, echo=TRUE, eval=FALSE}
+longer_py = (wider_py
+
+  .melt(                                                           #<<
+    id_vars='seccion',                                             #<< 
+    value_vars=['y_2017','y_2018','y_2019','y_2020'],              #<<
+    value_name='expo'                                              #<<
+  )                                                                #<<
+  
+  .assign(año = lambda x: [i.replace('y_','') for i in x['año']])
+)
+```
+
+```{python, echo=FALSE, eval=TRUE}
 longer_py = (wider_py
 
   .melt(                                                           #<<
@@ -1117,8 +1144,6 @@ py$longer_py %>% head(2) %>% gt::gt()
 
 ]
 
-
-
 .panel[.panel-name[Comparación]
 ```{r, eval=modo_notdebug}
 waldo::compare(data.frame(longer_r),
@@ -1130,7 +1155,6 @@ knitr::include_graphics('images/party6.gif')
 ```
 
 ]
-
 ]
 
 
@@ -1140,14 +1164,13 @@ class: inverse, center, middle
 
 # 7. Visualización
 
-
 ```{r, out_width='50%', echo=FALSE}
 knitr::include_graphics('images/viz.gif')
 ```
 
 ---
 
-Se definen las secciones relevantes: 
+Se definen las **secciones relevantes**: Top 5️⃣ según monto de exportaciones:
 
 ```{r}
 secciones_relevantes <- longer_r %>% 
@@ -1212,11 +1235,9 @@ plt.figure(figsize=(13,4))
 plt.show()
 ```
 
-
 ```{python, echo=FALSE}
 plt.close('all')
 ```
-
 
 ]
 ]
@@ -1379,11 +1400,10 @@ ggplot(data=CASchools)+
 
 .panel[.panel-name[Eval supuestos Reg Lineal]
 
-```{r check_supuestos, fig.height=5, fig.width=10, echo=FALSE, eval=TRUE}
+```{r check_supuestos, fig.height=5, fig.width=10, echo=TRUE, eval=TRUE}
 performance::check_model(reg_lineal,
                          check = c("ncv","normality","outliers", "homogeneity"))
 ```
-
 ]
 ]
 
@@ -1520,15 +1540,29 @@ class: center, middle
 
 ---
 
-# Cosas que quiero que se lleven de este workshop:
+# Cosas que quiero que se lleven de este workshop
 
-- 💜 R y python pueden ser complementarios 💜
+--
+
+- R y python pueden ser complementarios, se puede usar lo mejor de ambos mundos 💜 
+
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('images/hm.gif')
+```
+
+--
 
 - Tidyverse y pandas son bastante similares (:
 
+--
+
 - **El lenguaje utilizado no es un fin en sí mismo**, sino que es un medio para resolver algo
 
+--
+
 - 👉 Algunas configuraciones que mostré en segundos me llevaron tiempo de googlear y stackoverflow. Si quieren trabajar con conda environments en Rstudio de manera local no se frustren si no sale tan rápido
+
+
 
 ---
 
