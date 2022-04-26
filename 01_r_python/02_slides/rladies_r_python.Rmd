@@ -21,8 +21,6 @@ output:
 .pull-left[
 
 <br>
-<br>
-<br>
 
 ```{r, out.width='50%', fig.align='center', echo=FALSE}
 knitr::include_graphics('images/imagen.jpg')
@@ -34,13 +32,6 @@ knitr::include_graphics('images/imagen.jpg')
 - Economista
 - Especialista en métodos cuantitativos
 - Data Scientist en Ualá (Fintech)
-<br>
-#### Cosas que hago / uso a diario:
-- R y python
-- Estadìstica descriptiva
-- Modelos
-- SQL y procesamiento de datos
-- RStudio, Jupyter, VSCode
 ]
 
 ---
@@ -1404,12 +1395,9 @@ ggplot(data=CASchools)+
 performance::check_model(reg_lineal,
                          check = c("ncv","normality","outliers", "homogeneity"))
 ```
+
 ]
 ]
-
-
-
-
 
 ---
 
