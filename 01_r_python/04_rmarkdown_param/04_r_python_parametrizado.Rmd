@@ -120,10 +120,7 @@ py$preds_test %>%
 sessioninfo::package_info() %>% 
   dplyr::filter(attached==TRUE) %>% 
   dplyr::select(package, loadedversion, date, source) %>% 
-  gt::gt() %>% 
-  gt::tab_header(title='Paquetes utilizados',
-             subtitle='Versiones') %>% 
-  gt::opt_align_table_header('left')
+  gt::gt() %>% as.data.frame()
 ```
 
 
