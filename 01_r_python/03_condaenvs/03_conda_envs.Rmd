@@ -14,8 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # 2. Librerías
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 #install.packages('reticulate')
+#install.packages('tidyverse')
 library(reticulate)
 library(dplyr)
 ```
@@ -51,7 +52,7 @@ condash <- paste0(
    gsub('C:','',reticulate::miniconda_path()),
    '/etc/profile.d/conda.sh')
 
-condash
+#condash
 ```
 
 -   Se activa el environment creado:
@@ -139,7 +140,7 @@ df_pandas.describe().transpose()
 Post restart tal vez es necesario volver a ejecutar esto en la terminal en RStudio Cloud:
 
 ```{r}
-condash
+#condash
 ```
 
 

@@ -11,20 +11,10 @@ conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-en
 
 ``` r
 #install.packages('reticulate')
+#install.packages('tidyverse')
 library(reticulate)
 library(dplyr)
 ```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
 
 Se utiliza {reticulate} para instalar miniconda con:
 
@@ -59,10 +49,8 @@ condash <- paste0(
    gsub('C:','',reticulate::miniconda_path()),
    '/etc/profile.d/conda.sh')
 
-condash
+#condash
 ```
-
-    ## [1] "source /Users/karin/AppData/Local/r-miniconda/etc/profile.d/conda.sh"
 
 -   Se activa el environment creado:
 
@@ -224,10 +212,8 @@ Post restart tal vez es necesario volver a ejecutar esto en la terminal
 en RStudio Cloud:
 
 ``` r
-condash
+#condash
 ```
-
-    ## [1] "source /Users/karin/AppData/Local/r-miniconda/etc/profile.d/conda.sh"
 
 -   Se retorna al environment base
 
@@ -251,12 +237,12 @@ sessioninfo::package_info() %>%
   gt::opt_align_table_header('left')
 ```
 
-<div id="qzgrikegjw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ifiildeyrt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qzgrikegjw .gt_table {
+#ifiildeyrt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -281,7 +267,7 @@ sessioninfo::package_info() %>%
   border-left-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_heading {
+#ifiildeyrt .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -293,7 +279,7 @@ sessioninfo::package_info() %>%
   border-right-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_title {
+#ifiildeyrt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -303,7 +289,7 @@ sessioninfo::package_info() %>%
   border-bottom-width: 0;
 }
 
-#qzgrikegjw .gt_subtitle {
+#ifiildeyrt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -313,13 +299,13 @@ sessioninfo::package_info() %>%
   border-top-width: 0;
 }
 
-#qzgrikegjw .gt_bottom_border {
+#ifiildeyrt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_col_headings {
+#ifiildeyrt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -334,7 +320,7 @@ sessioninfo::package_info() %>%
   border-right-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_col_heading {
+#ifiildeyrt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -354,7 +340,7 @@ sessioninfo::package_info() %>%
   overflow-x: hidden;
 }
 
-#qzgrikegjw .gt_column_spanner_outer {
+#ifiildeyrt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -366,15 +352,15 @@ sessioninfo::package_info() %>%
   padding-right: 4px;
 }
 
-#qzgrikegjw .gt_column_spanner_outer:first-child {
+#ifiildeyrt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qzgrikegjw .gt_column_spanner_outer:last-child {
+#ifiildeyrt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qzgrikegjw .gt_column_spanner {
+#ifiildeyrt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -386,7 +372,7 @@ sessioninfo::package_info() %>%
   width: 100%;
 }
 
-#qzgrikegjw .gt_group_heading {
+#ifiildeyrt .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -408,7 +394,7 @@ sessioninfo::package_info() %>%
   vertical-align: middle;
 }
 
-#qzgrikegjw .gt_empty_group_heading {
+#ifiildeyrt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -423,15 +409,15 @@ sessioninfo::package_info() %>%
   vertical-align: middle;
 }
 
-#qzgrikegjw .gt_from_md > :first-child {
+#ifiildeyrt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qzgrikegjw .gt_from_md > :last-child {
+#ifiildeyrt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qzgrikegjw .gt_row {
+#ifiildeyrt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -450,7 +436,7 @@ sessioninfo::package_info() %>%
   overflow-x: hidden;
 }
 
-#qzgrikegjw .gt_stub {
+#ifiildeyrt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -462,7 +448,7 @@ sessioninfo::package_info() %>%
   padding-left: 12px;
 }
 
-#qzgrikegjw .gt_summary_row {
+#ifiildeyrt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -472,7 +458,7 @@ sessioninfo::package_info() %>%
   padding-right: 5px;
 }
 
-#qzgrikegjw .gt_first_summary_row {
+#ifiildeyrt .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -482,7 +468,7 @@ sessioninfo::package_info() %>%
   border-top-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_grand_summary_row {
+#ifiildeyrt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -492,7 +478,7 @@ sessioninfo::package_info() %>%
   padding-right: 5px;
 }
 
-#qzgrikegjw .gt_first_grand_summary_row {
+#ifiildeyrt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -502,11 +488,11 @@ sessioninfo::package_info() %>%
   border-top-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_striped {
+#ifiildeyrt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qzgrikegjw .gt_table_body {
+#ifiildeyrt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -515,7 +501,7 @@ sessioninfo::package_info() %>%
   border-bottom-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_footnotes {
+#ifiildeyrt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -529,13 +515,13 @@ sessioninfo::package_info() %>%
   border-right-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_footnote {
+#ifiildeyrt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#qzgrikegjw .gt_sourcenotes {
+#ifiildeyrt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -549,41 +535,41 @@ sessioninfo::package_info() %>%
   border-right-color: #D3D3D3;
 }
 
-#qzgrikegjw .gt_sourcenote {
+#ifiildeyrt .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#qzgrikegjw .gt_left {
+#ifiildeyrt .gt_left {
   text-align: left;
 }
 
-#qzgrikegjw .gt_center {
+#ifiildeyrt .gt_center {
   text-align: center;
 }
 
-#qzgrikegjw .gt_right {
+#ifiildeyrt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qzgrikegjw .gt_font_normal {
+#ifiildeyrt .gt_font_normal {
   font-weight: normal;
 }
 
-#qzgrikegjw .gt_font_bold {
+#ifiildeyrt .gt_font_bold {
   font-weight: bold;
 }
 
-#qzgrikegjw .gt_font_italic {
+#ifiildeyrt .gt_font_italic {
   font-style: italic;
 }
 
-#qzgrikegjw .gt_super {
+#ifiildeyrt .gt_super {
   font-size: 65%;
 }
 
-#qzgrikegjw .gt_footnote_marks {
+#ifiildeyrt .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
