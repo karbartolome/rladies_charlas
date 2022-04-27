@@ -21,7 +21,8 @@ Sugerencias:
     - Ejemplo para correr en Rstudio cloud
     - Se muestra un ejemplo local (aunque puede depender del sistema operativo que se esté utilizando)
 
-- 04: Informe parametrizado
+- 04: Introducción a {rpy2} para trabajar con R en jupyter notebooks de python
+
+- 05: Informe parametrizado
     - Se muestra un informe parametrizado que incluye chunks en R y en python
 
-- 05: Introducción a {rpy2} para trabajar con R en jupyter notebooks de python
