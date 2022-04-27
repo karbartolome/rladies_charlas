@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #install.packages('reticulate')
 library(reticulate)
+library(dplyr)
 ```
 
 Se utiliza {reticulate} para instalar miniconda con:
@@ -44,10 +45,13 @@ reticulate::conda_create('rladies-env',
 
 Para poder ejecutar comandos desde la terminal es necesario ejecutar lo siguiente. Copiar el output del chunk siguiente y pegar en la terminal.
 
-```{r, eval=FALSE}
-paste0('source ',
-       gsub('C:','',reticulate::miniconda_path()),
-       '/etc/profile.d/conda.sh')
+```{r, eval=TRUE}
+condash <- paste0(
+  'source ',
+   gsub('C:','',reticulate::miniconda_path()),
+   '/etc/profile.d/conda.sh')
+
+condash
 ```
 
 -   Se activa el environment creado:
@@ -58,13 +62,18 @@ conda activate rladies-env
 
 conda env list
 
--   Se instalan 2 paquetes para probar que funciona correctamente
+-   Se instalan paquetes para probar que funciona correctamente
 
 conda install -c conda-forge numpy
 
 conda install -c conda-forge pandas
 
-# 4. Uso del conda environment creado
+conda install -c conda-forge scikit-learn
+
+
+# 4. Configuración del environment en Rmarkdown
+
+Es necesario realizar un restart y luego configurar el env a utilizar. Esto es asì porque al ejecutar algunas cosas python antes quedó configurada otra versión. 
 
 ```{r}
 reticulate::use_condaenv(condaenv = 'rladies-env',  
@@ -79,29 +88,12 @@ import numpy as np
 import pandas as pd
 ```
 
-Se crea un df en un chunk R:
-
-```{r}
-df = iris
-```
-
-Se convierte a pandas df, visualizando el resúmen de las variables:
-
-```{python}
-df_pandas = r.df
-
-df_pandas.describe().transpose()
-```
 
 # 5. Crear un .yml de los requerimientos del conda env
 
 conda env export --name rladies-env \> rladies_requirements.yml
 
 Guarda el .yml en el path de getwd()
-
-```{r, eval=FALSE}
-getwd()
-```
 
 ```{r}
 env_req <- base::system('conda list -n rladies-env', 
@@ -124,7 +116,32 @@ requirements =  pd.DataFrame({
 py$requirements
 ```
 
+# 6. Uso del conda environment creado
+
+Se crea un df en un chunk R:
+
+```{r}
+df = iris
+```
+
+Se convierte a pandas df, visualizando el resúmen de las variables:
+
+```{python}
+df_pandas = r.df
+
+df_pandas.describe().transpose()
+```
+
+
+
 # 6. Eliminar el conda environment creado:
+
+Post restart tal vez es necesario volver a ejecutar esto en la terminal en RStudio Cloud:
+
+```{r}
+condash
+```
+
 
 -   Se retorna al environment base
 
@@ -137,3 +154,15 @@ conda remove --name rladies-env --all
 -   Se listan los environment disponibles
 
 conda env list
+
+
+```{r}
+sessioninfo::package_info() %>% 
+  dplyr::filter(attached==TRUE) %>% 
+  dplyr::select(package, loadedversion, date, source) %>% 
+  gt::gt() %>% 
+  gt::tab_header(title='Paquetes utilizados',
+             subtitle='Versiones') %>% 
+  gt::opt_align_table_header('left')
+```
+

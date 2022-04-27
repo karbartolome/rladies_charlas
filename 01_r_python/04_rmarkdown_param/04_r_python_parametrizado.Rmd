@@ -1,5 +1,5 @@
 ---
-title: "R & python: lo mejor de ambos mundos"
+title: "R & python: Lo mejor de ambos mundos"
 author: "Karina Bartolomé"
 date: '2022-04-06'
 output: html_document
@@ -10,19 +10,24 @@ params:
     var3: 'calworks'
 ---
 
-
-
 ```{r setup}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE, 
                       warning = FALSE)
 ```
+
 # Librerías y configuraciones
+
+```{r}
+#install.packages('tidyverse')
+#install.packages('AER')
+```
 
 ```{r}
 library(tidyverse)
 library(AER)
 library(reticulate)
+
 reticulate::use_condaenv(condaenv = 'rladies', 
                          required = TRUE)
 ```
@@ -30,12 +35,17 @@ reticulate::use_condaenv(condaenv = 'rladies',
 ```{python, code_folding=TRUE}
 import numpy as np
 import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
 ```
 
 # Datos
 
 ```{r}
-library(AER)
 data(CASchools)
 ```
 
@@ -66,12 +76,6 @@ df = (r.CASchools
 # Modelo
 
 ```{python}
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
-
 X = df.drop('math',axis=1).copy()
 y = df['math']
 
@@ -101,8 +105,6 @@ preds_test = pd.DataFrame(
 # Evaluación
 
 ```{r}
-library(tidyverse)
-
 py$preds_test %>% 
   ggplot(aes(x=math, y=math_pred))+
   geom_point()+
