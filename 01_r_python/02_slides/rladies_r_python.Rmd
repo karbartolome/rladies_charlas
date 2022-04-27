@@ -1560,11 +1560,16 @@ knitr::include_graphics('images/hm.gif')
 
 - [R & python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
 
-
 - [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
 
-
 - [Otro link (:](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+- [TidyPandas: post que escribì con Rafael Zambrano detallando algunas similitudes entre tidyverse y pandas](https://karbartolome-blog.netlify.app/posts/tidypandas/)
+
+```{r, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics('https://karbartolome-blog.netlify.app/posts/tidypandas/preview2.png')
+```
+
 
 ---
 
