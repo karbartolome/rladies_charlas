@@ -2,7 +2,7 @@
 title: "R & python: Lo mejor de ambos mundos"
 author: "Karina Bartolomé"
 date: '2022-04-06'
-output: html_document
+output: github_document
 params:
     descripcion: 'Ajuste de modelo'
     var1: 'income'

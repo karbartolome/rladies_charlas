@@ -1518,6 +1518,8 @@ class: inverse, center, middle
 
 1. {rpy2}: paquete para ejecutar código R en python
 
+![Notebook para ejecutar {rpy2} en Google Colab](https://drive.google.com/file/d/11mIPeZQ_cDyECoR-57KUunDb_1av3NXJ/view?usp=sharing)
+
 2. Renderizar Rmarkdowns parametrizados que incluyen código R y python
 
 ---
