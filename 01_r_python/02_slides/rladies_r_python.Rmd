@@ -650,6 +650,27 @@ knitr::include_graphics('images/party1.gif')
 
 ]
 
+.panel[.panel-name[Waldo]
+
+Cómo funciona el paquete {waldo}? (lo vamos a usar mucho). Se cuenta con un df_a y un df_b y se quiere verificar si son iguales: 
+
+```{r}
+df_a <- data.frame(var1=c(1,2), var2=c(2,3))
+df_a
+```
+
+```{r}
+df_b <- data.frame(var1=c('1','2'), var2=c(3,4))
+df_b
+```
+
+Waldo muestra las diferencias: 
+
+```{r, eval=modo_notdebug}
+waldo::compare(df_a, df_b)
+```
+
+]
 ]
 
 ---
@@ -1548,7 +1569,7 @@ class: inverse, center, middle
 
 
 
-[1. 🔗 {rpy2}: paquete para ejecutar código R en python, notebook en Google Colab](https://drive.google.com/file/d/11mIPeZQ_cDyECoR-57KUunDb_1av3NXJ/view?usp=sharing)
+[1. 🔗 {rpy2}: paquete para ejecutar código R en python, notebook en Google Colab](https://colab.research.google.com/drive/11mIPeZQ_cDyECoR-57KUunDb_1av3NXJ#scrollTo=EiWnfQ7k0zad)
 
 
 
