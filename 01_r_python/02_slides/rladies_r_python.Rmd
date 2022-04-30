@@ -1438,16 +1438,6 @@ ggplot(data=CASchools)+
   theme_minimal()+theme(legend.position = 'none')
 ```
 ]
-
-
-.panel[.panel-name[Eval supuestos Reg Lineal]
-
-```{r check_supuestos, fig.height=5, fig.width=10, echo=TRUE, eval=TRUE}
-performance::check_model(reg_lineal,
-                         check = c("ncv","normality","outliers", "homogeneity"))
-```
-
-]
 ]
 
 ---
@@ -1611,17 +1601,17 @@ knitr::include_graphics('images/hm.gif')
 
 # Links utiles
 
-- 🔗 [Guía de conversión entre R y python para manipulación de datos](https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/)
-
-- 🔗 [R & python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
-
-- 🔗 [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
-
 - 🔗 [TidyPandas: post que escribì con Rafael Zambrano detallando algunas similitudes entre tidyverse y pandas](https://karbartolome-blog.netlify.app/posts/tidypandas/)
 
 ```{r, echo=FALSE, out.width='30%', fig.align='center'}
 knitr::include_graphics('https://karbartolome-blog.netlify.app/posts/tidypandas/preview2.png')
 ```
+
+- 🔗 [Guía de conversión entre R y python para manipulación de datos](https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/)
+
+- 🔗 [R & python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
+
+- 🔗 [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
 
 - [Otro link (:](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
