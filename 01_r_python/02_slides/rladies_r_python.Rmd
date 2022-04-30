@@ -266,9 +266,8 @@ class: inverse, center, middle
 
 # {cómo se ve lo anterior desde RStudio}
 
--- 
 
-👉 [Archivo .Rmd para ejecutar python en rmarkdown desde un conda environment](https://github.com/karbartolome/rladies_charlas/blob/main/01_r_python/03_condaenvs/03_conda_envs.md)
+👉 [🔗 Archivo .Rmd para ejecutar python en rmarkdown desde un conda environment](https://github.com/karbartolome/rladies_charlas/blob/main/01_r_python/03_condaenvs/03_conda_envs.md)
 
 ---
 
@@ -328,7 +327,7 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x) # 2 decimales
 | List of multiple types | Tuple             | `list(1L, TRUE, "foo")`                          |
 | Named list             | Dict              | `list(a = 1L, b = 2.0)`, `dict(x = x_data)`      |
 | Matrix/Array           | NumPy ndarray     | `matrix(c(1,2,3,4), nrow = 2, ncol = 2)`         |
-| Data Frame             | Pandas DataFrame  | `data.frame(x = c(1,2,3), y = c("a", "b", "c"))` |
+| Data Frame             | Pandas DataFrame  | `data.frame(x = c(1,2), y = c("a", "b"))`        |
 | Function               | Python function   | `function(x) x + 1`                              |
 | NULL, TRUE, FALSE      | None, True, False | `NULL`, `TRUE`, `FALSE`                          |
 
@@ -350,11 +349,11 @@ knitr::include_graphics('images/arg_mx.jpg')
 
 # Aclaraciones
 
-🔹 Los datos para esta presentación provienen del paquete [{opentradestatistics}](https://docs.ropensci.org/tradestatistics/index.html).
+🔹 Los datos provienen del paquete 🔗 [{opentradestatistics}](https://docs.ropensci.org/tradestatistics/index.html).
 
-🔹 Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, no el análisis de los datos en sí.
+🔹 Los ejemplos pueden no tener sentido real (agrupaciones de ramas de actividades que podrían no tener relación, etc.). 
 
-🔹 Me parece interesante usar datos reales para motivar a quienes quieran utilizarlos luego.
+🔹 El objetivo es utilizar datos reales para mostrar diferentes funcionalidades, **no el análisis de los datos en sí**.
 
 ---
 
@@ -552,7 +551,8 @@ df <- df_comercio %>%
 ]
 
 .panel[.panel-name[Python]
-```{python, eval=modo_notdebug}
+
+```{python, eval=TRUE, echo=FALSE}
 df_py = (r.df_comercio
 
   # Left join con datos de commodities                    #<<
@@ -581,6 +581,36 @@ df_py = (r.df_comercio
   
   # Índices que queden bien
   .reset_index(drop=True)
+)
+```
+
+
+```{python, eval=FALSE, echo=TRUE}
+df_py = (r.df_comercio
+
+  # Left join con datos de commodities                    #<<
+  .merge(r.df_commodities[['commodity_code',              #<<
+                           'commodity_fullname_english',  #<<
+                           'group_fullname_english']],    #<<
+         on='commodity_code', how='left')                 #<<
+                                                          #<<
+  # Left join con secciones                               #<<
+  .merge(r.df_secciones, on='section_code', how='left')   #<<
+  
+  # Renombrar variables
+  .rename({
+    'year'                       : 'año',
+    'reporter'                   : 'pais',
+    'partner'                    : 'socio',
+    'commodity_fullname_english' : 'commodity',
+    'group_fullname_english'     : 'grupo',
+    'section_shortname_english'  : 'seccion',
+    'trade_value_usd_exp'        : 'expo',
+    'trade_value_usd_imp'        : 'impo'
+  }, axis=1)
+  
+  # Selección de las columnas relevantes (mismas que df anterior en r)
+  [r.df.columns]
 )
 ```
 
@@ -1303,9 +1333,9 @@ equatiomatic::extract_eq(reg_lineal)
 
 ```{r reg_lineal_eq, echo=FALSE}
 equatiomatic::extract_eq(reg_lineal, 
-                         vars_colors      = c(tamaño = '#9f3fb5'),
-                         greek_colors     = c('black', '#9f3fb5', 'black'), 
-                         subscript_colors = c('black', '#9f3fb5', 'black'))
+                         vars_colors      = c(tamaño = '#e490e8'),
+                         greek_colors     = c('black', '#e490e8', 'black'), 
+                         subscript_colors = c('black', '#e490e8', 'black'))
 ```
 
 También es posible visualizar la regresión lineal estimada (con los coeficientes correspondientes):
@@ -1516,11 +1546,13 @@ class: inverse, center, middle
 
 # {Algunas cosas adicionales} 
 
-1. {rpy2}: paquete para ejecutar código R en python
 
-![Notebook para ejecutar {rpy2} en Google Colab](https://drive.google.com/file/d/11mIPeZQ_cDyECoR-57KUunDb_1av3NXJ/view?usp=sharing)
 
-2. Renderizar Rmarkdowns parametrizados que incluyen código R y python
+[1. 🔗 {rpy2}: paquete para ejecutar código R en python, notebook en Google Colab](https://drive.google.com/file/d/11mIPeZQ_cDyECoR-57KUunDb_1av3NXJ/view?usp=sharing)
+
+
+
+[2. 🔗 Renderizar Rmarkdowns parametrizados que incluyen código R y python](https://github.com/karbartolome/rladies_charlas/blob/main/01_r_python/05_rmarkdown_param/05_r_python_parametrizado.md)
 
 ---
 
@@ -1558,20 +1590,19 @@ knitr::include_graphics('images/hm.gif')
 
 # Links utiles
 
-- [Guía de conversión entre R y python para manipulación de datos](https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/)
+- 🔗 [Guía de conversión entre R y python para manipulación de datos](https://www.mit.edu/~amidi/teaching/data-science-tools/conversion-guide/r-python-data-manipulation/)
 
-- [R & python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
+- 🔗 [R & python: a love story](https://www.rstudio.com/resources/webinars/r-python-a-data-science-love-story/)
 
-- [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
+- 🔗 [Hilo de twitter sobre R y Python](https://twitter.com/AmeliaMN/status/1507484430113378307)
 
-- [Otro link (:](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
-- [TidyPandas: post que escribì con Rafael Zambrano detallando algunas similitudes entre tidyverse y pandas](https://karbartolome-blog.netlify.app/posts/tidypandas/)
+- 🔗 [TidyPandas: post que escribì con Rafael Zambrano detallando algunas similitudes entre tidyverse y pandas](https://karbartolome-blog.netlify.app/posts/tidypandas/)
 
 ```{r, echo=FALSE, out.width='30%', fig.align='center'}
 knitr::include_graphics('https://karbartolome-blog.netlify.app/posts/tidypandas/preview2.png')
 ```
 
+- [Otro link (:](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ---
 
@@ -1591,107 +1622,6 @@ class: center, middle
 # Muchas gracias!!
 
 Las slides fueron creadas con el paquete [**xaringan**](https://github.com/yihui/xaringan), utilizando el template de Rladies
-
-```{r, echo=FALSE}
-knitr::knit_exit()
-```
-
-
-
-
-# cosas borrador (ignorar)
-
-
-
-
-```{python}
-import numpy as np
-
-import statsmodels.api as sm
-
-wider_py['y_2020'] = np.where(wider_py['y_2020'].isna(), 0, wider_py['y_2020'])
-X = wider_py[['y_2017','y_2018','y_2019']]
-y = wider_py[['y_2020']]
-
-X = sm.add_constant(X, prepend=False)
-
-mod = sm.OLS(y, X)
-
-res = mod.fit()
-
-modelo = (res.summary2().tables[1])
-coef_table = modelo.reset_index()
-
-```
-
-```{r}
-py$coef_table %>% gt::gt()
-```
-
-```{python}
-from sklearn.linear_model import LinearRegression
-wider_py['y_2020'] = np.where(wider_py['y_2020'].isna(), 0, wider_py['y_2020'])
-X = wider_py[['y_2017','y_2018','y_2019']]
-y = wider_py[['y_2020']]
-
-modelo = LinearRegression()
-modelo.fit(X, y)
-
-modelo.coef_
-
-```
-
-
-```{r}
-wider_r <- df %>% select(commodity, año, expo, impo) %>% 
-  
-  pivot_wider(names_from=año, 
-              values_from=c(expo,impo)) %>% 
-  
-  mutate(expo_netas_2020 = expo_2020-impo_2020) %>% 
-  
-  mutate(expo_netas_2020_pos = ifelse(expo_netas_2020 >0,1,0),
-         expo_netas_2020_pos = ifelse(is.na(expo_netas_2020_pos),0,expo_netas_2020_pos))
-```
-
-```{python}
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-
-X = r.wider_r[['expo_2019','impo_2019']]
-y = r.wider_r['expo_netas_2020_pos']
-
-pipe = Pipeline([
-  ('imputador', SimpleImputer(strategy='constant',fill_value= 0)),
-  ('scaler', StandardScaler()), 
-  ('reg_logistica',  LogisticRegression())
-])
-  
-pipe.fit(X, y)
-modelo = pipe['reg_logistica']
-modelo.predict_proba(r.wider_r[['expo_2019','impo_2019']])
-```
-
-```{r}
-py$modelo$predict_proba(wider_r %>% select(expo_2019, impo_2019))
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
