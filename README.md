@@ -11,7 +11,7 @@ flowchart LR
     subgraph r[Estructura de la charla]
         direction LR
         data[fa:fa-database 01_data] -->|Ejemplos dplyr y pandas| slide(02_slides)
-        slide -->|Slide 12| condaenv[03_condaenv]
+        slide -->|Slide 12| condaenv[03_condaenvs]
         slide -->|Slide 44| rpy2[04_rpy2]
         slide -->|Slide 44| rmd[05_rmarkdown_param]
         data --> rpy2
