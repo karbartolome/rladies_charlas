@@ -1,0 +1,348 @@
+---
+title: "Topic modeling"
+author: "RLadies BA"
+date: "2023-06-20"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+# install.packages("remotes")
+# remotes::install_github("rladies/meetupr")
+
+library(meetupr)
+library(tidyverse)
+library(gt)
+library(jsonlite)
+library(wordcloud2) 
+library(textrecipes)
+library(topicmodels)
+library(stringi)
+library(httr)
+```
+
+Se buscan todos los capítulos de RLadies, considerando la tabla disponible en el blog de RLadies Global:
+
+```{r}
+path <- 'https://raw.githubusercontent.com/rladies/rladies.github.io/main/data/meetup/chapters.json'
+df <- as.data.frame(fromJSON(path))
+```
+
+El paquete {meetupr} 📦 permite acceder a la API de Meetup de forma sencilla. Por ejemplo, se utiliza la función get_events() para obtener un dataframe de los eventos del capítulo de RLadies-BA:
+
+```{r}
+urlname <- "rladies-buenos-aires"
+df_events_ba <- get_events(urlname) %>% 
+  arrange(desc(time))
+
+df_events_ba %>% 
+ glimpse()
+```
+
+Para cada uno de los capítulos del df de capítulos, se busca la información de cada uno de los eventos:
+
+```{r}
+# df_events = data.frame()
+# for (i in df %>% pull(urlname)){
+#   print(i)
+#   df_temp = get_events(i)
+#   if (!is.null(df_temp)){
+#     df_events = df_events %>% 
+#       bind_rows(df_temp %>% mutate(urlname=i))
+#   }
+# }
+# 
+```
+
+Traducción de textos a inglés:
+
+```{r}
+# url <- 'https://apertium.org/apy/translate'
+# 
+# traductor <- function(x){
+#   params <- list(
+#     langpair = 'spa|eng',
+#     markUnknown = 'no',
+#     prefs = '',
+#     q = x
+#   )
+#   response <- GET(url, query = params)
+#   
+#   if (status_code(response) == 200) {
+#     x_translated <- content(response, "parsed")
+#   }
+#   
+#   x_translated = x_translated[["responseData"]][["translatedText"]]
+#   
+#   return(x_translated)
+# }
+# 
+# df_events <- df_events %>% 
+#   mutate(title_english = map(title, ~traductor(.), .progress=TRUE))
+```
+
+```{r}
+# df_events %>% write_rds('df_events.rds')
+
+df_events <- read_rds('df_events.rds') %>% 
+  mutate(text = paste(unlist(title_english)))
+```
+
+
+```{r}
+set.seed(1234)
+df_events %>% 
+  select(title, title_english) %>% 
+  sample_n(10)
+```
+
+
+# Análisis exploratorio
+
+```{r}
+df_events %>% 
+  skimr::skim()
+```
+
+# Preprocesamiento
+
+Al estar trabajando con datos de texto, es necesario realizar una serie de pasos de limpieza de texto. Para ello, una alternativa es utilizar {textrecipes} 📦, una extensiòn de {tidymodels} 📦 que incluye diferentes pasos de preprocesamiento de texto. 
+
+```{r}
+custom_stopwords <- c(
+  tm::stopwords("spanish"),
+  'lunchinators', 'guayaquil', 'hola', 'rladies', 'ladies', 'date', 'dates', 'meetup','meeting','session')
+
+n_char_filter <- function(x) {
+  nchar(x) > 2
+}
+```
+
+
+```{r}
+preproc <- recipe( ~ text,
+                   data = df_events) %>%
+  step_mutate(text = stri_trans_general(text, id = "Latin-ASCII")) %>%
+  step_text_normalization(text) %>%
+  step_tokenize(text) %>%
+  step_stopwords(text) %>%
+  step_stopwords(text, language = 'es',
+                 custom_stopword_source = custom_stopwords) %>%
+  step_tokenfilter(
+    text,
+    max_times = 0.9,
+    min_times = 0.001,
+    percentage=TRUE,
+  ) %>% 
+  step_tokenfilter(text, filter_fun=n_char_filter)
+```
+
+```{r}
+preproc %>% 
+  step_tf(text) %>% 
+  prep() %>% 
+  juice() %>% 
+  ncol()
+```
+
+
+Se procesan los datos con el preprocesador y se visualizan las principales palabras (o N grams) en una nube de palabras:
+
+```{r}
+preproc_fitted <- preproc %>% 
+  prep()
+
+preproc_fitted %>% juice() %>% head()
+```
+
+
+Prueba del procesador con datos nuevos:
+
+```{r}
+preproc_fitted %>% 
+  bake(new_data = data.frame(
+    text=c('rmarkdown documents in r with ggplot2 introduction introductory class viz meet',
+           'Rmarkdown y rstudio rladies',
+           "Let's meet for the first time",
+           "Rmarkdown!!") 
+  )) %>% 
+  mutate(text = textrecipes:::get_tokens(text)) %>% 
+  mutate(text = sapply(text, paste, collapse = " "))
+```
+
+
+Nube de palabras: 
+
+```{r}
+preproc %>% 
+  step_untokenize(text) %>% 
+  prep() %>% 
+  juice() %>% 
+  mutate(text = as.character(text)) %>% 
+  tidytext::unnest_tokens(word, text) %>% 
+  group_by(word) %>% 
+  count(word, sort=TRUE) %>% 
+  filter(word!='') %>% 
+  wordcloud2()
+```
+
+# Modelo LDA: Latent dirichlet analysis
+
+```{r}
+lda_tokenizer <- function(x) text2vec::word_tokenizer(tolower(x))
+
+lda_model <- preproc %>% 
+  step_lda(all_predictors(), num_topics = 3, id='lda') 
+
+lda_model_fit <- lda_model %>% 
+  prep() 
+
+lda_topics <- lda_model %>% tidy(id='lda', matrix='beta')
+
+summary(lda_model_fit)
+```
+
+# LDA con topicmodel
+
+https://juliasilge.github.io/tidytext/articles/topic_modeling.html
+
+
+```{r}
+remove_s <- function(x) gsub("s$", "", x)
+
+preproc <- recipe( ~ text,
+                   data = df_events) %>%
+  step_mutate(text = stri_trans_general(text, id = "Latin-ASCII")) %>%
+  step_text_normalization(text) %>%
+  step_tokenize(text) %>%
+  step_stopwords(text) %>%
+  step_stopwords(text, language = 'es',
+                 custom_stopword_source = custom_stopwords) %>%
+  #step_untokenize(text) %>% 
+  #step_tokenize(text, engine='spacyr') %>% 
+  step_stem(text, custom_stemmer = remove_s) %>% 
+  step_tokenfilter(
+    text,
+    max_times = 0.2,
+    min_times = 0.001,
+    percentage=TRUE,
+  ) %>% 
+  step_tokenfilter(text, filter_fun=n_char_filter)
+```
+
+```{r}
+preproc %>% 
+  step_tf(text) %>% 
+  prep() %>% 
+  juice() %>% 
+  ncol()
+```
+
+
+
+```{r}
+data_preproc <- preproc %>% 
+  step_tf(text) %>% 
+  prep() %>% 
+  juice() %>% 
+  filter(if_any(everything(.), ~. != 0))
+
+# alpha represents document-topic density and Beta represents topic-word density. 
+# Higher the value of alpha, documents are composed of more topics and lower the value of alpha, documents contain fewer topics.
+lda_model_2 <- topicmodels::LDA(
+  data_preproc, k = 4, 
+  control = list(seed = 42)
+  )
+
+lda_model_2
+```
+
+
+```{r}
+lda_td <- tidytext::tidy(lda_model_2, matrix='beta')
+```
+
+
+```{r}
+top_terms <- lda_td %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+```
+
+
+```{r}
+top_terms %>%
+  mutate(
+    term = str_replace(term, 'tf_text_','') 
+  ) %>% 
+  mutate(
+    topic = factor(topic),
+    term = tidytext::reorder_within(term, beta, topic)
+  ) %>%
+  ggplot(aes(term, beta, fill = topic)) +
+  geom_bar(alpha = 0.8, stat = "identity", show.legend = FALSE) +
+  tidytext::scale_x_reordered() +
+  facet_wrap(facets = vars(topic), scales = "free", ncol = 2) +
+  coord_flip()+
+  scale_fill_viridis_d()
+```
+
+```{r}
+top_terms %>%
+  mutate(topic = paste0("topic", topic)) %>%
+  pivot_wider(names_from = topic, values_from = beta) %>% 
+  filter(topic1 > .001 | topic2 > .001) %>%
+  mutate(log_ratio = log2(topic2 / topic1))
+```
+
+
+
+# Para LDAViz (no funciona aún)
+
+```{r, eval=FALSE, echo=FALSE}
+# Resultados --------------------------------------------------------------
+source('f_ldaviz.R')
+
+llis.topics <- topicmodels::topics(lda_model_2, 1)
+
+llis.terms <- as.data.frame(topicmodels::terms(lda_model_2, 10), stringsAsFactors = FALSE)
+llis.terms
+
+llis.corpus <-
+  tm::Corpus(
+    tm::DataframeSource(
+      df_events %>% mutate(text = paste(title, description)) %>% select(doc_id = id, text)),
+  )
+
+llistopic.dtm <-
+  tm::DocumentTermMatrix(
+    df_events$title,
+    control = list(
+      stemming = TRUE,
+      stopwords = TRUE,
+      minWordLength = 2,
+      removeNumbers = TRUE,
+      removePunctuation = TRUE
+    )
+  )
+
+term_tfidf <- tapply(llistopic.dtm$v/slam::row_sums(llistopic.dtm)[llistopic.dtm$i], llistopic.dtm$j, mean) *
+  log2(tm::nDocs(llistopic.dtm)/slam::col_sums(llistopic.dtm > 0))
+summary(term_tfidf)
+
+
+llisreduced.dtm <- llistopic.dtm[, term_tfidf >= 0.1]
+
+
+llis.json <-
+  topicmodels_json_ldavis(lda_model_2, llis.corpus, llisreduced.dtm)
+
+serVis(llis.json)
+
+```
+
